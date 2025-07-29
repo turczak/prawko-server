@@ -1,0 +1,14 @@
+target/
+src/main/resources/application-dev.properties
+src/main/resources/application-local.properties
+src/main/resources/application-test.properties
+/HELP.md
+/mvnw
+/mvnw.cmd
+/prawko-server.iml
+/src/test/test.iml
+/src/main/main.iml
+/.gitattributes
+/.idea/misc.xml
+/.idea/modules.xml
+/.mvn/
