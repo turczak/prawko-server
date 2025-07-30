@@ -6,17 +6,24 @@ import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import lombok.AllArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
+import pl.prawko.prawko_server.model.Category;
+import pl.prawko.prawko_server.model.Question;
+import pl.prawko.prawko_server.model.QuestionType;
+import pl.prawko.prawko_server.service.CategoryService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
 
 @AllArgsConstructor
 public class CSVMappingUtil {
 
-    public List<QuestionCSVRepresentation> mapFileToListOfQuestionCSVRepresentation(final MultipartFile file) {
+    private final CategoryService categoryService;
+
+    public List<QuestionCSVRepresentation> csvToRepresentations(final MultipartFile file) {
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
             final var csvMapper = new CsvMapper();
@@ -33,6 +40,39 @@ public class CSVMappingUtil {
         } catch (IOException exception) {
             throw new RuntimeException("CSV file failed to parse: " + exception.getMessage());
         }
+    }
+
+    public List<Question> representationsToQuestions(List<QuestionCSVRepresentation> representations) {
+        return representations.stream()
+                .map(this::getQuestion)
+                .toList();
+    }
+
+    private Question getQuestion(QuestionCSVRepresentation representation) {
+        return new Question()
+                .withId(representation.id())
+                .withName(representation.name())
+                .withMedia(representation.mediaName().replaceAll("\\.wmv$", ".webm"))
+                .withValue(representation.value())
+                .withType(
+                        getTypeFromCSV(representation.type()))
+                .withCategories(
+                        getCategoriesFromCSV(representation));
+    }
+
+    private QuestionType getTypeFromCSV(String questionType) {
+        return switch (questionType) {
+            case "PODSTAWOWY" -> QuestionType.BASIC;
+            case "SPECJALISTYCZNY" -> QuestionType.SPECIAL;
+            default -> throw new IllegalStateException("Unexpected question type: " + questionType);
+        };
+    }
+
+    private List<Category> getCategoriesFromCSV(QuestionCSVRepresentation representation) {
+        return Arrays.stream(
+                        representation.categories().split(","))
+                .map(categoryService::findByName)
+                .toList();
     }
 
 }

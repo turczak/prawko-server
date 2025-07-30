@@ -1,14 +1,22 @@
 package pl.prawko.prawko_server.util;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mock.web.MockMultipartFile;
+import pl.prawko.prawko_server.service.CategoryService;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ExtendWith(MockitoExtension.class)
 public class CSVMappingUtilTest {
+
+    @InjectMocks
+    private CategoryService categoryService;
 
     @Test
     void shouldMapCsvFileCorrectly() throws IOException {
@@ -45,7 +53,8 @@ public class CSVMappingUtilTest {
                 "test_question.csv",
                 "text/csv",
                 inputStream);
-        final var result = new CSVMappingUtil().mapFileToListOfQuestionCSVRepresentation(file);
+        final var result = new CSVMappingUtil(categoryService)
+                .csvToRepresentations(file);
         assertThat(result)
                 .isNotEmpty()
                 .hasSize(1)
