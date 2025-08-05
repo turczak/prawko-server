@@ -7,10 +7,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.prawko.prawko_server.model.Category;
 import pl.prawko.prawko_server.repository.CategoryRepository;
+import pl.prawko.prawko_server.service.implementation.CategoryService;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -23,7 +25,7 @@ class CategoryServiceTest {
     private CategoryService service;
 
     @Test
-    void shouldFindByName() {
+    void findByName_returnCategory_whenFound() {
         final var name = "B5";
         final var id = 5L;
         final var expected = new Category()
@@ -36,6 +38,17 @@ class CategoryServiceTest {
                 .satisfies(category ->
                         assertThat(category)
                                 .isEqualTo(expected));
+    }
+
+    @Test
+    void findByName_throwException_whenCategoryNotFound() {
+        final var name = "wrong";
+        when(repository.findByName(name))
+                .thenReturn(Optional.empty());
+        assertThatThrownBy(
+                () -> service.findByName(name))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("category: " + name + " not found");
     }
 
 }

@@ -1,13 +1,14 @@
-package pl.prawko.prawko_server.service;
+package pl.prawko.prawko_server.service.implementation;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.prawko.prawko_server.model.Category;
 import pl.prawko.prawko_server.repository.CategoryRepository;
+import pl.prawko.prawko_server.service.ICategory;
 
 @Service
 @AllArgsConstructor
-public class CategoryService implements ICategoryService {
+public class CategoryService implements ICategory {
 
     private final CategoryRepository repository;
 

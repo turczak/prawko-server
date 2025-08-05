@@ -2,7 +2,7 @@ package pl.prawko.prawko_server.util;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record QuestionCSVRepresentation(
+public record QuestionCSV(
 
         @JsonProperty("Nazwa pytania")
         String name,
