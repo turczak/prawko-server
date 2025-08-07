@@ -10,4 +10,11 @@ VALUES
 ('C1'),
 ('D'),
 ('D1'),
-('T');
+('T'),
+('PT');
+
+INSERT INTO language (name, code)
+VALUES
+('polish', 'pol'),
+('english', 'eng'),
+('german', 'ger');
