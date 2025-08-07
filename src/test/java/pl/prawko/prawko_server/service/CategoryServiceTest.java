@@ -9,11 +9,14 @@ import pl.prawko.prawko_server.model.Category;
 import pl.prawko.prawko_server.repository.CategoryRepository;
 import pl.prawko.prawko_server.service.implementation.CategoryService;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
+import static pl.prawko.prawko_server.util.TestDataUtil.CATEGORY_A;
+import static pl.prawko.prawko_server.util.TestDataUtil.CATEGORY_B;
 
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceTest {
@@ -49,6 +52,31 @@ class CategoryServiceTest {
                 () -> service.findByName(name))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining("category: " + name + " not found");
+    }
+
+    @Test
+    void findAllFromString_returnCategories_whenFound() {
+        when(repository.findByName("A"))
+                .thenReturn(Optional.of(CATEGORY_A));
+        when(repository.findByName("B"))
+                .thenReturn(Optional.of(CATEGORY_B));
+        final var result = service.findAllFromString("A,B");
+        assertThat(result)
+                .isEqualTo(
+                        List.of(CATEGORY_A, CATEGORY_B));
+    }
+
+    @Test
+    void findAllFromString_skipCategories_whenNotFound() {
+        when(repository.findByName("Z"))
+                .thenReturn(Optional.empty());
+        when(repository.findByName("B"))
+                .thenReturn(Optional.of(CATEGORY_B));
+        final var result = service.findAllFromString("Z,B");
+        assertThat(result)
+                .hasSize(1)
+                .isEqualTo(
+                        List.of(CATEGORY_B));
     }
 
 }
