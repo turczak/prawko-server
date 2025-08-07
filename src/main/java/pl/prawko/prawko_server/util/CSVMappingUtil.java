@@ -6,16 +6,14 @@ import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import lombok.AllArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
-import pl.prawko.prawko_server.model.Category;
+import pl.prawko.prawko_server.mapper.CSVMapper;
 import pl.prawko.prawko_server.model.Question;
-import pl.prawko.prawko_server.model.QuestionType;
-import pl.prawko.prawko_server.service.CategoryService;
+import pl.prawko.prawko_server.model.QuestionCSV;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 
 @AllArgsConstructor
@@ -23,7 +21,7 @@ public class CSVMappingUtil {
 
     private final CategoryService categoryService;
 
-    public List<QuestionCSVRepresentation> csvToRepresentations(final MultipartFile file) {
+    public List<QuestionCSV> mapFileToQuestionCSVModels(final MultipartFile file) {
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
             final var csvMapper = new CsvMapper();
@@ -32,8 +30,8 @@ public class CSVMappingUtil {
                     .withHeader()
                     .withColumnSeparator(',')
                     .withQuoteChar('"');
-            final MappingIterator<QuestionCSVRepresentation> csvRows = csvMapper
-                    .readerFor(QuestionCSVRepresentation.class)
+            final MappingIterator<QuestionCSV> csvRows = csvMapper
+                    .readerFor(QuestionCSV.class)
                     .with(schema)
                     .readValues(reader);
             return csvRows.readAll();
