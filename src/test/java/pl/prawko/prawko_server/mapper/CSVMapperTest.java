@@ -29,16 +29,16 @@ class CSVMapperTest {
     @Test
     void mapQuestionCSVToQuestion_success() {
         when(categoryService.findByName("PT"))
-                .thenReturn(TestDataUtil.category);
+                .thenReturn(TestDataUtil.CATEGORY);
         when(languageService.findAll())
                 .thenReturn(List.of(
-                        TestDataUtil.pol,
-                        TestDataUtil.eng,
-                        TestDataUtil.ger
+                        TestDataUtil.POL,
+                        TestDataUtil.ENG,
+                        TestDataUtil.GER
                 ));
         final var result = CSVMapper.mapQuestionCSVToQuestion(
                 TestDataUtil.QUESTION_CSV);
-        final var expected = TestDataUtil.question;
+        final var expected = TestDataUtil.QUESTION;
         assertThat(result)
                 .satisfies(question -> {
                     assertThat(question.getName())
@@ -69,9 +69,9 @@ class CSVMapperTest {
                                                     .isEqualTo(answer);
                                             assertThat(translation.getLanguage())
                                                     .isIn(
-                                                            TestDataUtil.pol,
-                                                            TestDataUtil.eng,
-                                                            TestDataUtil.ger
+                                                            TestDataUtil.POL,
+                                                            TestDataUtil.ENG,
+                                                            TestDataUtil.GER
                                                     );
                                             assertThat(translation.getContent())
                                                     .isNotBlank();
@@ -84,9 +84,9 @@ class CSVMapperTest {
                                         .isEqualTo(question);
                                 assertThat(translation.getLanguage())
                                         .isIn(
-                                                TestDataUtil.pol,
-                                                TestDataUtil.eng,
-                                                TestDataUtil.ger
+                                                TestDataUtil.POL,
+                                                TestDataUtil.ENG,
+                                                TestDataUtil.GER
                                         );
                                 assertThat(translation.getContent())
                                         .isNotBlank();
