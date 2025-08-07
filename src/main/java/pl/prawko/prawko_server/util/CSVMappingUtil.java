@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CSVMappingUtil {
 
-    private final CategoryService categoryService;
+    private final CSVMapper csvMapper;
 
     public List<QuestionCSV> mapFileToQuestionCSVModels(final MultipartFile file) {
         try (BufferedReader reader = new BufferedReader(
@@ -40,36 +40,9 @@ public class CSVMappingUtil {
         }
     }
 
-    public List<Question> representationsToQuestions(List<QuestionCSVRepresentation> representations) {
-        return representations.stream()
-                .map(this::getQuestion)
-                .toList();
-    }
-
-    private Question getQuestion(QuestionCSVRepresentation representation) {
-        return new Question()
-                .withId(representation.id())
-                .withName(representation.name())
-                .withMedia(representation.mediaName().replaceAll("\\.wmv$", ".webm"))
-                .withValue(representation.value())
-                .withType(
-                        getTypeFromCSV(representation.type()))
-                .withCategories(
-                        getCategoriesFromCSV(representation));
-    }
-
-    private QuestionType getTypeFromCSV(String questionType) {
-        return switch (questionType) {
-            case "PODSTAWOWY" -> QuestionType.BASIC;
-            case "SPECJALISTYCZNY" -> QuestionType.SPECIAL;
-            default -> throw new IllegalStateException("Unexpected question type: " + questionType);
-        };
-    }
-
-    private List<Category> getCategoriesFromCSV(QuestionCSVRepresentation representation) {
-        return Arrays.stream(
-                        representation.categories().split(","))
-                .map(categoryService::findByName)
+    public List<Question> mapQuestionCSVModelsToQuestions(final List<QuestionCSV> questionCSVs) {
+        return questionCSVs.stream()
+                .map(csvMapper::mapQuestionCSVToQuestion)
                 .toList();
     }
 
