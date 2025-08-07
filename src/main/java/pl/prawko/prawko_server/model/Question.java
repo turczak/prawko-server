@@ -35,7 +35,6 @@ public class Question {
     private List<QuestionTranslation> translations;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
-
     private List<Answer> answers;
 
     @Column(length = 63)

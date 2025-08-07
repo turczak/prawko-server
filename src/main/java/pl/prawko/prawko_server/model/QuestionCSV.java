@@ -1,4 +1,4 @@
-package pl.prawko.prawko_server.util;
+package pl.prawko.prawko_server.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,40 +11,40 @@ public record QuestionCSV(
         int id,
 
         @JsonProperty("Pytanie")
-        String content_PL,
+        String content_pol,
 
         @JsonProperty("Odpowiedź A")
-        String answer_A_PL,
+        String answer_A_pol,
 
         @JsonProperty("Odpowiedź B")
-        String answer_B_PL,
+        String answer_B_pol,
 
         @JsonProperty("Odpowiedź C")
-        String answer_C_PL,
+        String answer_C_pol,
 
         @JsonProperty("Pytanie ENG")
-        String content_EN,
+        String content_eng,
 
         @JsonProperty("Odpowiedź ENG A")
-        String answer_A_EN,
+        String answer_A_eng,
 
         @JsonProperty("Odpowiedź ENG B")
-        String answer_B_EN,
+        String answer_B_eng,
 
         @JsonProperty("Odpowiedź ENG C")
-        String answer_C_EN,
+        String answer_C_eng,
 
         @JsonProperty("Pytanie DE")
-        String content_DE,
+        String content_ger,
 
         @JsonProperty("Odpowiedź DE A")
-        String answer_A_DE,
+        String answer_A_ger,
 
         @JsonProperty("Odpowiedź DE B")
-        String answer_B_DE,
+        String answer_B_ger,
 
         @JsonProperty("Odpowiedź DE C")
-        String answer_C_DE,
+        String answer_C_ger,
 
         @JsonProperty("Poprawna odp")
         char correctAnswer,
