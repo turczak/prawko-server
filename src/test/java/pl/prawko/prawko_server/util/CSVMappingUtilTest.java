@@ -12,6 +12,7 @@ import pl.prawko.prawko_server.mapper.QuestionMapper;
 import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.service.implementation.CategoryService;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
+import pl.prawko.prawko_server.test_utils.CategoryTestData;
 import pl.prawko.prawko_server.test_utils.LanguageTestData;
 
 import java.io.IOException;
@@ -21,8 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static pl.prawko.prawko_server.util.TestDataUtil.BASIC_QUESTION;
 import static pl.prawko.prawko_server.util.TestDataUtil.BASIC_QUESTION_CSV;
-import static pl.prawko.prawko_server.util.TestDataUtil.CATEGORIES;
-import static pl.prawko.prawko_server.util.TestDataUtil.CATEGORY_PT;
 import static pl.prawko.prawko_server.util.TestDataUtil.SPECIAL_QUESTION;
 import static pl.prawko.prawko_server.util.TestDataUtil.SPECIAL_QUESTION_CSV;
 
@@ -69,10 +68,10 @@ public class CSVMappingUtilTest {
     @Test
     void mapQuestionCSVModelsToQuestions_mapBothTypeOfQuestions() {
         when(categoryService.findAllFromString("A,B"))
-                .thenReturn(CATEGORIES);
+                .thenReturn(CategoryTestData.CATEGORIES_AB);
         when(categoryService.findAllFromString("PT"))
                 .thenReturn(
-                        List.of(CATEGORY_PT));
+                        List.of(CategoryTestData.CATEGORY_PT));
         when(languageService.findAll())
                 .thenReturn(languages);
         final var given = List.of(BASIC_QUESTION_CSV, SPECIAL_QUESTION_CSV);

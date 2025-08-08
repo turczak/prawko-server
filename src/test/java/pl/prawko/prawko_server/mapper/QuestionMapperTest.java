@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.service.implementation.CategoryService;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
+import pl.prawko.prawko_server.test_utils.CategoryTestData;
 import pl.prawko.prawko_server.test_utils.LanguageTestData;
 import pl.prawko.prawko_server.util.TestDataUtil;
 
@@ -16,8 +17,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import static pl.prawko.prawko_server.util.TestDataUtil.CATEGORIES;
-import static pl.prawko.prawko_server.util.TestDataUtil.CATEGORY_PT;
 
 @ExtendWith(MockitoExtension.class)
 class QuestionMapperTest {
@@ -43,8 +42,9 @@ class QuestionMapperTest {
 
     @Test
     void mapQuestionCSVToQuestion_returnBasicQuestion() {
+        final var categories = CategoryTestData.CATEGORIES_AB;
         when(categoryService.findAllFromString("A,B"))
-                .thenReturn(CATEGORIES);
+                .thenReturn(categories);
         final var given = TestDataUtil.BASIC_QUESTION_CSV;
         final var expected = TestDataUtil.BASIC_QUESTION;
         final var result = questionMapper.mapQuestionCSVToQuestion(given);
@@ -56,7 +56,7 @@ class QuestionMapperTest {
     void mapQuestionCSVToQuestion_returnSpecialQuestion() {
         when(categoryService.findAllFromString("PT"))
                 .thenReturn(
-                        List.of(CATEGORY_PT));
+                        List.of(CategoryTestData.CATEGORY_PT));
         final var given = TestDataUtil.SPECIAL_QUESTION_CSV;
         final var expected = TestDataUtil.SPECIAL_QUESTION;
         final var result = questionMapper.mapQuestionCSVToQuestion(given);

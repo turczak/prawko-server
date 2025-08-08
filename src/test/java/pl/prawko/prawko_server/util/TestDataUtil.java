@@ -2,7 +2,6 @@ package pl.prawko.prawko_server.util;
 
 import pl.prawko.prawko_server.model.Answer;
 import pl.prawko.prawko_server.model.AnswerTranslation;
-import pl.prawko.prawko_server.model.Category;
 import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.model.Question;
 import pl.prawko.prawko_server.model.QuestionCSV;
@@ -12,25 +11,15 @@ import pl.prawko.prawko_server.model.QuestionType;
 import java.util.List;
 import java.util.Map;
 
+import static pl.prawko.prawko_server.test_utils.CategoryTestData.CATEGORIES_AB;
+import static pl.prawko.prawko_server.test_utils.CategoryTestData.CATEGORY_PT;
 import static pl.prawko.prawko_server.test_utils.LanguageTestData.ENG;
 import static pl.prawko.prawko_server.test_utils.LanguageTestData.GER;
 import static pl.prawko.prawko_server.test_utils.LanguageTestData.POL;
 
 public class TestDataUtil {
 
-    public static final Category CATEGORY_PT = new Category()
-            .withId(12L)
-            .withName("PT");
-    public static final Category CATEGORY_A = new Category()
-            .withId(1L)
-            .withName("A");
-    public static final Category CATEGORY_B = new Category()
-            .withId(5L)
-            .withName("B");
 
-    public static final List<Category> CATEGORIES = List.of(
-            CATEGORY_A, CATEGORY_B
-    );
     private static final String
             SPECIAL_QUESTION_CONTENT_POL = "Jak często należy obracać poszkodowanego nieurazowego na drugi bok po ułożeniu go w pozycji bezpiecznej?";
     private static final String
@@ -137,7 +126,7 @@ public class TestDataUtil {
             .withType(QuestionType.BASIC)
             .withValue(3)
             .withCategories(
-                    CATEGORIES)
+                    CATEGORIES_AB)
             .withTranslations(
                     basicQuestionTranslations())
             .withAnswers(
