@@ -7,15 +7,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.prawko.prawko_server.model.AnswerTranslation;
+import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.model.Question;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
+import pl.prawko.prawko_server.test_utils.LanguageTestData;
 import pl.prawko.prawko_server.util.TestDataUtil;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import static pl.prawko.prawko_server.util.TestDataUtil.LANGUAGES;
 
 @ExtendWith(MockitoExtension.class)
 class AnswerMapperTest {
@@ -26,11 +27,13 @@ class AnswerMapperTest {
     @InjectMocks
     private AnswerMapper mapper;
 
+    private final List<Language> languages = LanguageTestData.ALL;
+
     @BeforeEach
     void setUp() {
         mapper = new AnswerMapper(languageService);
         when(languageService.findAll())
-                .thenReturn(LANGUAGES);
+                .thenReturn(languages);
     }
 
     @Test
@@ -53,7 +56,7 @@ class AnswerMapperTest {
                                 assertThat(translation.getAnswer())
                                         .isEqualTo(answer);
                                 assertThat(translation.getLanguage())
-                                        .isIn(LANGUAGES);
+                                        .isIn(languages);
                                 assertThat(translation.getContent())
                                         .isIn(
                                                 getAllTranslationsContents(expected));
@@ -81,7 +84,7 @@ class AnswerMapperTest {
                                 assertThat(translation.getAnswer())
                                         .isEqualTo(answer);
                                 assertThat(translation.getLanguage())
-                                        .isIn(LANGUAGES);
+                                        .isIn(languages);
                                 assertThat(translation.getContent())
                                         .isIn(
                                                 getAllTranslationsContents(expected));

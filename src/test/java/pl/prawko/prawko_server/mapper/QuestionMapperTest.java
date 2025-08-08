@@ -6,8 +6,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.service.implementation.CategoryService;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
+import pl.prawko.prawko_server.test_utils.LanguageTestData;
 import pl.prawko.prawko_server.util.TestDataUtil;
 
 import java.util.List;
@@ -29,12 +31,14 @@ class QuestionMapperTest {
     @InjectMocks
     private QuestionMapper questionMapper;
 
+    private final List<Language> languages = LanguageTestData.ALL;
+
     @BeforeEach
     void setUp() {
         final var answerMapper = new AnswerMapper(languageService);
         questionMapper = new QuestionMapper(categoryService, languageService, answerMapper);
         when(languageService.findAll())
-                .thenReturn(TestDataUtil.LANGUAGES);
+                .thenReturn(languages);
     }
 
     @Test

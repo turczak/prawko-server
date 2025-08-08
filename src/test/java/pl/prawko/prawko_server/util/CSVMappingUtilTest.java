@@ -9,15 +9,22 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.mock.web.MockMultipartFile;
 import pl.prawko.prawko_server.mapper.AnswerMapper;
 import pl.prawko.prawko_server.mapper.QuestionMapper;
+import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.service.implementation.CategoryService;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
+import pl.prawko.prawko_server.test_utils.LanguageTestData;
 
 import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import static pl.prawko.prawko_server.util.TestDataUtil.*;
+import static pl.prawko.prawko_server.util.TestDataUtil.BASIC_QUESTION;
+import static pl.prawko.prawko_server.util.TestDataUtil.BASIC_QUESTION_CSV;
+import static pl.prawko.prawko_server.util.TestDataUtil.CATEGORIES;
+import static pl.prawko.prawko_server.util.TestDataUtil.CATEGORY_PT;
+import static pl.prawko.prawko_server.util.TestDataUtil.SPECIAL_QUESTION;
+import static pl.prawko.prawko_server.util.TestDataUtil.SPECIAL_QUESTION_CSV;
 
 @ExtendWith(MockitoExtension.class)
 public class CSVMappingUtilTest {
@@ -31,6 +38,7 @@ public class CSVMappingUtilTest {
     @Mock
     private AnswerMapper answerMapper;
 
+    private final List<Language> languages = LanguageTestData.ALL;
     private CSVMappingUtil csvMappingUtil;
 
     @BeforeEach
@@ -55,8 +63,7 @@ public class CSVMappingUtilTest {
                 inputStream);
         final var result = csvMappingUtil.mapFileToQuestionCSVModels(file);
         assertThat(result)
-                .hasSize(2)
-                .containsExactly(SPECIAL_QUESTION_CSV, BASIC_QUESTION_CSV);
+                .isEqualTo(List.of(SPECIAL_QUESTION_CSV, BASIC_QUESTION_CSV));
     }
 
     @Test
@@ -67,7 +74,7 @@ public class CSVMappingUtilTest {
                 .thenReturn(
                         List.of(CATEGORY_PT));
         when(languageService.findAll())
-                .thenReturn(LANGUAGES);
+                .thenReturn(languages);
         final var given = List.of(BASIC_QUESTION_CSV, SPECIAL_QUESTION_CSV);
         final var expected = List.of(BASIC_QUESTION, SPECIAL_QUESTION);
         final var result = csvMappingUtil.mapQuestionCSVModelsToQuestions(given);

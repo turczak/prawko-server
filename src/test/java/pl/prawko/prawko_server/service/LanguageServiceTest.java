@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.prawko.prawko_server.repository.LanguageRepository;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
-import pl.prawko.prawko_server.util.TestDataUtil;
+import pl.prawko.prawko_server.test_utils.LanguageTestData;
 
 import java.util.Collections;
 
@@ -25,7 +25,7 @@ class LanguageServiceTest {
 
     @Test
     void findAll_returnLanguages_whenFound() {
-        final var languages = TestDataUtil.LANGUAGES;
+        final var languages = LanguageTestData.ALL;
         when(repository.findAll())
                 .thenReturn(languages);
         final var result = service.findAll();

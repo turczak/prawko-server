@@ -1,28 +1,23 @@
 package pl.prawko.prawko_server.util;
 
-import pl.prawko.prawko_server.model.*;
+import pl.prawko.prawko_server.model.Answer;
+import pl.prawko.prawko_server.model.AnswerTranslation;
+import pl.prawko.prawko_server.model.Category;
+import pl.prawko.prawko_server.model.Language;
+import pl.prawko.prawko_server.model.Question;
+import pl.prawko.prawko_server.model.QuestionCSV;
+import pl.prawko.prawko_server.model.QuestionTranslation;
+import pl.prawko.prawko_server.model.QuestionType;
 
 import java.util.List;
 import java.util.Map;
 
+import static pl.prawko.prawko_server.test_utils.LanguageTestData.ENG;
+import static pl.prawko.prawko_server.test_utils.LanguageTestData.GER;
+import static pl.prawko.prawko_server.test_utils.LanguageTestData.POL;
+
 public class TestDataUtil {
 
-    private static final Language POL = new Language()
-            .withId(1L)
-            .withName("polish")
-            .withCode("pol");
-    private static final Language ENG = new Language()
-            .withId(2L)
-            .withName("english")
-            .withCode("eng");
-    private static final Language GER = new Language()
-            .withId(3L)
-            .withName("german")
-            .withCode("ger");
-
-    public static final List<Language> LANGUAGES = List.of(
-            POL, ENG, GER
-    );
     public static final Category CATEGORY_PT = new Category()
             .withId(12L)
             .withName("PT");
