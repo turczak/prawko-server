@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.With;
 
@@ -24,6 +25,7 @@ import java.util.List;
 @With
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"translations", "answers"})
 public class Question {
 
     @Id
@@ -56,6 +58,26 @@ public class Question {
 
     @ManyToMany(mappedBy = "questions", cascade = CascadeType.ALL)
     @JsonBackReference
-    private List<Exam> tests;
+    private List<Exam> exams;
+
+    public List<Long> getAnswersIds() {
+        if (answers == null) {
+            return null;
+        }
+        return answers.stream()
+                .map(Answer::getId)
+                .sorted()
+                .toList();
+    }
+
+    public List<Long> getTranslationsIds() {
+        if (translations == null) {
+            return null;
+        }
+        return translations.stream()
+                .map(QuestionTranslation::getId)
+                .sorted()
+                .toList();
+    }
 
 }
