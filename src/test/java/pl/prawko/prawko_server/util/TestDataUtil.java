@@ -7,32 +7,41 @@ import java.util.Map;
 
 public class TestDataUtil {
 
-    public static final Language POL = new Language()
+    private static final Language POL = new Language()
             .withId(1L)
             .withName("polish")
             .withCode("pol");
-    public static final Language ENG = new Language()
+    private static final Language ENG = new Language()
             .withId(2L)
             .withName("english")
             .withCode("eng");
-    public static final Language GER = new Language()
+    private static final Language GER = new Language()
             .withId(3L)
             .withName("german")
             .withCode("ger");
+
     public static final List<Language> LANGUAGES = List.of(
-            POL,
-            ENG,
-            GER
+            POL, ENG, GER
     );
-    public static final Category CATEGORY = new Category()
+    public static final Category CATEGORY_PT = new Category()
             .withId(12L)
             .withName("PT");
+    public static final Category CATEGORY_A = new Category()
+            .withId(1L)
+            .withName("A");
+    public static final Category CATEGORY_B = new Category()
+            .withId(5L)
+            .withName("B");
+
+    public static final List<Category> CATEGORIES = List.of(
+            CATEGORY_A, CATEGORY_B
+    );
     private static final String
-            QUESTION_CONTENT_POL = "Jak często należy obracać poszkodowanego nieurazowego na drugi bok po ułożeniu go w pozycji bezpiecznej?";
+            SPECIAL_QUESTION_CONTENT_POL = "Jak często należy obracać poszkodowanego nieurazowego na drugi bok po ułożeniu go w pozycji bezpiecznej?";
     private static final String
-            QUESTION_CONTENT_ENG = "How often should you turn a non-traumatic victim to the other side after laying him in the recovery position?";
+            SPECIAL_QUESTION_CONTENT_ENG = "How often should you turn a non-traumatic victim to the other side after laying him in the recovery position?";
     private static final String
-            QUESTION_CONTENT_GER = "Wie oft soll man einen symptomlosen Betroffenen auf die andere Körperseite nach dem Legen in stabiler Seitenlage drehen?";
+            SPECIAL_QUESTION_CONTENT_GER = "Wie oft soll man einen symptomlosen Betroffenen auf die andere Körperseite nach dem Legen in stabiler Seitenlage drehen?";
     private static final String ANSWER_A_POL = "Co 60 minut.";
     private static final String ANSWER_B_POL = "Co 30 minut.";
     private static final String ANSWER_C_POL = "Co 15 minut.";
@@ -42,19 +51,38 @@ public class TestDataUtil {
     private static final String ANSWER_A_GER = "jede 60 Minuten";
     private static final String ANSWER_B_GER = "jede 30 Minuten";
     private static final String ANSWER_C_GER = "jede 15 Minuten";
+    public static final List<String> BASIC_ANSWERS = List.of(
+            ANSWER_A_POL, ANSWER_B_POL, ANSWER_C_POL,
+            ANSWER_A_ENG, ANSWER_B_ENG, ANSWER_C_ENG,
+            ANSWER_A_GER, ANSWER_B_GER, ANSWER_C_GER
+    );
+    private static final String ANSWER_YES_POL = "Tak.";
+    private static final String ANSWER_NO_POL = "Nie.";
+    private static final String ANSWER_YES_ENG = "Yes.";
+    private static final String ANSWER_NO_ENG = "No.";
+    private static final String ANSWER_YES_GER = "Ja.";
+    private static final String ANSWER_NO_GER = "Nein.";
+    public static final List<String> SPECIAL_ANSWERS = List.of(
+            ANSWER_YES_POL, ANSWER_NO_POL,
+            ANSWER_YES_ENG, ANSWER_NO_ENG,
+            ANSWER_YES_GER, ANSWER_NO_GER
+    );
+    private static final String BASIC_QUESTION_CONTENT_POL = "Czy w przedstawionej sytuacji masz prawo - mimo podawanego sygnału - skręcić w prawo?";
+    private static final String BASIC_QUESTION_CONTENT_ENG = "Are you allowed in this situation to turn right despite the light displayed?";
+    private static final String BASIC_QUESTION_CONTENT_GER = "Darfst du in der dargestellten Situation - trotz des gegebenen Signals - rechts abbiegen?";
 
-    public static final QuestionCSV QUESTION_CSV = new QuestionCSV(
+    public static final QuestionCSV SPECIAL_QUESTION_CSV = new QuestionCSV(
             "PD10(3)",
             2143,
-            QUESTION_CONTENT_POL,
+            SPECIAL_QUESTION_CONTENT_POL,
             ANSWER_A_POL,
             ANSWER_B_POL,
             ANSWER_C_POL,
-            QUESTION_CONTENT_ENG,
+            SPECIAL_QUESTION_CONTENT_ENG,
             ANSWER_A_ENG,
             ANSWER_B_ENG,
             ANSWER_C_ENG,
-            QUESTION_CONTENT_GER,
+            SPECIAL_QUESTION_CONTENT_GER,
             ANSWER_A_GER,
             ANSWER_B_GER,
             ANSWER_C_GER,
@@ -65,35 +93,109 @@ public class TestDataUtil {
             "PT"
     );
 
-    public static final Question QUESTION = new Question()
+
+    public static final Question SPECIAL_QUESTION = new Question()
             .withName("PD10(3)")
             .withId(2143)
             .withMedia("R_101org.jpg")
             .withType(QuestionType.SPECIAL)
             .withValue(2)
             .withCategories
-                    (List.of(CATEGORY))
+                    (List.of(CATEGORY_PT))
             .withTranslations(
-                    questionTranslations())
+                    specialQuestionTranslations())
             .withAnswers(
                     List.of(
-                            createAnswer('A', false),
-                            createAnswer('B', true),
-                            createAnswer('C', false)
+                            createSpecialAnswer('A', false),
+                            createSpecialAnswer('B', true),
+                            createSpecialAnswer('C', false)
                     ));
 
-    private static Answer createAnswer(final char label,
-                                       final boolean isCorrect) {
+
+    public static final QuestionCSV BASIC_QUESTION_CSV = new QuestionCSV(
+            "W9(2)",
+            110,
+            BASIC_QUESTION_CONTENT_POL,
+            "",
+            "",
+            "",
+            BASIC_QUESTION_CONTENT_ENG,
+            "",
+            "",
+            "",
+            BASIC_QUESTION_CONTENT_GER,
+            "",
+            "",
+            "",
+            'N',
+            "AK_D11_45org.wmv",
+            "PODSTAWOWY",
+            3,
+            "A,B"
+    );
+
+
+    public static Question BASIC_QUESTION = new Question()
+            .withName("W9(2)")
+            .withId(110)
+            .withMedia("AK_D11_45org.webm")
+            .withType(QuestionType.BASIC)
+            .withValue(3)
+            .withCategories(
+                    CATEGORIES)
+            .withTranslations(
+                    basicQuestionTranslations())
+            .withAnswers(
+                    List.of(
+                            createBasicAnswer('Y', false),
+                            createBasicAnswer('N', true)
+                    ));
+
+
+    private static Answer createSpecialAnswer(final char label,
+                                              final boolean correct) {
         final var answer = new Answer()
                 .withLabel(label)
-                .withCorrect(isCorrect)
-                .withQuestion(QUESTION);
+                .withCorrect(correct)
+                .withQuestion(SPECIAL_QUESTION);
         answer.setTranslations(
-                answerTranslations(answer));
+                specialAnswerTranslations(answer));
         return answer;
     }
 
-    private static List<AnswerTranslation> answerTranslations(final Answer answer) {
+    private static Answer createBasicAnswer(final char label,
+                                            final boolean correct) {
+        final var answer = new Answer()
+                .withLabel(label)
+                .withCorrect(correct)
+                .withQuestion(BASIC_QUESTION);
+        answer.setTranslations(
+                basicAnswerTranslations(answer));
+        return answer;
+    }
+
+    private static List<AnswerTranslation> basicAnswerTranslations(final Answer answer) {
+        final Map<Language, List<String>> translationsByLanguage = Map.of(
+                POL, List.of(
+                        ANSWER_YES_POL,
+                        ANSWER_NO_POL),
+                ENG, List.of(
+                        ANSWER_YES_ENG,
+                        ANSWER_NO_ENG),
+                GER, List.of(
+                        ANSWER_YES_GER,
+                        ANSWER_NO_GER)
+        );
+        return translationsByLanguage.entrySet().stream()
+                .flatMap(entry -> entry.getValue().stream()
+                        .map(content -> new AnswerTranslation()
+                                .withAnswer(answer)
+                                .withLanguage(entry.getKey())
+                                .withContent(content)))
+                .toList();
+    }
+
+    private static List<AnswerTranslation> specialAnswerTranslations(final Answer answer) {
         final Map<Language, List<String>> translationsByLanguage = Map.of(
                 POL, List.of(
                         ANSWER_A_POL,
@@ -117,25 +219,29 @@ public class TestDataUtil {
                 .toList();
     }
 
-    private static QuestionTranslation createQuestionTranslation(final Language language,
+    private static QuestionTranslation createQuestionTranslation(final Question question,
+                                                                 final Language language,
                                                                  final String content) {
         return new QuestionTranslation()
                 .withContent(content)
                 .withLanguage(language)
-                .withQuestion(QUESTION);
+                .withQuestion(question);
     }
 
-    private static List<QuestionTranslation> questionTranslations() {
-        return Map.of(
-                        POL, QUESTION_CONTENT_POL,
-                        ENG, QUESTION_CONTENT_ENG,
-                        GER, QUESTION_CONTENT_GER)
-                .entrySet().stream()
-                .map(entry ->
-                        createQuestionTranslation(
-                                entry.getKey(),
-                                entry.getValue()))
-                .toList();
+    private static List<QuestionTranslation> basicQuestionTranslations() {
+        return List.of(
+                createQuestionTranslation(BASIC_QUESTION, POL, BASIC_QUESTION_CONTENT_POL),
+                createQuestionTranslation(BASIC_QUESTION, ENG, BASIC_QUESTION_CONTENT_ENG),
+                createQuestionTranslation(BASIC_QUESTION, GER, BASIC_QUESTION_CONTENT_GER)
+        );
+    }
+
+    private static List<QuestionTranslation> specialQuestionTranslations() {
+        return List.of(
+                createQuestionTranslation(SPECIAL_QUESTION, POL, SPECIAL_QUESTION_CONTENT_POL),
+                createQuestionTranslation(SPECIAL_QUESTION, ENG, SPECIAL_QUESTION_CONTENT_ENG),
+                createQuestionTranslation(SPECIAL_QUESTION, GER, SPECIAL_QUESTION_CONTENT_GER)
+        );
     }
 
 }
