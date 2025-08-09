@@ -19,7 +19,7 @@ class CategoryRepositoryTest {
 
     @Test
     void findByName_returnCategory() {
-        Category category = new Category().withName("C4");
+        final var category = new Category().withName("C4");
         repository.save(category);
         final var result = repository.findByName("C4");
         assertThat(result)
