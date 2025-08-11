@@ -42,13 +42,13 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
-
       - name: Create application-prod.properties
         run: |
           mkdir -p src/main/resources
           printf "${{ vars.APPLICATION_PROD_PROPERTIES }}" > src/main/resources/application-prod.properties
+
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
 
       - name: Run tests
         env:
