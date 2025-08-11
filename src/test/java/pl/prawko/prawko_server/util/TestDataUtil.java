@@ -19,6 +19,17 @@ import static pl.prawko.prawko_server.test_utils.LanguageTestData.POL;
 
 public class TestDataUtil {
 
+    private static final Map<Integer, Map<Character, Boolean>> SPECIAL_ANSWERS = Map.of(
+            0, Map.of('A', false),
+            1, Map.of('B', true),
+            2, Map.of('C', false)
+    );
+
+    private static final Map<Integer, Map<Character, Boolean>> BASIC_ANSWERS = Map.of(
+            0, Map.of('Y', false),
+            1, Map.of('N', true)
+    );
+
     private static final Map<Language, List<String>> SPECIAL_ANSWER_TRANSLATIONS = Map.of(
             POL, List.of(
                     "Co 60 minut.",
@@ -90,10 +101,7 @@ public class TestDataUtil {
         SPECIAL_QUESTION.setTranslations(
                 createTranslations(SPECIAL_QUESTION, SPECIAL_QUESTION_CONTENT));
         SPECIAL_QUESTION.setAnswers(
-                List.of(
-                        createAnswer('A', false, SPECIAL_ANSWER_TRANSLATIONS),
-                        createAnswer('B', true, SPECIAL_ANSWER_TRANSLATIONS),
-                        createAnswer('C', false, SPECIAL_ANSWER_TRANSLATIONS)));
+                createAnswers(SPECIAL_QUESTION, SPECIAL_ANSWERS, SPECIAL_ANSWER_TRANSLATIONS));
     }
 
     public static final QuestionCSV BASIC_QUESTION_CSV = new QuestionCSV(
@@ -131,36 +139,32 @@ public class TestDataUtil {
         BASIC_QUESTION.setTranslations(
                 createTranslations(BASIC_QUESTION, BASIC_QUESTION_CONTENT));
         BASIC_QUESTION.setAnswers(
-                List.of(
-                        createAnswer('Y', false, BASIC_ANSWER_TRANSLATIONS),
-                        createAnswer('N', true, BASIC_ANSWER_TRANSLATIONS)));
+                createAnswers(BASIC_QUESTION, BASIC_ANSWERS, BASIC_ANSWER_TRANSLATIONS));
     }
 
-    private static Answer createAnswer(final char label,
-                                       final boolean correct,
-                                       final Map<Language, List<String>> map) {
-        final var question = label == 'Y' || label == 'N'
-                ? BASIC_QUESTION
-                : SPECIAL_QUESTION;
-        final var index = switch (label) {
-            case 'A', 'Y' -> 0;
-            case 'B', 'N' -> 1;
-            case 'C' -> 2;
-            default -> throw new IllegalStateException("Unexpected value: " + label);
-        };
-        final var answer = new Answer()
-                .withLabel(label)
-                .withCorrect(correct)
-                .withQuestion(question);
-        answer.setTranslations(
-                map.entrySet().stream()
-                        .map(e -> new AnswerTranslation()
-                                .withAnswer(answer)
-                                .withLanguage(e.getKey())
-                                .withContent(e.getValue().get(index)))
-                        .toList()
-        );
-        return answer;
+    private static List<Answer> createAnswers(final Question question,
+                                              final Map<Integer, Map<Character, Boolean>> labels,
+                                              final Map<Language, List<String>> translations) {
+        return labels.entrySet().stream()
+                .flatMap(outerEntry -> {
+                    int index = outerEntry.getKey();
+                    return outerEntry.getValue().entrySet().stream()
+                            .map(innerEntry -> {
+                                var answer = new Answer()
+                                        .withLabel(innerEntry.getKey())
+                                        .withCorrect(innerEntry.getValue())
+                                        .withQuestion(question);
+                                answer.setTranslations(
+                                        translations.entrySet().stream()
+                                                .map(language -> new AnswerTranslation()
+                                                        .withAnswer(answer)
+                                                        .withLanguage(language.getKey())
+                                                        .withContent(language.getValue().get(index)))
+                                                .toList());
+                                return answer;
+                            });
+                })
+                .toList();
     }
 
     private static List<QuestionTranslation> createTranslations(final Question question,
