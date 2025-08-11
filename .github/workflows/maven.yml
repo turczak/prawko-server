@@ -22,7 +22,7 @@ jobs:
       mariadb:
         image: mariadb:latest
         env:
-          MYSQL_ALLOW_EMPTY_ROOT_PASSWORD: "yes"
+          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
           MYSQL_DATABASE: prawko
         ports:
           - 3306:3306
@@ -48,6 +48,8 @@ jobs:
       - name: Run tests
         env:
           SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/prawko
+          SPRING_DATASOURCE_USER: root
+          SPRING_DATASOURCE_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: mvn test
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
