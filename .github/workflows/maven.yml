@@ -47,8 +47,8 @@ jobs:
 
       - name: Run tests
         env:
-          SPRING_PROFILES_ACTIVE: default
           SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/prawko
+          SPRING_DATASOURCE_USERNAME: root
           SPRING_DATASOURCE_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: mvn test
 
