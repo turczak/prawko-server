@@ -11,7 +11,8 @@ import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.model.Question;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
 import pl.prawko.prawko_server.test_utils.LanguageTestData;
-import pl.prawko.prawko_server.util.TestDataUtil;
+import pl.prawko.prawko_server.test_utils.QuestionCSVTestData;
+import pl.prawko.prawko_server.test_utils.QuestionTestData;
 
 import java.util.List;
 
@@ -38,8 +39,8 @@ class AnswerMapperTest {
 
     @Test
     void fromQuestionCSVToAnswers_correctlyMapBasicAnswers() {
-        final var given = TestDataUtil.BASIC_QUESTION_CSV;
-        final var expected = TestDataUtil.BASIC_QUESTION;
+        final var given = QuestionCSVTestData.BASIC_QUESTION_CSV;
+        final var expected = QuestionTestData.BASIC_QUESTION;
         final var answers = mapper.fromQuestionCSVToAnswers(given, expected);
         assertThat(answers)
                 .hasSize(2)
@@ -66,8 +67,8 @@ class AnswerMapperTest {
 
     @Test
     void fromQuestionsCSVToAnswers_correctlyMapSpecialAnswers() {
-        final var given = TestDataUtil.SPECIAL_QUESTION_CSV;
-        final var expected = TestDataUtil.SPECIAL_QUESTION;
+        final var given = QuestionCSVTestData.SPECIAL_QUESTION_CSV;
+        final var expected = QuestionTestData.SPECIAL_QUESTION;
         final var answers = mapper.fromQuestionCSVToAnswers(given, expected);
         assertThat(answers)
                 .hasSize(3)

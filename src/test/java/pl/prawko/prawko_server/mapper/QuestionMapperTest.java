@@ -11,7 +11,8 @@ import pl.prawko.prawko_server.service.implementation.CategoryService;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
 import pl.prawko.prawko_server.test_utils.CategoryTestData;
 import pl.prawko.prawko_server.test_utils.LanguageTestData;
-import pl.prawko.prawko_server.util.TestDataUtil;
+import pl.prawko.prawko_server.test_utils.QuestionCSVTestData;
+import pl.prawko.prawko_server.test_utils.QuestionTestData;
 
 import java.util.List;
 
@@ -45,8 +46,8 @@ class QuestionMapperTest {
         final var categories = CategoryTestData.CATEGORIES_AB;
         when(categoryService.findAllFromString("A,B"))
                 .thenReturn(categories);
-        final var given = TestDataUtil.BASIC_QUESTION_CSV;
-        final var expected = TestDataUtil.BASIC_QUESTION;
+        final var given = QuestionCSVTestData.BASIC_QUESTION_CSV;
+        final var expected = QuestionTestData.BASIC_QUESTION;
         final var result = questionMapper.mapQuestionCSVToQuestion(given);
         assertThat(result)
                 .isEqualTo(expected);
@@ -57,8 +58,8 @@ class QuestionMapperTest {
         when(categoryService.findAllFromString("PT"))
                 .thenReturn(
                         List.of(CategoryTestData.CATEGORY_PT));
-        final var given = TestDataUtil.SPECIAL_QUESTION_CSV;
-        final var expected = TestDataUtil.SPECIAL_QUESTION;
+        final var given = QuestionCSVTestData.SPECIAL_QUESTION_CSV;
+        final var expected = QuestionTestData.SPECIAL_QUESTION;
         final var result = questionMapper.mapQuestionCSVToQuestion(given);
         assertThat(result)
                 .isEqualTo(expected);

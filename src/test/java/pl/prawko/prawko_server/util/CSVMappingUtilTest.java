@@ -20,10 +20,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import static pl.prawko.prawko_server.util.TestDataUtil.BASIC_QUESTION;
-import static pl.prawko.prawko_server.util.TestDataUtil.BASIC_QUESTION_CSV;
-import static pl.prawko.prawko_server.util.TestDataUtil.SPECIAL_QUESTION;
-import static pl.prawko.prawko_server.util.TestDataUtil.SPECIAL_QUESTION_CSV;
+import static pl.prawko.prawko_server.test_utils.QuestionCSVTestData.BASIC_QUESTION_CSV;
+import static pl.prawko.prawko_server.test_utils.QuestionCSVTestData.SPECIAL_QUESTION_CSV;
+import static pl.prawko.prawko_server.test_utils.QuestionTestData.BASIC_QUESTION;
+import static pl.prawko.prawko_server.test_utils.QuestionTestData.SPECIAL_QUESTION;
 
 @ExtendWith(MockitoExtension.class)
 public class CSVMappingUtilTest {
