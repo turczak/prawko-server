@@ -47,9 +47,9 @@ jobs:
 
       - name: Run tests
         run: mvn test \
-          -Dspring.datasource.url=jdbc:mariadb://mariadb:3306/prawko \
-          -Dspring.datasourece.username=root \
-          -Dspring.datasource.password=${{ secrets.DB_PASSWORD }}
+          -DSpring.datasource.url=jdbc:mariadb://mariadb:3306/prawko \
+          -DSpring.datasource.username=root \
+          -DSpring.datasource.password=${{ secrets.DB_PASSWORD }}
       
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
