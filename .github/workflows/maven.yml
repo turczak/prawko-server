@@ -45,7 +45,8 @@ jobs:
       - name: Create application-prod.properties
         run: |
           mkdir -p src/main/resources
-          cat <<'EOF' > src/main/resources/application-prod.properties ${{ vars.APPLICATION_PROD_PROPERTIES }}
+          cat <<'EOF' > src/main/resources/application-prod.properties
+          ${{ vars.APPLICATION_PROD_PROPERTIES }}
           EOF
 
       - name: Build with Maven
