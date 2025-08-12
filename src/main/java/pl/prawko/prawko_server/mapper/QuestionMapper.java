@@ -32,7 +32,7 @@ public class QuestionMapper {
                 .withMedia(
                         questionCSV.mediaName()
                                 .replaceAll("\\.wmv$", ".webm"))
-                .withValue(questionCSV.value());
+                .withPoints(questionCSV.value());
         question.setCategories(
                 categoryService.findAllFromString(questionCSV.categories()));
         question.setTranslations(
@@ -54,7 +54,8 @@ public class QuestionMapper {
                                     case "pol" -> questionCSV.content_pol();
                                     case "eng" -> questionCSV.content_eng();
                                     case "ger" -> questionCSV.content_ger();
-                                    default -> throw new IllegalStateException("Unexpected language: " + language.getCode());
+                                    default ->
+                                            throw new IllegalStateException("Unexpected language: " + language.getCode());
                                 }
                         ))
                 .toList();

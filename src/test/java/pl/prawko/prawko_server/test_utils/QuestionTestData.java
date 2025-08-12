@@ -41,7 +41,7 @@ public class QuestionTestData {
                 .withId(110)
                 .withMedia("AK_D11_45org.webm")
                 .withType(QuestionType.BASIC)
-                .withValue(3)
+                .withPoints(3)
                 .withCategories(
                         CATEGORIES_AB);
         BASIC_QUESTION.setTranslations(
@@ -61,7 +61,7 @@ public class QuestionTestData {
                 .withId(2143)
                 .withMedia("R_101org.jpg")
                 .withType(QuestionType.SPECIAL)
-                .withValue(2)
+                .withPoints(2)
                 .withCategories
                         (List.of(CATEGORY_PT));
         SPECIAL_QUESTION.setTranslations(
