@@ -13,6 +13,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ import java.util.List;
 @With
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "`user`")
 public class User {
 
     @Id
@@ -49,7 +51,6 @@ public class User {
     @Column(length = 63)
     private String password;
 
-    @Column(columnDefinition = "TINYINT(1)")
     private boolean enabled;
 
     @CreationTimestamp
