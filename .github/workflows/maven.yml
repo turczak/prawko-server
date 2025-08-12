@@ -43,7 +43,7 @@ jobs:
           cache: maven
 
       - name: Create application-prod.properties
-        run: echo ${{ vars.APPLICATION_PROD_PROPERTIES }} > src/main/resources/application-prod.properties
+        run: echo "${{ vars.APPLICATION_PROD_PROPERTIES }}" > src/main/resources/application-prod.properties
 
       - name: Build with Maven
         run: mvn package -Dspring.profiles.active=prod
