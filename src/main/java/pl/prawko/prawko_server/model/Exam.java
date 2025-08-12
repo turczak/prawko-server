@@ -2,7 +2,6 @@ package pl.prawko.prawko_server.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -56,9 +55,7 @@ public class Exam {
     )
     private List<Answer> userAnswers;
 
-    @Column(columnDefinition = "TINYINT(1)")
     private boolean active;
-
     private int score;
 
 }

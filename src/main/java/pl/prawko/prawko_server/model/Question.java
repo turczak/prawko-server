@@ -44,7 +44,7 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private QuestionType type;
 
-    private int value;
+    private int points;
 
     @ManyToMany
     @JsonManagedReference
