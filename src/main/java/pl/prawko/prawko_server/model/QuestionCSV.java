@@ -2,6 +2,8 @@ package pl.prawko.prawko_server.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Map;
+
 public record QuestionCSV(
 
         @JsonProperty("Nazwa pytania")
@@ -62,4 +64,25 @@ public record QuestionCSV(
         String categories
 
 ) {
+
+    public Map<String, Map<Character, String>> getAnswersTranslations() {
+        return Map.of(
+                "pol", Map.of(
+                        'A', answer_A_pol,
+                        'B', answer_B_pol,
+                        'C', answer_C_pol
+                ),
+                "eng", Map.of(
+                        'A', answer_A_eng,
+                        'B', answer_B_eng,
+                        'C', answer_C_eng
+                ),
+                "ger", Map.of(
+                        'A', answer_A_ger,
+                        'B', answer_B_ger,
+                        'C', answer_C_ger
+                )
+        );
+    }
+
 }

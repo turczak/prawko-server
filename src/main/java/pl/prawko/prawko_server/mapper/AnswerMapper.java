@@ -4,14 +4,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.prawko.prawko_server.model.Answer;
 import pl.prawko.prawko_server.model.AnswerTranslation;
-import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.model.Question;
 import pl.prawko.prawko_server.model.QuestionCSV;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 @Component
 @AllArgsConstructor
@@ -44,7 +42,7 @@ public class AnswerMapper {
 
     private List<Answer> mapBasicQuestionAnswers(final char correctAnswer,
                                                  final Question question) {
-        return Stream.of('Y', 'N')
+        return BASIC_TRANSLATIONS.keySet().stream()
                 .map(label -> {
                     final var answer = new Answer()
                             .withQuestion(question)
@@ -59,8 +57,7 @@ public class AnswerMapper {
                                                     .get(answer.getLabel())
                                                     .get(language.getCode())))
                             .toList();
-                    answer.setTranslations(translations);
-                    return answer;
+                    return answer.withTranslations(translations);
                 })
                 .toList();
     }
@@ -78,26 +75,14 @@ public class AnswerMapper {
                                     .withLanguage(language)
                                     .withAnswer(answer)
                                     .withContent(
-                                            getTranslationContent(language, label, questionCSV)))
+                                            questionCSV.getAnswersTranslations()
+                                                    .get(language.getCode())
+                                                    .get(label)))
                             .toList();
                     answer.setTranslations(translations);
                     return answer;
                 })
                 .toList();
-    }
-
-    private String getTranslationContent(final Language language,
-                                         final char label,
-                                         final QuestionCSV questionCSV) {
-        try {
-            final var methodName = "answer_" + label + "_" + language.getCode();
-            final var method = questionCSV.getClass()
-                    .getMethod(methodName);
-            return method.invoke(questionCSV).toString();
-        } catch (Exception exception) {
-            System.err.println("Error invoking method " + exception.getMessage());
-        }
-        return null;
     }
 
 }
