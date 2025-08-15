@@ -1,6 +1,5 @@
 package pl.prawko.prawko_server.mapper;
 
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.model.Question;
@@ -14,25 +13,32 @@ import java.util.Comparator;
 import java.util.List;
 
 @Component
-@AllArgsConstructor
 public class QuestionMapper {
 
     private final CategoryService categoryService;
     private final LanguageService languageService;
     private final AnswerMapper answerMapper;
 
+    public QuestionMapper(final CategoryService categoryService,
+                          final LanguageService languageService,
+                          final AnswerMapper answerMapper) {
+        this.categoryService = categoryService;
+        this.languageService = languageService;
+        this.answerMapper = answerMapper;
+    }
+
     public Question mapQuestionCSVToQuestion(final QuestionCSV questionCSV) {
         final var question = new Question()
-                .withId(questionCSV.id())
-                .withName(questionCSV.name())
-                .withType(
+                .setId(questionCSV.id())
+                .setName(questionCSV.name())
+                .setType(
                         questionCSV.type().equals("PODSTAWOWY")
                                 ? QuestionType.BASIC
                                 : QuestionType.SPECIAL)
-                .withMedia(
+                .setMedia(
                         questionCSV.mediaName()
                                 .replaceAll("\\.wmv$", ".webm"))
-                .withPoints(questionCSV.value());
+                .setPoints(questionCSV.value());
         question.setCategories(
                 categoryService.findAllFromString(questionCSV.categories()));
         question.setTranslations(
@@ -47,15 +53,15 @@ public class QuestionMapper {
         return languageService.findAll().stream()
                 .sorted(Comparator.comparing(Language::getId))
                 .map(language -> new QuestionTranslation()
-                        .withQuestion(question)
-                        .withLanguage(language)
-                        .withContent(
+                        .setQuestion(question)
+                        .setLanguage(language)
+                        .setContent(
                                 switch (language.getCode()) {
                                     case "pol" -> questionCSV.content_pol();
                                     case "eng" -> questionCSV.content_eng();
                                     case "ger" -> questionCSV.content_ger();
-                                    default ->
-                                            throw new IllegalStateException("Unexpected language: " + language.getCode());
+                                    default -> throw new IllegalStateException(
+                                            "Unexpected language: " + language.getCode());
                                 }
                         ))
                 .toList();

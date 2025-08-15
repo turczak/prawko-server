@@ -10,18 +10,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.With;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Data
-@With
-@NoArgsConstructor
-@AllArgsConstructor
 public class Answer {
 
     @Id
@@ -29,7 +22,6 @@ public class Answer {
     private long id;
 
     private char label;
-
     private boolean correct;
 
     @ManyToOne
@@ -42,5 +34,86 @@ public class Answer {
     @ManyToMany(mappedBy = "userAnswers", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Exam> tests;
+
+    public Answer() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public Answer setId(final long id) {
+        this.id = id;
+        return this;
+    }
+
+    public char getLabel() {
+        return label;
+    }
+
+    public Answer setLabel(final char label) {
+        this.label = label;
+        return this;
+    }
+
+    public boolean isCorrect() {
+        return correct;
+    }
+
+    public Answer setCorrect(final boolean correct) {
+        this.correct = correct;
+        return this;
+
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public Answer setQuestion(final Question question) {
+        this.question = question;
+        return this;
+    }
+
+    public List<AnswerTranslation> getTranslations() {
+        return translations;
+    }
+
+    public Answer setTranslations(final List<AnswerTranslation> translations) {
+        this.translations = translations;
+        return this;
+    }
+
+    public List<Exam> getTests() {
+        return tests;
+    }
+
+    public Answer setTests(final List<Exam> tests) {
+        this.tests = tests;
+        return this;
+    }
+
+    @Override
+    public boolean equals(final Object object) {
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        final var answer = (Answer) object;
+        return id == answer.id
+                && label == answer.label
+                && correct == answer.correct
+                && Objects.equals(translations, answer.translations);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, label, correct, translations);
+    }
+
+    @Override
+    public String toString() {
+        return "Answer{id=%d, label=%s, correct=%s, translations=%s}"
+                .formatted(id, label, correct, translations);
+    }
 
 }

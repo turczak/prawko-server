@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import lombok.AllArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 import pl.prawko.prawko_server.mapper.QuestionMapper;
 import pl.prawko.prawko_server.model.Question;
@@ -16,10 +15,13 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-@AllArgsConstructor
 public class CSVMappingUtil {
 
     private final QuestionMapper mapper;
+
+    public CSVMappingUtil(final QuestionMapper mapper) {
+        this.mapper = mapper;
+    }
 
     public List<QuestionCSV> mapFileToQuestionCSVModels(final MultipartFile file) {
         try (BufferedReader reader = new BufferedReader(
