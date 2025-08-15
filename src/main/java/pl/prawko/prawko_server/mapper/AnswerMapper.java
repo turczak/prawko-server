@@ -20,7 +20,6 @@ public class AnswerMapper {
     }
 
     private static final List<Character> SPECIAL_LABELS = List.of('A', 'B', 'C');
-    private static final List<Character> BASIC_LABELS = List.of('Y', 'N');
     private static final Map<Character, Map<String, String>> BASIC_TRANSLATIONS = Map.of(
             'Y', Map.of(
                     "pol", "Tak",
@@ -45,7 +44,7 @@ public class AnswerMapper {
 
     private List<Answer> mapBasicQuestionAnswers(final char correctAnswer,
                                                  final Question question) {
-        return BASIC_LABELS.stream()
+        return BASIC_TRANSLATIONS.keySet().stream()
                 .map(label -> {
                     final var answer = new Answer()
                             .setQuestion(question)
