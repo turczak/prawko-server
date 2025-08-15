@@ -34,14 +34,12 @@ public class CSVMappingUtilTest {
     @Mock
     private LanguageService languageService;
 
-    @Mock
-    private AnswerMapper answerMapper;
-
     private final List<Language> languages = LanguageTestData.ALL;
     private CSVMappingUtil csvMappingUtil;
 
     @BeforeEach
     void setUp() {
+        final var answerMapper = new AnswerMapper(languageService);
         final var questionMapper = new QuestionMapper(categoryService, languageService, answerMapper);
         csvMappingUtil = new CSVMappingUtil(questionMapper);
     }

@@ -15,7 +15,9 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
-import static pl.prawko.prawko_server.test_utils.CategoryTestData.*;
+import static pl.prawko.prawko_server.test_utils.CategoryTestData.CATEGORIES_AB;
+import static pl.prawko.prawko_server.test_utils.CategoryTestData.CATEGORY_A;
+import static pl.prawko.prawko_server.test_utils.CategoryTestData.CATEGORY_B;
 
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceTest {
@@ -30,8 +32,8 @@ class CategoryServiceTest {
     void findByName_returnCategory_whenFound() {
         final var name = "B5";
         final var expected = new Category()
-                .withId(5L)
-                .withName(name);
+                .setId(5L)
+                .setName(name);
         when(repository.findByName(name))
                 .thenReturn(Optional.of(expected));
         final var result = service.findByName(name);

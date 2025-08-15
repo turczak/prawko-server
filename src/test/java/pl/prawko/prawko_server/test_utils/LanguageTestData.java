@@ -7,17 +7,17 @@ import java.util.List;
 public class LanguageTestData {
 
     public static final Language POL = new Language()
-            .withId(1L)
-            .withName("polish")
-            .withCode("pol");
+            .setId(1L)
+            .setName("polish")
+            .setCode("pol");
     public static final Language ENG = new Language()
-            .withId(2L)
-            .withName("english")
-            .withCode("eng");
+            .setId(2L)
+            .setName("english")
+            .setCode("eng");
     public static final Language GER = new Language()
-            .withId(3L)
-            .withName("german")
-            .withCode("ger");
+            .setId(3L)
+            .setName("german")
+            .setCode("ger");
 
     public static final List<Language> ALL = List.of(
             POL, ENG, GER
