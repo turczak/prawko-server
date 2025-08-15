@@ -44,7 +44,7 @@ public class AnswerMapper {
 
     private List<Answer> mapBasicQuestionAnswers(final char correctAnswer,
                                                  final Question question) {
-        return BASIC_TRANSLATIONS.keySet().stream()
+        return BASIC_TRANSLATIONS.keySet().stream().sorted()
                 .map(label -> {
                     final var answer = new Answer()
                             .setQuestion(question)

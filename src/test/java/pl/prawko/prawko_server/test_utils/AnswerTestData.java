@@ -51,7 +51,7 @@ public class AnswerTestData {
     );
 
     public static final List<Answer> BASIC_ANSWERS = List.of(
-            ANSWER_Y, ANSWER_N
+            ANSWER_N, ANSWER_Y
     );
 
 }
