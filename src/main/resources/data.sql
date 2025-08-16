@@ -15,6 +15,6 @@ VALUES
 
 INSERT INTO language (name, code)
 VALUES
-('polish', 'pol'),
-('english', 'eng'),
-('german', 'ger');
+('polish', 'pl'),
+('english', 'en'),
+('german', 'de');

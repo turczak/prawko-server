@@ -6,21 +6,21 @@ import java.util.List;
 
 public class LanguageTestData {
 
-    public static final Language POL = new Language()
+    public static final Language PL = new Language()
             .setId(1L)
             .setName("polish")
-            .setCode("pol");
-    public static final Language ENG = new Language()
+            .setCode("pl");
+    public static final Language EN = new Language()
             .setId(2L)
             .setName("english")
-            .setCode("eng");
-    public static final Language GER = new Language()
+            .setCode("en");
+    public static final Language DE = new Language()
             .setId(3L)
             .setName("german")
-            .setCode("ger");
+            .setCode("de");
 
     public static final List<Language> ALL = List.of(
-            POL, ENG, GER
+            PL, EN, DE
     );
 
 }

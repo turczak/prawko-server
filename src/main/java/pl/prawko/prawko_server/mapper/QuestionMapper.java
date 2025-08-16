@@ -54,9 +54,9 @@ public class QuestionMapper {
                         .setLanguage(language)
                         .setContent(
                                 switch (language.getCode()) {
-                                    case "pol" -> questionCSV.content_pol();
-                                    case "eng" -> questionCSV.content_eng();
-                                    case "ger" -> questionCSV.content_ger();
+                                    case "pl" -> questionCSV.contentPL();
+                                    case "en" -> questionCSV.contentEN();
+                                    case "de" -> questionCSV.contentDE();
                                     default -> throw new IllegalStateException(
                                             "Unexpected language: " + language.getCode());
                                 }

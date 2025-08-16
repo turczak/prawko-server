@@ -23,14 +23,14 @@ public class AnswerMapper {
     private static final List<Character> SPECIAL_LABELS = List.of('A', 'B', 'C');
     private static final Map<Character, Map<String, String>> BASIC_TRANSLATIONS = Map.of(
             'Y', Map.of(
-                    "pol", "Tak",
-                    "eng", "Yes",
-                    "ger", "Ja"
+                    "pl", "Tak",
+                    "en", "Yes",
+                    "de", "Ja"
             ),
             'N', Map.of(
-                    "pol", "Nie",
-                    "eng", "No",
-                    "ger", "Nein"
+                    "pl", "Nie",
+                    "en", "No",
+                    "de", "Nein"
             )
     );
 
@@ -39,7 +39,6 @@ public class AnswerMapper {
         return switch (QuestionType.ofType(questionCSV.type())) {
             case BASIC -> mapBasicQuestionAnswers(questionCSV.correctAnswer(), question);
             case SPECIAL -> mapSpecialQuestionAnswers(questionCSV, question);
-            default -> throw new IllegalStateException("Unexpected value: " + questionCSV.type());
         };
     }
 

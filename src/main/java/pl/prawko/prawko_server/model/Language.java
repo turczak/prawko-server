@@ -21,7 +21,7 @@ public class Language {
     @Column(length = 31)
     private String name;
 
-    @Column(length = 3)
+    @Column(length = 2)
     private String code;
 
     @Column(length = 3)

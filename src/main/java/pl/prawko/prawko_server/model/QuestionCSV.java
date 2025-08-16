@@ -13,40 +13,40 @@ public record QuestionCSV(
         int id,
 
         @JsonProperty("Pytanie")
-        String content_pol,
+        String contentPL,
 
         @JsonProperty("Odpowiedź A")
-        String answer_A_pol,
+        String answerPL1,
 
         @JsonProperty("Odpowiedź B")
-        String answer_B_pol,
+        String answerPL2,
 
         @JsonProperty("Odpowiedź C")
-        String answer_C_pol,
+        String answerPL3,
 
         @JsonProperty("Pytanie ENG")
-        String content_eng,
+        String contentEN,
 
         @JsonProperty("Odpowiedź ENG A")
-        String answer_A_eng,
+        String answerEN1,
 
         @JsonProperty("Odpowiedź ENG B")
-        String answer_B_eng,
+        String answerEN2,
 
         @JsonProperty("Odpowiedź ENG C")
-        String answer_C_eng,
+        String answerEN3,
 
         @JsonProperty("Pytanie DE")
-        String content_ger,
+        String contentDE,
 
         @JsonProperty("Odpowiedź DE A")
-        String answer_A_ger,
+        String answerDE1,
 
         @JsonProperty("Odpowiedź DE B")
-        String answer_B_ger,
+        String answerDE2,
 
         @JsonProperty("Odpowiedź DE C")
-        String answer_C_ger,
+        String answerDE3,
 
         @JsonProperty("Poprawna odp")
         char correctAnswer,
@@ -67,20 +67,20 @@ public record QuestionCSV(
 
     public Map<String, Map<Character, String>> getAnswersTranslations() {
         return Map.of(
-                "pol", Map.of(
-                        'A', answer_A_pol,
-                        'B', answer_B_pol,
-                        'C', answer_C_pol
+                "pl", Map.of(
+                        'A', answerPL1,
+                        'B', answerPL2,
+                        'C', answerPL3
                 ),
-                "eng", Map.of(
-                        'A', answer_A_eng,
-                        'B', answer_B_eng,
-                        'C', answer_C_eng
+                "en", Map.of(
+                        'A', answerEN1,
+                        'B', answerEN2,
+                        'C', answerEN3
                 ),
-                "ger", Map.of(
-                        'A', answer_A_ger,
-                        'B', answer_B_ger,
-                        'C', answer_C_ger
+                "de", Map.of(
+                        'A', answerDE1,
+                        'B', answerDE2,
+                        'C', answerDE3
                 )
         );
     }
