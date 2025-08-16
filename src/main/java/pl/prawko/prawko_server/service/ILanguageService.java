@@ -4,7 +4,7 @@ import pl.prawko.prawko_server.model.Language;
 
 import java.util.List;
 
-public interface ILanguage {
+public interface ILanguageService {
 
     List<Language> findAll();
 

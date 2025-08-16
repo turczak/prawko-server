@@ -3,12 +3,12 @@ package pl.prawko.prawko_server.service.implementation;
 import org.springframework.stereotype.Service;
 import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.repository.LanguageRepository;
-import pl.prawko.prawko_server.service.ILanguage;
+import pl.prawko.prawko_server.service.ILanguageService;
 
 import java.util.List;
 
 @Service
-public class LanguageService implements ILanguage {
+public class LanguageService implements ILanguageService {
 
     private final LanguageRepository repository;
 

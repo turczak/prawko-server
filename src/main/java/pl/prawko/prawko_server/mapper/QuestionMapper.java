@@ -31,18 +31,18 @@ public class QuestionMapper {
         final var question = new Question()
                 .setId(questionCSV.id())
                 .setName(questionCSV.name())
-                .setType(QuestionType.ofType(questionCSV.name()))
+                .setType(QuestionType.ofType(questionCSV.type()))
                 .setMedia(
                         questionCSV.mediaName()
                                 .replaceAll("\\.wmv$", ".webm"))
-                .setPoints(questionCSV.value());
-        question.setCategories(
-                categoryService.findAllFromString(questionCSV.categories()));
-        question.setTranslations(
-                mapQuestionTranslations(questionCSV, question));
-        question.setAnswers(
-                answerMapper.fromQuestionCSVToAnswers(questionCSV, question));
-        return question;
+                .setPoints(questionCSV.value())
+                .setCategories(
+                        categoryService.findAllFromString(questionCSV.categories()));
+        return question
+                .setTranslations(
+                        mapQuestionTranslations(questionCSV, question))
+                .setAnswers(
+                        answerMapper.fromQuestionCSVToAnswers(questionCSV, question));
     }
 
     private List<QuestionTranslation> mapQuestionTranslations(final QuestionCSV questionCSV,

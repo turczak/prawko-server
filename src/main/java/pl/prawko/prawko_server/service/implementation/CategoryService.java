@@ -3,14 +3,14 @@ package pl.prawko.prawko_server.service.implementation;
 import org.springframework.stereotype.Service;
 import pl.prawko.prawko_server.model.Category;
 import pl.prawko.prawko_server.repository.CategoryRepository;
-import pl.prawko.prawko_server.service.ICategory;
+import pl.prawko.prawko_server.service.ICategoryService;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoryService implements ICategory {
+public class CategoryService implements ICategoryService {
 
     private final CategoryRepository repository;
 

@@ -4,7 +4,7 @@ import pl.prawko.prawko_server.model.Category;
 
 import java.util.List;
 
-public interface ICategory {
+public interface ICategoryService {
 
     Category findByName(String name);
 
