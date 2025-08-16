@@ -15,4 +15,12 @@ public enum QuestionType {
         return name;
     }
 
+    public static QuestionType ofType(final String name) {
+        return switch (name) {
+            case "PODSTAWOWY" -> BASIC;
+            case "SPECJALISTYCZNY" -> SPECIAL;
+            default -> throw new IllegalStateException("Unexpected value: " + name);
+        };
+    }
+
 }

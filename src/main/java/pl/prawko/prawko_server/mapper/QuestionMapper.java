@@ -31,10 +31,7 @@ public class QuestionMapper {
         final var question = new Question()
                 .setId(questionCSV.id())
                 .setName(questionCSV.name())
-                .setType(
-                        questionCSV.type().equals("PODSTAWOWY")
-                                ? QuestionType.BASIC
-                                : QuestionType.SPECIAL)
+                .setType(QuestionType.ofType(questionCSV.name()))
                 .setMedia(
                         questionCSV.mediaName()
                                 .replaceAll("\\.wmv$", ".webm"))

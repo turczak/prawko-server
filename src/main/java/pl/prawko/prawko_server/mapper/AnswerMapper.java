@@ -5,6 +5,7 @@ import pl.prawko.prawko_server.model.Answer;
 import pl.prawko.prawko_server.model.AnswerTranslation;
 import pl.prawko.prawko_server.model.Question;
 import pl.prawko.prawko_server.model.QuestionCSV;
+import pl.prawko.prawko_server.model.QuestionType;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
 
 import java.util.List;
@@ -35,9 +36,9 @@ public class AnswerMapper {
 
     public List<Answer> fromQuestionCSVToAnswers(final QuestionCSV questionCSV,
                                                  final Question question) {
-        return switch (questionCSV.type()) {
-            case "PODSTAWOWY" -> mapBasicQuestionAnswers(questionCSV.correctAnswer(), question);
-            case "SPECJALISTYCZNY" -> mapSpecialQuestionAnswers(questionCSV, question);
+        return switch (QuestionType.ofType(questionCSV.type())) {
+            case BASIC -> mapBasicQuestionAnswers(questionCSV.correctAnswer(), question);
+            case SPECIAL -> mapSpecialQuestionAnswers(questionCSV, question);
             default -> throw new IllegalStateException("Unexpected value: " + questionCSV.type());
         };
     }
