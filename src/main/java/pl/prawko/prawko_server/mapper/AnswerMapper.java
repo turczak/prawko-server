@@ -9,7 +9,6 @@ import pl.prawko.prawko_server.model.QuestionType;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
 
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class AnswerMapper {
@@ -21,47 +20,20 @@ public class AnswerMapper {
     }
 
     private static final List<Character> SPECIAL_LABELS = List.of('A', 'B', 'C');
-    private static final Map<Character, Map<String, String>> BASIC_TRANSLATIONS = Map.of(
-            'Y', Map.of(
-                    "pl", "Tak",
-                    "en", "Yes",
-                    "de", "Ja"
-            ),
-            'N', Map.of(
-                    "pl", "Nie",
-                    "en", "No",
-                    "de", "Nein"
-            )
-    );
 
     public List<Answer> fromQuestionCSVToAnswers(final QuestionCSV questionCSV,
                                                  final Question question) {
         return switch (QuestionType.ofType(questionCSV.type())) {
-            case BASIC -> mapBasicQuestionAnswers(questionCSV.correctAnswer(), question);
+            case BASIC -> List.of(
+                    new Answer()
+                            .setQuestion(question)
+                            .setCorrect(true),
+                    new Answer()
+                            .setQuestion(question)
+                            .setCorrect(false)
+            );
             case SPECIAL -> mapSpecialQuestionAnswers(questionCSV, question);
         };
-    }
-
-    private List<Answer> mapBasicQuestionAnswers(final char correctAnswer,
-                                                 final Question question) {
-        return BASIC_TRANSLATIONS.keySet().stream().sorted()
-                .map(label -> {
-                    final var answer = new Answer()
-                            .setQuestion(question)
-                            .setLabel(label)
-                            .setCorrect(correctAnswer == label);
-                    final var translations = languageService.findAll().stream()
-                            .map(language -> new AnswerTranslation()
-                                    .setAnswer(answer)
-                                    .setLanguage(language)
-                                    .setContent(
-                                            BASIC_TRANSLATIONS
-                                                    .get(answer.getLabel())
-                                                    .get(language.getCode())))
-                            .toList();
-                    return answer.setTranslations(translations);
-                })
-                .toList();
     }
 
     private List<Answer> mapSpecialQuestionAnswers(final QuestionCSV questionCSV,
@@ -70,7 +42,6 @@ public class AnswerMapper {
         return SPECIAL_LABELS.stream()
                 .map(label -> {
                     final var answer = new Answer()
-                            .setLabel(label)
                             .setQuestion(question)
                             .setCorrect(label == questionCSV.correctAnswer());
                     final var translations = languages.stream()

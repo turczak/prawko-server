@@ -21,7 +21,6 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private char label;
     private boolean correct;
 
     @ManyToOne
@@ -44,15 +43,6 @@ public class Answer {
 
     public Answer setId(final long id) {
         this.id = id;
-        return this;
-    }
-
-    public char getLabel() {
-        return label;
-    }
-
-    public Answer setLabel(final char label) {
-        this.label = label;
         return this;
     }
 
@@ -100,20 +90,19 @@ public class Answer {
         }
         final var answer = (Answer) object;
         return id == answer.id
-                && label == answer.label
                 && correct == answer.correct
                 && Objects.equals(translations, answer.translations);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, label, correct, translations);
+        return Objects.hash(id, correct, translations);
     }
 
     @Override
     public String toString() {
-        return "Answer{id=%d, label=%s, correct=%s, translations=%s}"
-                .formatted(id, label, correct, translations);
+        return "Answer{id=%d, correct=%s, translations=%s}"
+                .formatted(id, correct, translations);
     }
 
 }

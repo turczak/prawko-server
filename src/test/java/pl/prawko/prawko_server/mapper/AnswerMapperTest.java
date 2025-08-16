@@ -6,7 +6,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.prawko.prawko_server.model.Answer;
 import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
 import pl.prawko.prawko_server.test_utils.LanguageTestData;
@@ -32,8 +31,6 @@ class AnswerMapperTest {
     @BeforeEach
     void setUp() {
         mapper = new AnswerMapper(languageService);
-        when(languageService.findAll())
-                .thenReturn(languages);
     }
 
     @Test
@@ -42,14 +39,15 @@ class AnswerMapperTest {
         final var expected = QuestionTestData.BASIC_QUESTION;
         final var result = mapper.fromQuestionCSVToAnswers(given, expected);
         assertThat(result)
-                .containsExactlyInAnyOrder(
-                        expected.getAnswers().toArray(new Answer[0]));
+                .isEqualTo(expected.getAnswers());
     }
 
     @Test
     void fromQuestionsCSVToAnswers_correctlyMapSpecialAnswers() {
         final var given = QuestionCSVTestData.SPECIAL_QUESTION_CSV;
         final var expected = QuestionTestData.SPECIAL_QUESTION;
+        when(languageService.findAll())
+                .thenReturn(languages);
         final var result = mapper.fromQuestionCSVToAnswers(given, expected);
         assertThat(result)
                 .isEqualTo(expected.getAnswers());

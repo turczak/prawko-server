@@ -32,17 +32,12 @@ public class QuestionMapper {
                 .setId(questionCSV.id())
                 .setName(questionCSV.name())
                 .setType(QuestionType.ofType(questionCSV.type()))
-                .setMedia(
-                        questionCSV.mediaName()
-                                .replaceAll("\\.wmv$", ".webm"))
+                .setMedia(questionCSV.mediaName().replaceAll("\\.wmv$", ".webm"))
                 .setPoints(questionCSV.value())
-                .setCategories(
-                        categoryService.findAllFromString(questionCSV.categories()));
+                .setCategories(categoryService.findAllFromString(questionCSV.categories()));
         return question
-                .setTranslations(
-                        mapQuestionTranslations(questionCSV, question))
-                .setAnswers(
-                        answerMapper.fromQuestionCSVToAnswers(questionCSV, question));
+                .setTranslations(mapQuestionTranslations(questionCSV, question))
+                .setAnswers(answerMapper.fromQuestionCSVToAnswers(questionCSV, question));
     }
 
     private List<QuestionTranslation> mapQuestionTranslations(final QuestionCSV questionCSV,
@@ -57,8 +52,7 @@ public class QuestionMapper {
                                     case "pl" -> questionCSV.contentPL();
                                     case "en" -> questionCSV.contentEN();
                                     case "de" -> questionCSV.contentDE();
-                                    default -> throw new IllegalStateException(
-                                            "Unexpected language: " + language.getCode());
+                                    default -> throw new IllegalStateException("Unexpected language: " + language.getCode());
                                 }
                         ))
                 .toList();
