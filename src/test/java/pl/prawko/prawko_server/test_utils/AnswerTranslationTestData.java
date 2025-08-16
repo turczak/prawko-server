@@ -46,30 +46,6 @@ public class AnswerTranslationTestData {
             .setLanguage(GER)
             .setContent("jede 15 Minuten");
 
-    static List<AnswerTranslation> ANSWER_A_TRANSLATIONS() {
-        return List.of(
-                ANSWER_A_POL,
-                ANSWER_A_ENG,
-                ANSWER_A_GER
-        );
-    }
-
-    static List<AnswerTranslation> ANSWER_B_TRANSLATIONS() {
-        return List.of(
-                ANSWER_B_POL,
-                ANSWER_B_ENG,
-                ANSWER_B_GER
-        );
-    }
-
-    static List<AnswerTranslation> ANSWER_C_TRANSLATIONS() {
-        return List.of(
-                ANSWER_C_POL,
-                ANSWER_C_ENG,
-                ANSWER_C_GER
-        );
-    }
-
     private static final AnswerTranslation ANSWER_Y_POL = new AnswerTranslation()
             .setLanguage(POL)
             .setContent("Tak");
@@ -94,7 +70,31 @@ public class AnswerTranslationTestData {
             .setLanguage(GER)
             .setContent("Nein");
 
-    static List<AnswerTranslation> ANSWER_Y_TRANSLATIONS() {
+    static List<AnswerTranslation> getAnswerTranslationsA() {
+        return List.of(
+                ANSWER_A_POL,
+                ANSWER_A_ENG,
+                ANSWER_A_GER
+        );
+    }
+
+    static List<AnswerTranslation> getAnswerTranslationsB() {
+        return List.of(
+                ANSWER_B_POL,
+                ANSWER_B_ENG,
+                ANSWER_B_GER
+        );
+    }
+
+    static List<AnswerTranslation> getAnswerTranslationsC() {
+        return List.of(
+                ANSWER_C_POL,
+                ANSWER_C_ENG,
+                ANSWER_C_GER
+        );
+    }
+
+    static List<AnswerTranslation> getAnswerTranslationsY() {
         return List.of(
                 ANSWER_Y_POL,
                 ANSWER_Y_ENG,
@@ -102,7 +102,7 @@ public class AnswerTranslationTestData {
         );
     }
 
-    static List<AnswerTranslation> ANSWER_N_TRANSLATIONS() {
+    static List<AnswerTranslation> getAnswerTranslationsN() {
         return List.of(
                 ANSWER_N_POL,
                 ANSWER_N_ENG,

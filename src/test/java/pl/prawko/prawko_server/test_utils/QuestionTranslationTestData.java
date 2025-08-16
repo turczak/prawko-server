@@ -22,14 +22,6 @@ public class QuestionTranslationTestData {
             .setContent("Wie oft soll man einen symptomlosen Betroffenen auf die andere Körperseite nach dem Legen in stabiler Seitenlage drehen?")
             .setLanguage(GER);
 
-    static List<QuestionTranslation> SPECIAL_QUESTION_TRANSLATIONS() {
-        return List.of(
-                SPECIAL_QUESTION_CONTENT_POL,
-                SPECIAL_QUESTION_CONTENT_ENG,
-                SPECIAL_QUESTION_CONTENT_GER
-        );
-    }
-
     static final QuestionTranslation BASIC_QUESTION_CONTENT_POL = new QuestionTranslation()
             .setContent("Czy w przedstawionej sytuacji masz prawo - mimo podawanego sygnału - skręcić w prawo?")
             .setLanguage(POL);
@@ -42,7 +34,15 @@ public class QuestionTranslationTestData {
             .setContent("Darfst du in der dargestellten Situation - trotz des gegebenen Signals - rechts abbiegen?")
             .setLanguage(GER);
 
-    static List<QuestionTranslation> BASIC_QUESTION_TRANSLATIONS() {
+    static List<QuestionTranslation> getSpecialQuestionTranslations() {
+        return List.of(
+                SPECIAL_QUESTION_CONTENT_POL,
+                SPECIAL_QUESTION_CONTENT_ENG,
+                SPECIAL_QUESTION_CONTENT_GER
+        );
+    }
+
+    static List<QuestionTranslation> getBasicQuestionTranslations() {
         return List.of(
                 BASIC_QUESTION_CONTENT_POL,
                 BASIC_QUESTION_CONTENT_ENG,
