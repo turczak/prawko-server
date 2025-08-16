@@ -16,11 +16,12 @@ public enum QuestionType {
     }
 
     public static QuestionType ofType(final String name) {
-        return switch (name) {
-            case "PODSTAWOWY" -> BASIC;
-            case "SPECJALISTYCZNY" -> SPECIAL;
-            default -> throw new IllegalStateException("Unexpected value: " + name);
-        };
+        for (QuestionType type : QuestionType.values()) {
+            if (type.name.equals(name)) {
+                return type;
+            }
+        }
+        throw new IllegalStateException("Unexpected value: " + name);
     }
 
 }
