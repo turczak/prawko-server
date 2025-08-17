@@ -26,21 +26,20 @@ class LanguageServiceTest {
     @Test
     void findAll_returnLanguages_whenFound() {
         final var languages = LanguageTestData.ALL;
-        when(repository.findAll())
-                .thenReturn(languages);
+        when(repository.findAll()).thenReturn(languages);
+
         final var result = service.findAll();
-        assertThat(result)
-                .isEqualTo(languages);
+
+        assertThat(result).isEqualTo(languages);
     }
 
     @Test
     void findAll_returnEmptyList_whenNotFound() {
-        when(repository.findAll())
-                .thenReturn(
-                        Collections.emptyList());
+        when(repository.findAll()).thenReturn(Collections.emptyList());
+
         final var result = service.findAll();
-        assertThat(result)
-                .isEmpty();
+
+        assertThat(result).isEmpty();
     }
 
 }

@@ -53,30 +53,24 @@ public class CSVMappingUtilTest {
                     assertThat(res.isReadable()).isTrue();
                 });
         final var inputStream = resource.getInputStream();
-        final var file = new MockMultipartFile(
-                "file",
-                "test_question.csv",
-                "text/csv",
-                inputStream);
+        final var file = new MockMultipartFile("file", "test_question.csv", "text/csv", inputStream);
+
         final var result = csvMappingUtil.mapFileToQuestionCSVModels(file);
-        assertThat(result)
-                .isEqualTo(List.of(SPECIAL_QUESTION_CSV, BASIC_QUESTION_CSV));
+
+        assertThat(result).isEqualTo(List.of(SPECIAL_QUESTION_CSV, BASIC_QUESTION_CSV));
     }
 
     @Test
     void mapQuestionCSVModelsToQuestions_mapBothTypeOfQuestions() {
-        when(categoryService.findAllFromString("A,B"))
-                .thenReturn(CategoryTestData.CATEGORIES_AB);
-        when(categoryService.findAllFromString("PT"))
-                .thenReturn(
-                        List.of(CategoryTestData.CATEGORY_PT));
-        when(languageService.findAll())
-                .thenReturn(languages);
+        when(categoryService.findAllFromString("A,B")).thenReturn(CategoryTestData.CATEGORIES_AB);
+        when(categoryService.findAllFromString("PT")).thenReturn(List.of(CategoryTestData.CATEGORY_PT));
+        when(languageService.findAll()).thenReturn(languages);
         final var given = List.of(BASIC_QUESTION_CSV, SPECIAL_QUESTION_CSV);
         final var expected = List.of(BASIC_QUESTION, SPECIAL_QUESTION);
+
         final var result = csvMappingUtil.mapQuestionCSVModelsToQuestions(given);
-        assertThat(result)
-                .isEqualTo(expected);
+
+        assertThat(result).isEqualTo(expected);
     }
 
 }

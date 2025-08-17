@@ -37,20 +37,21 @@ class AnswerMapperTest {
     void fromQuestionCSVToAnswers_correctlyMapBasicAnswers() {
         final var given = QuestionCSVTestData.BASIC_QUESTION_CSV;
         final var expected = QuestionTestData.BASIC_QUESTION;
+
         final var result = mapper.fromQuestionCSVToAnswers(given, expected);
-        assertThat(result)
-                .isEqualTo(expected.getAnswers());
+
+        assertThat(result).isEqualTo(expected.getAnswers());
     }
 
     @Test
     void fromQuestionsCSVToAnswers_correctlyMapSpecialAnswers() {
         final var given = QuestionCSVTestData.SPECIAL_QUESTION_CSV;
         final var expected = QuestionTestData.SPECIAL_QUESTION;
-        when(languageService.findAll())
-                .thenReturn(languages);
+        when(languageService.findAll()).thenReturn(languages);
+
         final var result = mapper.fromQuestionCSVToAnswers(given, expected);
-        assertThat(result)
-                .isEqualTo(expected.getAnswers());
+
+        assertThat(result).isEqualTo(expected.getAnswers());
     }
 
 }

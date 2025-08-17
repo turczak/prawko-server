@@ -37,32 +37,29 @@ class QuestionMapperTest {
     void setUp() {
         final var answerMapper = new AnswerMapper(languageService);
         questionMapper = new QuestionMapper(categoryService, languageService, answerMapper);
-        when(languageService.findAll())
-                .thenReturn(languages);
+        when(languageService.findAll()).thenReturn(languages);
     }
 
     @Test
     void mapQuestionCSVToQuestion_returnBasicQuestion() {
-        final var categories = CategoryTestData.CATEGORIES_AB;
-        when(categoryService.findAllFromString("A,B"))
-                .thenReturn(categories);
+        when(categoryService.findAllFromString("A,B")).thenReturn(CategoryTestData.CATEGORIES_AB);
         final var given = QuestionCSVTestData.BASIC_QUESTION_CSV;
         final var expected = QuestionTestData.BASIC_QUESTION;
+
         final var result = questionMapper.mapQuestionCSVToQuestion(given);
-        assertThat(result)
-                .isEqualTo(expected);
+
+        assertThat(result).isEqualTo(expected);
     }
 
     @Test
     void mapQuestionCSVToQuestion_returnSpecialQuestion() {
-        when(categoryService.findAllFromString("PT"))
-                .thenReturn(
-                        List.of(CategoryTestData.CATEGORY_PT));
+        when(categoryService.findAllFromString("PT")).thenReturn(List.of(CategoryTestData.CATEGORY_PT));
         final var given = QuestionCSVTestData.SPECIAL_QUESTION_CSV;
         final var expected = QuestionTestData.SPECIAL_QUESTION;
+
         final var result = questionMapper.mapQuestionCSVToQuestion(given);
-        assertThat(result)
-                .isEqualTo(expected);
+
+        assertThat(result).isEqualTo(expected);
     }
 
 }
