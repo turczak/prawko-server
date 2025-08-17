@@ -1,5 +1,7 @@
 package pl.prawko.prawko_server.model;
 
+import java.util.Arrays;
+
 public enum QuestionType {
 
     BASIC("PODSTAWOWY"),
@@ -16,12 +18,10 @@ public enum QuestionType {
     }
 
     public static QuestionType ofType(final String name) {
-        for (QuestionType type : QuestionType.values()) {
-            if (type.name.equals(name)) {
-                return type;
-            }
-        }
-        throw new IllegalStateException("Unexpected value: " + name);
+        return Arrays.stream(QuestionType.values())
+                .filter(type -> type.name.equals(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Unexpected value: " + name));
     }
 
 }
