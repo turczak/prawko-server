@@ -51,9 +51,6 @@ public class Exam {
     private boolean active;
     private int score;
 
-    public Exam() {
-    }
-
     public long getId() {
         return id;
     }

@@ -29,6 +29,7 @@ public class AnswerTranslation {
     private Language language;
 
     public AnswerTranslation() {
+        this(null, null, null);
     }
 
     public AnswerTranslation(final Answer answer,

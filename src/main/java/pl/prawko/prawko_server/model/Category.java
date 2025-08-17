@@ -29,9 +29,6 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<User> users;
 
-    public Category() {
-    }
-
     public long getId() {
         return id;
     }

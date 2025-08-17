@@ -25,9 +25,6 @@ public class Role {
     @JsonBackReference
     private List<User> users;
 
-    public Role() {
-    }
-
     public long getId() {
         return id;
     }

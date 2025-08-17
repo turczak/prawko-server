@@ -40,9 +40,6 @@ public class Language {
     @OneToMany(mappedBy = "language")
     private List<User> users;
 
-    public Language() {
-    }
-
     public long getId() {
         return id;
     }

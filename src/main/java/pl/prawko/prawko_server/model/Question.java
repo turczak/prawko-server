@@ -50,9 +50,6 @@ public class Question {
     @JsonBackReference
     private List<Exam> exams;
 
-    public Question() {
-    }
-
     public long getId() {
         return id;
     }

@@ -72,9 +72,6 @@ public class User {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    public User() {
-    }
-
     public long getId() {
         return id;
     }
@@ -212,8 +209,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{id=%d, firstName='%s', lastName='%s', userName='%s', email='%s', enabled=%s, created=%s, updated=%s, language=%s, category=%s, roles=%s}"
-                .formatted(id, firstName, lastName, userName, email, enabled, created, updated, language, category, roles);
+        return ("User{id=%d, firstName='%s', lastName='%s', userName='%s', email='%s', enabled=%s, created=%s, "
+                + "updated=%s, language=%s, category=%s, roles=%s}")
+                .formatted(id, firstName, lastName, userName, email, enabled, created, updated, language, category,
+                        roles);
     }
 
 }

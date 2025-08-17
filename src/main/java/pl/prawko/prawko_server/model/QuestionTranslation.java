@@ -28,9 +28,6 @@ public class QuestionTranslation {
     @JoinColumn(name = "language_id")
     private Language language;
 
-    public QuestionTranslation() {
-    }
-
     public long getId() {
         return id;
     }

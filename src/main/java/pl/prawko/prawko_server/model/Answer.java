@@ -34,9 +34,6 @@ public class Answer {
     @JsonBackReference
     private List<Exam> tests;
 
-    public Answer() {
-    }
-
     public long getId() {
         return id;
     }
