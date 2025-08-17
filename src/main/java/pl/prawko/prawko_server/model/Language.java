@@ -14,6 +14,10 @@ import java.util.Objects;
 @Entity
 public class Language {
 
+    public static final String PL = "pl";
+    public static final String EN = "en";
+    public static final String DE = "de";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

@@ -47,15 +47,18 @@ public class QuestionMapper {
                 .map(language -> new QuestionTranslation()
                         .setQuestion(question)
                         .setLanguage(language)
-                        .setContent(
-                                switch (language.getCode()) {
-                                    case "pl" -> questionCSV.contentPL();
-                                    case "en" -> questionCSV.contentEN();
-                                    case "de" -> questionCSV.contentDE();
-                                    default -> throw new IllegalStateException("Unexpected language: " + language.getCode());
-                                }
-                        ))
+                        .setContent(getContent(questionCSV, language)))
                 .toList();
+    }
+
+    private String getContent(final QuestionCSV questionCSV,
+                              final Language language) {
+        return switch (language.getCode()) {
+            case Language.PL -> questionCSV.contentPL();
+            case Language.EN -> questionCSV.contentEN();
+            case Language.DE -> questionCSV.contentDE();
+            default -> throw new IllegalStateException("Unexpected language: " + language.getCode());
+        };
     }
 
 }
