@@ -63,48 +63,54 @@ public class Exam {
         return created;
     }
 
-    public void setCreated(final LocalDateTime created) {
+    public Exam setCreated(final LocalDateTime created) {
         this.created = created;
+        return this;
     }
 
     public User getUser() {
         return user;
     }
 
-    public void setUser(final User user) {
+    public Exam setUser(final User user) {
         this.user = user;
+        return this;
     }
 
     public List<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(final List<Question> questions) {
+    public Exam setQuestions(final List<Question> questions) {
         this.questions = questions;
+        return this;
     }
 
     public List<Answer> getUserAnswers() {
         return userAnswers;
     }
 
-    public void setUserAnswers(final List<Answer> userAnswers) {
+    public Exam setUserAnswers(final List<Answer> userAnswers) {
         this.userAnswers = userAnswers;
+        return this;
     }
 
     public boolean isActive() {
         return active;
     }
 
-    public void setActive(final boolean active) {
+    public Exam setActive(final boolean active) {
         this.active = active;
+        return this;
     }
 
     public int getScore() {
         return score;
     }
 
-    public void setScore(final int score) {
+    public Exam setScore(final int score) {
         this.score = score;
+        return this;
     }
 
     @Override
