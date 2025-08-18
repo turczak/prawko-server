@@ -14,7 +14,7 @@ import static pl.prawko.prawko_server.test_utils.QuestionTranslationTestData.get
 
 public class QuestionTestData {
 
-    public static Question BASIC_QUESTION = new Question()
+    public static final Question BASIC_QUESTION = new Question()
             .setName("W9(2)")
             .setId(110)
             .setMedia("AK_D11_45org.webm")
