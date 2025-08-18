@@ -48,6 +48,14 @@ public class Exam {
     )
     private List<Answer> userAnswers;
 
+    @ManyToOne
+    @JoinColumn(name = "language_id")
+    private Language language;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     private boolean active;
     private int score;
 
@@ -110,6 +118,24 @@ public class Exam {
 
     public Exam setScore(final int score) {
         this.score = score;
+        return this;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public Exam setLanguage(Language language) {
+        this.language = language;
+        return this;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Exam setCategory(Category category) {
+        this.category = category;
         return this;
     }
 

@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
@@ -63,14 +62,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Exam> exams;
-
-    @ManyToOne
-    @JoinColumn(name = "language_id")
-    private Language language;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
 
     public long getId() {
         return id;
@@ -171,24 +162,6 @@ public class User {
         return this;
     }
 
-    public Language getLanguage() {
-        return language;
-    }
-
-    public User setLanguage(final Language language) {
-        this.language = language;
-        return this;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public User setCategory(final Category category) {
-        this.category = category;
-        return this;
-    }
-
     @Override
     public boolean equals(final Object object) {
         if (object == null || getClass() != object.getClass()) {
@@ -214,9 +187,8 @@ public class User {
     @Override
     public String toString() {
         return ("User{id=%d, firstName='%s', lastName='%s', userName='%s', email='%s', enabled=%s, created=%s, "
-                + "updated=%s, language=%s, category=%s, roles=%s}")
-                .formatted(id, firstName, lastName, userName, email, enabled, created, updated, language, category,
-                        roles);
+                + "updated=%s, roles=%s}")
+                .formatted(id, firstName, lastName, userName, email, enabled, created, updated, roles);
     }
 
 }

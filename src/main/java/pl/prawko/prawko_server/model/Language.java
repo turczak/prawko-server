@@ -38,7 +38,7 @@ public class Language {
     private List<AnswerTranslation> answerTranslations;
 
     @OneToMany(mappedBy = "language")
-    private List<User> users;
+    private List<Exam> exams;
 
     public long getId() {
         return id;
@@ -94,12 +94,12 @@ public class Language {
         return this;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<Exam> getExams() {
+        return exams;
     }
 
-    public Language setUsers(final List<User> users) {
-        this.users = users;
+    public Language setExams(List<Exam> exams) {
+        this.exams = exams;
         return this;
     }
 
