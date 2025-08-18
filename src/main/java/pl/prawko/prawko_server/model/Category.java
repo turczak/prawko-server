@@ -8,18 +8,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.With;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Data
-@With
-@NoArgsConstructor
-@AllArgsConstructor
 public class Category {
 
     @Id
@@ -35,5 +28,56 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private List<User> users;
+
+    public long getId() {
+        return id;
+    }
+
+    public Category setId(final long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Category setName(final String name) {
+        this.name = name;
+        return this;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public Category setQuestions(final List<Question> questions) {
+        this.questions = questions;
+        return this;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public Category setUsers(final List<User> users) {
+        this.users = users;
+        return this;
+    }
+
+    @Override
+    public boolean equals(final Object object) {
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        final var category = (Category) object;
+        return id == category.id
+                && Objects.equals(name, category.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 
 }

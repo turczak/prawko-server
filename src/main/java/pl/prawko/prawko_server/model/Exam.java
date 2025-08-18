@@ -10,20 +10,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.With;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Data
-@With
-@NoArgsConstructor
-@AllArgsConstructor
 public class Exam {
 
     @Id
@@ -57,5 +50,89 @@ public class Exam {
 
     private boolean active;
     private int score;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public Exam setCreated(final LocalDateTime created) {
+        this.created = created;
+        return this;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Exam setUser(final User user) {
+        this.user = user;
+        return this;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public Exam setQuestions(final List<Question> questions) {
+        this.questions = questions;
+        return this;
+    }
+
+    public List<Answer> getUserAnswers() {
+        return userAnswers;
+    }
+
+    public Exam setUserAnswers(final List<Answer> userAnswers) {
+        this.userAnswers = userAnswers;
+        return this;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public Exam setActive(final boolean active) {
+        this.active = active;
+        return this;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public Exam setScore(final int score) {
+        this.score = score;
+        return this;
+    }
+
+    @Override
+    public boolean equals(final Object object) {
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        final var exam = (Exam) object;
+        return id == exam.id
+                && Objects.equals(user, exam.user)
+                && Objects.equals(questions, exam.questions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, questions);
+    }
+
+    @Override
+    public String toString() {
+        return "Exam{id=%d, created=%s, user=%s, active=%s, score=%d, questions=%s, userAnswers=%s}"
+                .formatted(id, created, user, active, score, questions, userAnswers);
+    }
 
 }
