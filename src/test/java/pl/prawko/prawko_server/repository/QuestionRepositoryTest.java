@@ -12,6 +12,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 public class QuestionRepositoryTest {
 
+    private static final String[] IGNORED_FIELDS = {"answers.id",
+            "answers.translations.id",
+            "answers.translations.language.answerTranslations",
+            "answers.translations.language.questionTranslations",
+            "answers.translations.language.exams",
+            "translations.id",
+            "categories.questions",
+            "categories.exams"};
+
     @Autowired
     private QuestionRepository repository;
 
@@ -25,15 +34,7 @@ public class QuestionRepositoryTest {
 
         assertThat(result)
                 .usingRecursiveComparison()
-                .ignoringFields(
-                        "answers.id",
-                        "answers.translations.id",
-                        "answers.translations.language.answerTranslations",
-                        "answers.translations.language.questionTranslations",
-                        "answers.translations.language.exams",
-                        "translations.id",
-                        "categories.questions",
-                        "categories.exams")
+                .ignoringFields(IGNORED_FIELDS)
                 .isEqualTo(expected);
     }
 

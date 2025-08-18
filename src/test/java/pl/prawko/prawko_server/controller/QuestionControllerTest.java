@@ -1,6 +1,5 @@
 package pl.prawko.prawko_server.controller;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +22,7 @@ public class QuestionControllerTest {
     public static final String URL = "/questions";
 
     @LocalServerPort
-    int port;
+    private int port;
 
     private RestClient restClient;
 
@@ -44,8 +43,6 @@ public class QuestionControllerTest {
                 .body(new LinkedMultiValueMap<>())
                 .exchange((req, res) -> TestUtils.getResponseEntity(res));
 
-        Assertions.assertNotNull(response);
-        Assertions.assertNotNull(response.getBody());
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(response.getBody().message()).isEqualTo(expected);
     }
@@ -69,8 +66,6 @@ public class QuestionControllerTest {
                 .body(parts)
                 .exchange((req, res) -> TestUtils.getResponseEntity(res));
 
-        Assertions.assertNotNull(response);
-        Assertions.assertNotNull(response.getBody());
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNSUPPORTED_MEDIA_TYPE);
         assertThat(response.getBody().message()).isEqualTo(expected);
     }
@@ -89,7 +84,6 @@ public class QuestionControllerTest {
                 .retrieve()
                 .toEntity(ApiResponse.class);
 
-        Assertions.assertNotNull(response.getBody());
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().message()).isEqualTo(expected);
     }
