@@ -199,12 +199,16 @@ public class User {
                 && Objects.equals(firstName, user.firstName)
                 && Objects.equals(lastName, user.lastName)
                 && Objects.equals(userName, user.userName)
-                && Objects.equals(email, user.email);
+                && Objects.equals(email, user.email)
+                && enabled == user.enabled
+                && created.equals(user.created)
+                && updated.equals(user.updated)
+                && roles.equals(user.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, userName, email);
+        return Objects.hash(id, firstName, lastName, userName, email, enabled, created, updated, roles);
     }
 
     @Override
