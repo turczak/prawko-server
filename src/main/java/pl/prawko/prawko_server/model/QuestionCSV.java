@@ -67,17 +67,17 @@ public record QuestionCSV(
 
     public Map<String, Map<Character, String>> getAnswersTranslations() {
         return Map.of(
-                "pl", Map.of(
+                Language.PL, Map.of(
                         'A', answerPL1,
                         'B', answerPL2,
                         'C', answerPL3
                 ),
-                "en", Map.of(
+                Language.EN, Map.of(
                         'A', answerEN1,
                         'B', answerEN2,
                         'C', answerEN3
                 ),
-                "de", Map.of(
+                Language.DE, Map.of(
                         'A', answerDE1,
                         'B', answerDE2,
                         'C', answerDE3

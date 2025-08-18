@@ -50,7 +50,6 @@ public class Answer {
     public Answer setCorrect(final boolean correct) {
         this.correct = correct;
         return this;
-
     }
 
     public Question getQuestion() {

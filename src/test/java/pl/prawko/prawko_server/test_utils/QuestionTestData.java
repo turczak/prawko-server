@@ -24,11 +24,6 @@ public class QuestionTestData {
             .setTranslations(getBasicQuestionTranslations())
             .setAnswers(BASIC_ANSWERS);
 
-    static {
-        getBasicQuestionTranslations()
-                .forEach(translation -> translation.setQuestion(BASIC_QUESTION));
-    }
-
     public static final Question SPECIAL_QUESTION = new Question()
             .setName("PD10(3)")
             .setId(2143)
@@ -42,6 +37,8 @@ public class QuestionTestData {
     static {
         getSpecialQuestionTranslations()
                 .forEach(translation -> translation.setQuestion(SPECIAL_QUESTION));
+        getBasicQuestionTranslations()
+                .forEach(translation -> translation.setQuestion(BASIC_QUESTION));
     }
 
 }
