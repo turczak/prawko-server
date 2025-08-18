@@ -12,26 +12,26 @@ import static pl.prawko.prawko_server.test_utils.QuestionTestData.SPECIAL_QUESTI
 
 public class AnswerTestData {
 
-    static final Answer ANSWER_A = new Answer()
+    private static final Answer ANSWER_A = new Answer()
             .setCorrect(false)
             .setQuestion(SPECIAL_QUESTION)
             .setTranslations(getAnswerTranslationsA());
 
-    static final Answer ANSWER_B = new Answer()
+    private static final Answer ANSWER_B = new Answer()
             .setCorrect(true)
             .setQuestion(SPECIAL_QUESTION)
             .setTranslations(getAnswerTranslationsB());
 
-    static final Answer ANSWER_C = new Answer()
+    private static final Answer ANSWER_C = new Answer()
             .setCorrect(false)
             .setQuestion(SPECIAL_QUESTION)
             .setTranslations(getAnswerTranslationsC());
 
-    static final Answer ANSWER_Y = new Answer()
+    private static final Answer ANSWER_Y = new Answer()
             .setCorrect(false)
             .setQuestion(BASIC_QUESTION);
 
-    static final Answer ANSWER_N = new Answer()
+    private static final Answer ANSWER_N = new Answer()
             .setCorrect(true)
             .setQuestion(BASIC_QUESTION);
 
