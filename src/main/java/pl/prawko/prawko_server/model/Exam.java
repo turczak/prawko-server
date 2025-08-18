@@ -147,18 +147,20 @@ public class Exam {
         final var exam = (Exam) object;
         return id == exam.id
                 && Objects.equals(user, exam.user)
-                && Objects.equals(questions, exam.questions);
+                && Objects.equals(questions, exam.questions)
+                && Objects.equals(category, exam.category)
+                && Objects.equals(language, exam.language);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, questions);
+        return Objects.hash(id, user, questions, category, language);
     }
 
     @Override
     public String toString() {
-        return "Exam{id=%d, created=%s, user=%s, active=%s, score=%d, questions=%s, userAnswers=%s}"
-                .formatted(id, created, user, active, score, questions, userAnswers);
+        return "Exam{id=%d, created=%s, user=%s, active=%s, score=%d, category=%s, language=%s, questions=%s, userAnswers=%s}"
+                .formatted(id, created, user, active, score, category, language, questions, userAnswers);
     }
 
 }
