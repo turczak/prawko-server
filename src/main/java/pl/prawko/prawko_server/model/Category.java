@@ -27,7 +27,7 @@ public class Category {
     private List<Question> questions;
 
     @OneToMany(mappedBy = "category")
-    private List<User> users;
+    private List<Exam> exams;
 
     public long getId() {
         return id;
@@ -56,12 +56,12 @@ public class Category {
         return this;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<Exam> getExams() {
+        return exams;
     }
 
-    public Category setUsers(final List<User> users) {
-        this.users = users;
+    public Category setExams(List<Exam> exams) {
+        this.exams = exams;
         return this;
     }
 

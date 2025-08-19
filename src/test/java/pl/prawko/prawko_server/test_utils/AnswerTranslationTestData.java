@@ -46,30 +46,6 @@ public class AnswerTranslationTestData {
             .setLanguage(DE)
             .setContent("jede 15 Minuten");
 
-    private static final AnswerTranslation ANSWER_Y_PL = new AnswerTranslation()
-            .setLanguage(PL)
-            .setContent("Tak");
-
-    private static final AnswerTranslation ANSWER_Y_EN = new AnswerTranslation()
-            .setLanguage(EN)
-            .setContent("Yes");
-
-    private static final AnswerTranslation ANSWER_Y_DE = new AnswerTranslation()
-            .setLanguage(DE)
-            .setContent("Ja");
-
-    private static final AnswerTranslation ANSWER_N_PL = new AnswerTranslation()
-            .setLanguage(PL)
-            .setContent("Nie");
-
-    private static final AnswerTranslation ANSWER_N_EN = new AnswerTranslation()
-            .setLanguage(EN)
-            .setContent("No");
-
-    private static final AnswerTranslation ANSWER_N_DE = new AnswerTranslation()
-            .setLanguage(DE)
-            .setContent("Nein");
-
     static List<AnswerTranslation> getAnswerTranslationsA() {
         return List.of(
                 ANSWER_A_PL,
@@ -91,22 +67,6 @@ public class AnswerTranslationTestData {
                 ANSWER_C_PL,
                 ANSWER_C_EN,
                 ANSWER_C_DE
-        );
-    }
-
-    static List<AnswerTranslation> getAnswerTranslationsY() {
-        return List.of(
-                ANSWER_Y_PL,
-                ANSWER_Y_EN,
-                ANSWER_Y_DE
-        );
-    }
-
-    static List<AnswerTranslation> getAnswerTranslationsN() {
-        return List.of(
-                ANSWER_N_PL,
-                ANSWER_N_EN,
-                ANSWER_N_DE
         );
     }
 

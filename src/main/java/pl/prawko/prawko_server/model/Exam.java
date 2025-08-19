@@ -48,6 +48,14 @@ public class Exam {
     )
     private List<Answer> userAnswers;
 
+    @ManyToOne
+    @JoinColumn(name = "language_id")
+    private Language language;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     private boolean active;
     private int score;
 
@@ -113,6 +121,24 @@ public class Exam {
         return this;
     }
 
+    public Language getLanguage() {
+        return language;
+    }
+
+    public Exam setLanguage(Language language) {
+        this.language = language;
+        return this;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Exam setCategory(Category category) {
+        this.category = category;
+        return this;
+    }
+
     @Override
     public boolean equals(final Object object) {
         if (object == null || getClass() != object.getClass()) {
@@ -121,18 +147,20 @@ public class Exam {
         final var exam = (Exam) object;
         return id == exam.id
                 && Objects.equals(user, exam.user)
-                && Objects.equals(questions, exam.questions);
+                && Objects.equals(questions, exam.questions)
+                && Objects.equals(category, exam.category)
+                && Objects.equals(language, exam.language);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, questions);
+        return Objects.hash(id, user, questions, category, language);
     }
 
     @Override
     public String toString() {
-        return "Exam{id=%d, created=%s, user=%s, active=%s, score=%d, questions=%s, userAnswers=%s}"
-                .formatted(id, created, user, active, score, questions, userAnswers);
+        return "Exam{id=%d, created=%s, user=%s, active=%s, score=%d, category=%s, language=%s, questions=%s, userAnswers=%s}"
+                .formatted(id, created, user, active, score, category, language, questions, userAnswers);
     }
 
 }
