@@ -6,7 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClient;
 import pl.prawko.prawko_server.dto.ApiResponse;
 import pl.prawko.prawko_server.test_utils.MultiPartFactory;
@@ -23,7 +22,6 @@ public class QuestionControllerTest {
     private int port;
 
     private RestClient restClient;
-    private MultiValueMap<String, Object> multipart;
 
     @BeforeEach
     void setUp() {
@@ -35,7 +33,7 @@ public class QuestionControllerTest {
     @Test
     void addQuestions_throwBadRequest_whenFileIsMissing() {
         final var expected = "Required part 'file' is not present.";
-        multipart = MultiPartFactory.empty();
+        final var multipart = MultiPartFactory.empty();
 
         final var response = restClient.post()
                 .uri(URL)
@@ -50,7 +48,7 @@ public class QuestionControllerTest {
     @Test
     void addQuestions_throwUnsupportedMediaType_whenFileFormatIsWrong() {
         final var expected = "Invalid file format.";
-        multipart = MultiPartFactory.withWrongFile();
+        final var multipart = MultiPartFactory.withWrongFile();
 
         final var response = restClient.post()
                 .uri(URL)
@@ -65,12 +63,12 @@ public class QuestionControllerTest {
     @Test
     void addQuestions_returnOk_whenSuccess() {
         final var expected = "Questions from file added successfully.";
-        multipart = MultiPartFactory.fromClasspath("test_question.csv");
+        final var multipart = MultiPartFactory.fromClasspath("test_question.csv");
 
         final var response = restClient.post()
                 .uri(URL)
                 .contentType(MediaType.MULTIPART_FORM_DATA)
-                .body(MultiPartFactory.fromClasspath("test_question.csv"))
+                .body(multipart)
                 .retrieve()
                 .toEntity(ApiResponse.class);
 
