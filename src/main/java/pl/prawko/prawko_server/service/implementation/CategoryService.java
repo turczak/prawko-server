@@ -9,15 +9,28 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementation of {@link ICategoryService} that retrieves {@link Category} entities using a {@link CategoryRepository}.
+ */
 @Service
 public class CategoryService implements ICategoryService {
 
     private final CategoryRepository repository;
 
+    /**
+     * Constructs a {code CategoryService} with the given {@link CategoryRepository}.
+     *
+     * @param repository the category repository used for data access
+     */
     public CategoryService(final CategoryRepository repository) {
         this.repository = repository;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException when not found
+     */
     @Override
     public Category findByName(final String name) {
         return repository.findByName(name)
@@ -25,6 +38,9 @@ public class CategoryService implements ICategoryService {
                         () -> new RuntimeException("category: " + name + " not found"));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Category> findAllFromString(final String input) {
         return Arrays.stream(input.split(","))
