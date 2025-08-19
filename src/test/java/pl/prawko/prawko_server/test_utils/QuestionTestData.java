@@ -5,8 +5,8 @@ import pl.prawko.prawko_server.model.QuestionType;
 
 import java.util.List;
 
-import static pl.prawko.prawko_server.test_utils.AnswerTestData.BASIC_ANSWERS;
-import static pl.prawko.prawko_server.test_utils.AnswerTestData.SPECIAL_ANSWERS;
+import static pl.prawko.prawko_server.test_utils.AnswerTestData.getBasicAnswers;
+import static pl.prawko.prawko_server.test_utils.AnswerTestData.getSpecialAnswers;
 import static pl.prawko.prawko_server.test_utils.CategoryTestData.CATEGORIES_AB;
 import static pl.prawko.prawko_server.test_utils.CategoryTestData.CATEGORY_PT;
 import static pl.prawko.prawko_server.test_utils.QuestionTranslationTestData.getBasicQuestionTranslations;
@@ -22,7 +22,7 @@ public class QuestionTestData {
             .setPoints(3)
             .setCategories(CATEGORIES_AB)
             .setTranslations(getBasicQuestionTranslations())
-            .setAnswers(BASIC_ANSWERS);
+            .setAnswers(getBasicAnswers());
 
     public static final Question SPECIAL_QUESTION = new Question()
             .setName("PD10(3)")
@@ -32,13 +32,17 @@ public class QuestionTestData {
             .setPoints(2)
             .setCategories(List.of(CATEGORY_PT))
             .setTranslations(getSpecialQuestionTranslations())
-            .setAnswers(SPECIAL_ANSWERS);
+            .setAnswers(getSpecialAnswers());
 
     static {
-        getSpecialQuestionTranslations()
-                .forEach(translation -> translation.setQuestion(SPECIAL_QUESTION));
-        getBasicQuestionTranslations()
-                .forEach(translation -> translation.setQuestion(BASIC_QUESTION));
+        getBasicQuestionTranslations().forEach(translation -> translation.setQuestion(BASIC_QUESTION));
+        getSpecialQuestionTranslations().forEach(translation -> translation.setQuestion(SPECIAL_QUESTION));
+        getBasicAnswers().forEach(answer -> answer.setQuestion(BASIC_QUESTION));
+        getSpecialAnswers().forEach(answer -> {
+            answer.setQuestion(SPECIAL_QUESTION);
+            answer.getTranslations()
+                    .forEach(translation -> translation.setAnswer(answer));
+        });
     }
 
 }
