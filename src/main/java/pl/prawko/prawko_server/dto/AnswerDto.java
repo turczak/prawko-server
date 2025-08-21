@@ -16,7 +16,6 @@ public record AnswerDto(
         long id,
         long questionId,
         boolean correct,
-        char label,
         String content,
         List<AnswerTranslation> translations
 
