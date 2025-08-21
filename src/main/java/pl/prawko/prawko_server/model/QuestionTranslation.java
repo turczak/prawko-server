@@ -10,6 +10,22 @@ import jakarta.persistence.ManyToOne;
 
 import java.util.Objects;
 
+/**
+ * Represents a translation of a {@link Question} into a specific {@link Language}
+ * <p>
+ * A {@code QuestionTranslation} has:
+ * <ul>
+ *     <li>id - generated unique identifier</li>
+ *     <li>content - text of translation</li>
+ * </ul>
+ * <p>
+ * Relationships:
+ * <ul>
+ *     <li>{@link Question}: Many translations are assigned to single question.</li>
+ *     <li>{@link Language}: Many translations are assigned to single language.</li>
+ * </ul>
+ * All setters are returning {@code QuestionTranslation} itself, enabling method chaining.
+ */
 @Entity
 public class QuestionTranslation {
 

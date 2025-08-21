@@ -12,6 +12,24 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents a {@code Category} entity within application.
+ * <p>
+ * A {@code Language} has:
+ *  <ul>
+ *     <li>{@code id} - generated unique identifier</li>
+ *     <li>{@code name} - limited to 3 characters</li>
+ * </ul>
+ * <p>
+ * Relationships:
+ * <ul>
+ *     <li>{@link Question}: Each {@code category} can have multiple questions</li>
+ *     <li>{@link Exam}: {@code Category} can be assigned to multiple exams</li>
+ * </ul>
+ * <p>
+ * The entity is mapped do the database table {@code category}.
+ * All setters are returning {@code  Language} itself enabling method chaining.
+ */
 @Entity
 public class Category {
 

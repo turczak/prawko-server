@@ -16,26 +16,48 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents a {@code Question} entity within application.
+ * <p>
+ * A {@code Question} has:
+ *  <ul>
+ *     <li>{@code id} - fixed unique identifier</li>
+ *     <li>{@code name} - limited to 7 characters</li>
+ *     <li>{@code points} - number of given points for correct answer to a question</li>
+ *     <li>{@code media} - filename of media attached to a question</li>
+ *     <li>{@code type} - type of question represented by {@link QuestionType}</li>
+ * </ul>
+ * <p>
+ * Relationships:
+ * <ul>
+ *     <li>{@link QuestionTranslation}: Question can have a multiple translations.</li>
+ *     <li>{@link Answer}: Question have two or three answers.</li>
+ * </ul>
+ * The entity is mapped do the database table {@code question}.
+ * All setters are returning {@code Question} itself enabling method chaining.
+ */
 @Entity
 public class Question {
 
     @Id
     private long id;
 
+    @Column(length = 7)
     private String name;
+
     private int points;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
-    private List<QuestionTranslation> translations;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
-    private List<Answer> answers;
 
     @Column(length = 63)
     private String media;
 
     @Enumerated(EnumType.STRING)
     private QuestionType type;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
+    private List<QuestionTranslation> translations;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
+    private List<Answer> answers;
 
     @ManyToMany
     @JsonManagedReference

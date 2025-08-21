@@ -38,9 +38,6 @@ public class CategoryService implements ICategoryService {
                         () -> new RuntimeException("category: " + name + " not found"));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<Category> findAllFromString(final String input) {
         return Arrays.stream(input.split(","))

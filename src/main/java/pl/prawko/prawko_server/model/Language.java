@@ -11,11 +11,42 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents a {@code Language} entity within application.
+ * <p>
+ * A {@code Language} has:
+ *  <ul>
+ *     <li>{@code id} - fixed unique identifier</li>
+ *     <li>{@code name} - limited to 7 characters</li>
+ *     <li>{@code points} - number of given points for correct answer to a question</li>
+ *     <li>{@code media} - filename of media attached to a question</li>
+ *     <li>{@code type} - type of question represented by {@link QuestionType}</li>
+ * </ul>
+ * <p>
+ * Relationships:
+ * <ul>
+ *     <li>{@link QuestionTranslation}: Each language is assigned with multiple question translations.</li>
+ *     <li>{@link AnswerTranslation}: Each language is assigned with multiple answer translations.</li>
+ *     <li>{@link Exam}: Each language is assigned with multiple exams.</li>
+ * </ul>
+ * <p>
+ * The entity is mapped do the database table {@code question}.
+ * All setters are returning {@code  Language} itself enabling method chaining.
+ */
 @Entity
 public class Language {
 
+    /**
+     * Predefined code language for Polish
+     */
     public static final String PL = "pl";
+    /**
+     * Predefined code language for English
+     */
     public static final String EN = "en";
+    /**
+     * Predefined code language for German
+     */
     public static final String DE = "de";
 
     @Id
