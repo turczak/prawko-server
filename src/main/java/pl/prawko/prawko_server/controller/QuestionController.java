@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import pl.prawko.prawko_server.dto.ApiResponse;
 import pl.prawko.prawko_server.service.implementation.QuestionService;
 
 /**
- * REST controller to managing questions using {@code http requests} mapped on {@code /questions}.
+ * REST controller to managing questions using http requests.
+ * <p>
+ * Mapped on {@code /questions}
  */
 @RestController
 @RequestMapping("/questions")
@@ -28,10 +28,9 @@ public class QuestionController {
     /**
      * {@code POST} for upload questions from CSV file.
      * <p>
-     * It's parsing provided file to questions which will be saved.
+     * This method delegate parsing of file and saving parsed questions to {@link QuestionService}.
      * <p>
-     * Errors are handled using {@link ExceptionController#handleMissingFile(MissingServletRequestPartException)}
-     * and {@link ExceptionController#handleWrongFileType(MultipartException)}.
+     * Errors are handled via {@link ExceptionController}.
      *
      * @param file provided file in request
      * @return success if questions from file were added

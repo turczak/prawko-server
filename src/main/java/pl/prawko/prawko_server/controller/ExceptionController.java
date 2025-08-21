@@ -11,7 +11,7 @@ import pl.prawko.prawko_server.dto.ApiResponse;
 /**
  * Handles exceptions in REST controllers.
  * <p>
- * Returns error responses using {@link ApiResponse}
+ * Returns error responses using {@link ApiResponse} with {@code HttpStatus}
  */
 @RestControllerAdvice
 public class ExceptionController {
@@ -20,7 +20,7 @@ public class ExceptionController {
      * Handle cases when request is missing required file.
      *
      * @param exception exception thrown when a required file is missing
-     * @return an error response
+     * @return an error response with 400 Bad Request
      */
     @ExceptionHandler(MissingServletRequestPartException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -32,7 +32,7 @@ public class ExceptionController {
      * Handle cases when request contain wrong type of file.
      *
      * @param exception exception thrown when a required file is wrong type
-     * @return an error response
+     * @return an error response with 415 Unsupported Media Type
      */
     @ExceptionHandler(MultipartException.class)
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
