@@ -10,6 +10,12 @@ import pl.prawko.prawko_server.service.implementation.LanguageService;
 
 import java.util.List;
 
+/**
+ * This class is responsible for mapping {@link QuestionCSV} model into {@link Answer} entity.
+ * <p>
+ * The mapper is registered as a Spring {@link Component}, so it can be injected into services or other components that require answer mapping
+ * functionality.
+ */
 @Component
 public class AnswerMapper {
 
@@ -21,6 +27,13 @@ public class AnswerMapper {
 
     private static final List<Character> SPECIAL_LABELS = List.of('A', 'B', 'C');
 
+    /**
+     * This method recognise question type and create basic or special answers.
+     *
+     * @param questionCSV CSV model to map answers from
+     * @param question    {@link Question} entity that answers would be linked to
+     * @return list of basic or special {@link Answer} entities
+     */
     public List<Answer> fromQuestionCSVToAnswers(final QuestionCSV questionCSV,
                                                  final Question question) {
         return switch (QuestionType.ofType(questionCSV.type())) {
@@ -36,6 +49,13 @@ public class AnswerMapper {
         };
     }
 
+    /**
+     * This method is responsible for creating special {@link Answer} with their translations from CSV model.
+     *
+     * @param questionCSV CSV model to map answers with translations from
+     * @param question    {@link Question} entity that answers would be linked to
+     * @return list of special {@link Answer} entities
+     */
     private List<Answer> mapSpecialQuestionAnswers(final QuestionCSV questionCSV,
                                                    final Question question) {
         final var languages = languageService.findAll();
