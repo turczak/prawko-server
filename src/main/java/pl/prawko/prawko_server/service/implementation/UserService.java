@@ -1,6 +1,7 @@
 package pl.prawko.prawko_server.service.implementation;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.prawko.prawko_server.dto.RegisterDto;
 import pl.prawko.prawko_server.exception.AlreadyExistsException;
 import pl.prawko.prawko_server.mapper.UserMapper;
@@ -31,6 +32,7 @@ public class UserService implements IUserService {
      * @throws AlreadyExistsException if a user with the same username or email already exists
      */
     @Override
+    @Transactional
     public void register(final RegisterDto dto) {
         final Map<String, String> errorDetails = new LinkedHashMap<>();
         if (repository.existsByUserName(dto.userName())) {

@@ -15,7 +15,11 @@ import java.util.List;
 @Component
 public class UserMapper {
 
-    private RoleService roleService;
+    private final RoleService roleService;
+
+    public UserMapper(final RoleService roleService) {
+        this.roleService = roleService;
+    }
 
     /**
      * This method is mapping {@link RegisterDto} into {@link User} entity.
