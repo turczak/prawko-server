@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.test_utils;
 
+import pl.prawko.prawko_server.dto.RegisterDto;
 import pl.prawko.prawko_server.model.Role;
 import pl.prawko.prawko_server.model.User;
 
@@ -14,8 +15,23 @@ public class UserTestData {
             .setLastName("Tuk")
             .setUserName("pippin")
             .setEmail("pippin@shire.me")
-            .setPassword("lembas")
+            .setPassword("lembasy")
             .setRoles(List.of(role))
             .setEnabled(true);
+
+    public static final RegisterDto VALID_REGISTER_DTO = new RegisterDto(
+            "Peregrin",
+            "Tuk",
+            "pippin",
+            "pippin@shire.me",
+            "lembasy");
+
+    public static final RegisterDto INVALID_REGISTER_DTO = new RegisterDto(
+            "Supercalifragilisticexpialidocious",
+            " ",
+            "OK",
+            "notValidMail@mail@mail",
+            "lembas"
+    );
 
 }

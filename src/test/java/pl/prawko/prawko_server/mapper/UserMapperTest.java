@@ -5,7 +5,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.prawko.prawko_server.dto.RegisterDto;
 import pl.prawko.prawko_server.model.Role;
 import pl.prawko.prawko_server.service.implementation.RoleService;
 import pl.prawko.prawko_server.test_utils.UserTestData;
@@ -26,12 +25,7 @@ class UserMapperTest {
 
     @Test
     void fromDto_correctlyMapUser() {
-        final var dto = new RegisterDto(
-                "Peregrin",
-                "Tuk",
-                "pippin",
-                "pippin@shire.me",
-                "lembas");
+        final var dto = UserTestData.VALID_REGISTER_DTO;
         final var role = new Role().setName("USER");
         final var expected = UserTestData.TESTER;
         when(roleService.findByName(role.getName())).thenReturn(role);
