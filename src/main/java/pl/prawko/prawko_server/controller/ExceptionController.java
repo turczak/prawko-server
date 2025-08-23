@@ -1,12 +1,18 @@
 package pl.prawko.prawko_server.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import pl.prawko.prawko_server.dto.ApiResponse;
+import pl.prawko.prawko_server.exception.AlreadyExistsException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestControllerAdvice
 public class ExceptionController {
@@ -21,6 +27,45 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     public ApiResponse handleWrongFileType(final MultipartException exception) {
         return new ApiResponse(exception.getMessage());
+    }
+
+    /**
+     * Handles cases when entity already exists.
+     *
+     * @param exception exception thrown when entity already exists
+     * @return an error response with 409 Conflict
+     */
+    @ExceptionHandler(AlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ApiResponse handleAlreadyExists(final AlreadyExistsException exception) {
+        return new ApiResponse(exception.getMessage(), exception.getDetails());
+    }
+
+    /**
+     * Handles cases when entity is not found.
+     *
+     * @param exception exception thrown when entity not found
+     * @return an error response with 404 Not Found
+     */
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiResponse handleEntityNotFound(final EntityNotFoundException exception) {
+        return new ApiResponse(exception.getMessage());
+    }
+
+    /**
+     * Handles cases when requested body is invalid.
+     *
+     * @param exception exception thrown when request body contains invalid content.
+     * @return an error response with 400 Bad Request
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiResponse handleInvalidDto(final MethodArgumentNotValidException exception) {
+        final Map<String, String> errors = new HashMap<>();
+        exception.getBindingResult().getFieldErrors().forEach(error ->
+                errors.put(error.getField(), error.getDefaultMessage()));
+        return new ApiResponse("Validation for request failed.", errors);
     }
 
 }
