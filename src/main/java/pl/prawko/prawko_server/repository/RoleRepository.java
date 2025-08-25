@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
     /**
-     * This method looking for existing role with provided name and return it.
+     * Searches for an existing role with the provided name and returns it.
      *
      * @param name provided name of the role
      * @return role when found, otherwise empty
