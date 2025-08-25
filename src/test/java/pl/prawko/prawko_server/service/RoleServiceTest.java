@@ -42,7 +42,7 @@ class RoleServiceTest {
         final var roleName = "nonExistingRole";
         when(repository.findByName(roleName)).thenReturn(Optional.empty());
 
-        ThrowableAssert.ThrowingCallable result = () -> service.findByName(roleName);
+        final ThrowableAssert.ThrowingCallable result = () -> service.findByName(roleName);
 
         assertThatThrownBy(result)
                 .isInstanceOf(EntityNotFoundException.class)
