@@ -28,7 +28,7 @@ public class QuestionController {
     /**
      * {@code POST} for upload questions from CSV file.
      * <p>
-     * This method delegate parsing of file and saving parsed questions to {@link QuestionService}.
+     * Delegate parsing of file and saving parsed questions to {@link QuestionService}.
      * <p>
      * Errors are handled via {@link ExceptionController}.
      *

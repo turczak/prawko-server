@@ -17,7 +17,7 @@ import pl.prawko.prawko_server.dto.ApiResponse;
 public class ExceptionController {
 
     /**
-     * Handle cases when request is missing required file.
+     * Handles cases when a request doesn't contain required file.
      *
      * @param exception exception thrown when a required file is missing
      * @return an error response with 400 Bad Request
@@ -29,7 +29,7 @@ public class ExceptionController {
     }
 
     /**
-     * Handle cases when request contain wrong type of file.
+     * Handles cases when the request contains wrong file type.
      *
      * @param exception exception thrown when a required file is wrong type
      * @return an error response with 415 Unsupported Media Type
