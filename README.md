@@ -18,15 +18,27 @@
 
 ## Prerequisites
 
-### Debian 13
+* Java 21
+* Maven
 
-Java 21
+### Debian 13
 
 `sudo apt install openjdk-21-jdk`
 
-Maven
-
 `sudo apt install maven`
+
+### Windows
+
+`winget install Microsoft.OpenJDK.21`
+
+You can install Maven via terminal with **Scoop**. If you don't have Scoop installed you can do it running this in terminal:
+
+`Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression`
+
+Maven installation
+
+`scoop install main/maven`
 
 ## Installation
 
