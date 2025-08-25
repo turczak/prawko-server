@@ -4,6 +4,7 @@
 
 * [Table of Contents](#table-of-contents)
 * [Overview](#overview)
+* [Prerequisites](#prerequisites)
 * [Installation](#installation)
 * [Usage](#usage)
 
@@ -14,6 +15,18 @@
 **Prawko Server** is a REST API Server created with Java 21 and Spring 6 for Prawko projects.
 
 ---
+
+## Prerequisites
+
+### Debian 13
+
+Java 21
+
+`sudo apt install openjdk-21-jdk`
+
+Maven
+
+`sudo apt install maven`
 
 ## Installation
 
