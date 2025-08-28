@@ -7,7 +7,7 @@ import pl.prawko.prawko_server.repository.RoleRepository;
 import pl.prawko.prawko_server.service.IRoleService;
 
 /**
- * Implementation of {@link IRoleService} that manage {@link Role} entities.
+ * Implementation of {@link IRoleService} that manages {@link Role} entities.
  */
 @Service
 public class RoleService implements IRoleService {

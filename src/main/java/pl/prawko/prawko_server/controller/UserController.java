@@ -13,7 +13,9 @@ import pl.prawko.prawko_server.model.User;
 import pl.prawko.prawko_server.service.implementation.UserService;
 
 /**
- * REST controller for managing {@link User} entities using http requests mapped on {@code /users}.
+ * REST controller for managing {@link User} entities using http requests.
+ * <p>
+ * Mapped on {@code /users}.
  */
 @RestController
 @RequestMapping("/users")
@@ -26,11 +28,11 @@ public class UserController {
     }
 
     /**
-     * POST method to register new {@link User}.
+     * POST method to register a new {@link User}.
      * <p>
-     * Errors are handled via {@link ExceptionController#handleAlreadyExists(AlreadyExistsException)}
+     * Errors are handled by {@link ExceptionController#handleAlreadyExists(AlreadyExistsException)}
      *
-     * @param dto DTO used to transfer details of registration
+     * @param dto the DTO containing user registration details
      * @return status 200 with success message
      */
     @PostMapping

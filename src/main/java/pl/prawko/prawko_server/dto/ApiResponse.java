@@ -12,12 +12,6 @@ public record ApiResponse(
         Map<String, String> details
 
 ) {
-
-    /**
-     * Constructs {@code ApiResponse} without details.
-     *
-     * @param message provided text
-     */
     public ApiResponse(final String message) {
         this(message, null);
     }

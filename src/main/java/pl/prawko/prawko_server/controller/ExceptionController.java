@@ -30,9 +30,9 @@ public class ExceptionController {
     }
 
     /**
-     * Handles cases when entity already exists.
+     * Handles cases when the entity already exists.
      *
-     * @param exception exception thrown when entity already exists
+     * @param exception exception thrown when the entity already exists
      * @return an error response with 409 Conflict
      */
     @ExceptionHandler(AlreadyExistsException.class)
@@ -42,9 +42,9 @@ public class ExceptionController {
     }
 
     /**
-     * Handles cases when entity is not found.
+     * Handles cases when the entity was not found.
      *
-     * @param exception exception thrown when entity not found
+     * @param exception exception thrown when the entity was not found
      * @return an error response with 404 Not Found
      */
     @ExceptionHandler(EntityNotFoundException.class)
@@ -54,9 +54,9 @@ public class ExceptionController {
     }
 
     /**
-     * Handles cases when requested body is invalid.
+     * Handles cases when the requested body is invalid.
      *
-     * @param exception exception thrown when request body contains invalid content.
+     * @param exception exception thrown when the request body contains invalid content.
      * @return an error response with 400 Bad Request
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -22,7 +22,7 @@ public class UserMapper {
     }
 
     /**
-     * This method is mapping {@link RegisterDto} into {@link User} entity.
+     * Mapping {@link RegisterDto} into {@link User} entity.
      *
      * @param dto provided dto to map user from it
      * @return mapped user with standard role and encoded password

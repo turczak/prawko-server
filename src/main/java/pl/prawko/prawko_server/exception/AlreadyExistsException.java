@@ -3,7 +3,7 @@ package pl.prawko.prawko_server.exception;
 import java.util.Map;
 
 /**
- * Custom exception with error details to throw when entity already exists.
+ * Custom exception with an error details to throw when entity already exists.
  */
 public class AlreadyExistsException extends RuntimeException {
 
