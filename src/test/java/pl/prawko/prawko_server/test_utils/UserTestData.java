@@ -8,7 +8,7 @@ import java.util.List;
 
 public class UserTestData {
 
-    private static final Role role = new Role().setName("USER");
+    private static final Role ROLE = new Role().setName("USER");
 
     public static final User TESTER = new User()
             .setFirstName("Peregrin")
@@ -16,7 +16,7 @@ public class UserTestData {
             .setUserName("pippin")
             .setEmail("pippin@shire.me")
             .setPassword("lembasy")
-            .setRoles(List.of(role))
+            .setRoles(List.of(ROLE))
             .setEnabled(true);
 
     public static final RegisterDto VALID_REGISTER_DTO = new RegisterDto(

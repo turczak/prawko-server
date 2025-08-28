@@ -1,9 +1,9 @@
 package pl.prawko.prawko_server.service;
 
+import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -14,8 +14,10 @@ import pl.prawko.prawko_server.model.User;
 import pl.prawko.prawko_server.repository.UserRepository;
 import pl.prawko.prawko_server.service.implementation.UserService;
 
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -25,6 +27,13 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
+
+    private static final Map<String, String> EXPECTED = Map.of(
+            "userName", "User with username 'pippin' already exists.",
+            "email", "User with email 'pippin@shire.me' already exists."
+    );
+
+    private static final String ERROR_MESSAGE = "User already exists.";
 
     @Mock
     private UserRepository repository;
@@ -61,14 +70,18 @@ class UserServiceTest {
 
     @Test
     void register_throwAlreadyExists_whenExistsByUserName() {
+        final var field = "userName";
         when(repository.existsByUserName(registerDto.userName())).thenReturn(true);
         when(repository.existsByEmail(registerDto.email())).thenReturn(false);
 
-        final Executable executable = () -> service.register(registerDto);
-        final var exception = assertThrows(AlreadyExistsException.class, executable);
+        final ThrowableAssert.ThrowingCallable executable = () -> service.register(registerDto);
+        final AlreadyExistsException exception = (AlreadyExistsException) catchThrowable(executable);
 
-        assertThat(exception.getMessage()).isEqualTo("User already exists.");
-        assertThat(exception.getDetails().get("userName")).isEqualTo("User with username 'pippin' already exists.");
+        assertThat(exception)
+                .isInstanceOf(AlreadyExistsException.class)
+                .hasMessageContaining(ERROR_MESSAGE);
+        assertThat(exception.getDetails().get(field))
+                .isEqualTo(EXPECTED.get(field));
 
         verify(repository, never()).save(any());
         verifyNoInteractions(mapper);
@@ -77,14 +90,18 @@ class UserServiceTest {
 
     @Test
     void register_throwAlreadyExists_whenExistsByEmail() {
+        final var field = "email";
         when(repository.existsByUserName(registerDto.userName())).thenReturn(false);
         when(repository.existsByEmail(registerDto.email())).thenReturn(true);
 
-        final Executable executable = () -> service.register(registerDto);
-        final var exception = assertThrows(AlreadyExistsException.class, executable);
+        final ThrowableAssert.ThrowingCallable executable = () -> service.register(registerDto);
+        final AlreadyExistsException exception = (AlreadyExistsException) catchThrowable(executable);
 
-        assertThat(exception.getMessage()).isEqualTo("User already exists.");
-        assertThat(exception.getDetails().get("email")).isEqualTo("User with email 'pippin@shire.me' already exists.");
+        assertThat(exception)
+                .isInstanceOf(AlreadyExistsException.class)
+                .hasMessageContaining(ERROR_MESSAGE);
+        assertThat(exception.getDetails().get(field))
+                .isEqualTo(EXPECTED.get(field));
 
         verify(repository, never()).save(any());
         verifyNoInteractions(mapper);
@@ -96,13 +113,14 @@ class UserServiceTest {
         when(repository.existsByUserName(registerDto.userName())).thenReturn(true);
         when(repository.existsByEmail(registerDto.email())).thenReturn(true);
 
-        final Executable executable = () -> service.register(registerDto);
-        final var exception = assertThrows(AlreadyExistsException.class, executable);
-        final var errors = exception.getDetails();
+        final ThrowableAssert.ThrowingCallable executable = () -> service.register(registerDto);
+        final AlreadyExistsException exception = (AlreadyExistsException) catchThrowable(executable);
 
-        assertThat(errors)
-                .hasSize(2)
-                .containsKeys("userName", "email");
+        assertThat(exception)
+                .isInstanceOf(AlreadyExistsException.class)
+                .hasMessageContaining(ERROR_MESSAGE);
+        assertThat(exception.getDetails())
+                .containsAllEntriesOf(EXPECTED);
 
         verify(repository, never()).save(any());
         verifyNoInteractions(mapper);

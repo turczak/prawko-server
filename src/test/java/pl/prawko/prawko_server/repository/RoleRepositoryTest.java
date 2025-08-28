@@ -6,7 +6,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import pl.prawko.prawko_server.model.Role;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
 class RoleRepositoryTest {
@@ -22,7 +21,7 @@ class RoleRepositoryTest {
 
         final var result = repository.findByName(expected.getName());
 
-        assertEquals("TEST", result.get().getName());
+        assertThat(result.get().getName()).isEqualTo("TEST");
     }
 
     @Test

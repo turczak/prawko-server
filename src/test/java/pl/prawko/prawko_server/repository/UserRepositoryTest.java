@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import pl.prawko.prawko_server.model.User;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 class UserRepositoryTest {
@@ -28,25 +27,25 @@ class UserRepositoryTest {
     @Test
     void existsByUserName_returnTrue() {
         final var result = repository.existsByUserName(tester.getUserName());
-        assertTrue(result);
+        assertThat(result).isTrue();
     }
 
     @Test
     void existsByUserName_returnFalse() {
         final var result = repository.existsByUserName("nonExistingUserName");
-        assertFalse(result);
+        assertThat(result).isFalse();
     }
 
     @Test
     void existsByEmail_returnTrue() {
         final var result = repository.existsByEmail(tester.getEmail());
-        assertTrue(result);
+        assertThat(result).isTrue();
     }
 
     @Test
     void existsByEmail_returnFalse() {
         final var result = repository.existsByEmail("nonExistingEmail");
-        assertFalse(result);
+        assertThat(result).isFalse();
     }
 
 }
