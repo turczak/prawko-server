@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Data Transfer Object representing an {@link Exam}.
  * <p>
- * This DTO is used to transfer exam data between the API layer and the service layer without exposing full model.
+ * This DTO is used to transfer exam data between the API layer and the service layer without exposing the full model.
  */
 public record ExamDto(
 

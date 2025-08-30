@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a {@code Question} entity within application.
+ * Represents a {@code Question} entity within the application.
  * <p>
  * A {@code Question} has:
  *  <ul>
@@ -30,11 +30,11 @@ import java.util.Objects;
  * <p>
  * Relationships:
  * <ul>
- *     <li>{@link QuestionTranslation}: Question can have a multiple translations.</li>
- *     <li>{@link Answer}: Question have two or three answers.</li>
+ *     <li>{@link QuestionTranslation}: A question can have multiple translations.</li>
+ *     <li>{@link Answer}: A question have two or three answers.</li>
  * </ul>
- * The entity is mapped do the database table {@code question}.
- * All setters are returning {@code Question} itself enabling method chaining.
+ * The entity is mapped to the database table {@code question}.
+ * All setters are returning {@code Question} itself, enabling method chaining.
  */
 @Entity
 public class Question {

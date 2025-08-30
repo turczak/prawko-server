@@ -9,7 +9,7 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import pl.prawko.prawko_server.dto.ApiResponse;
 
 /**
- * Handles exceptions in REST controllers.
+ * Handle exceptions in REST controllers.
  * <p>
  * Returns error responses using {@link ApiResponse} with {@code HttpStatus}
  */
@@ -17,7 +17,7 @@ import pl.prawko.prawko_server.dto.ApiResponse;
 public class ExceptionController {
 
     /**
-     * Handles cases when a request doesn't contain required file.
+     * Handles cases when a request doesn't contain the required file.
      *
      * @param exception exception thrown when a required file is missing
      * @return an error response with 400 Bad Request
@@ -29,9 +29,9 @@ public class ExceptionController {
     }
 
     /**
-     * Handles cases when the request contains wrong file type.
+     * Handles cases when the request contains the wrong file type.
      *
-     * @param exception exception thrown when a required file is wrong type
+     * @param exception exception thrown when a required file is the wrong type
      * @return an error response with 415 Unsupported Media Type
      */
     @ExceptionHandler(MultipartException.class)

@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a {@code User} entity within application.
+ * Represents a {@code User} entity within the application.
  * <p>
  * A {@code User} contains personal details such as:
  *  <ul>
@@ -38,8 +38,8 @@ import java.util.Objects;
  *     <li>{@link Role}: A user can have multiple roles, defining their permissions in the system.</li>
  *     <li>{@link Exam}: A user can be assigned to multiple exams.</li>
  * </ul>
- * The entity is mapped do the database table {@code user} and uses automatic timestamp handling.
- * All setters are returning {@link User} itself.
+ * The entity is mapped to the database table {@code user} and uses automatic timestamp handling.
+ * All setters are returning {@code User} itself, enabling method chaining.
  */
 @Entity
 @Table(name = "`user`")

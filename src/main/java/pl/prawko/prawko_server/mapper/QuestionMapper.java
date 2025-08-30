@@ -38,7 +38,7 @@ public class QuestionMapper {
 
     /**
      * This method is using fluent setters to build a {@code Question} entity.
-     * It's using helper methods to get content translations of question.
+     * It's using helper methods to get content translations of the question.
      *
      * @param questionCSV CSV model to map question from
      * @return mapped {@code Question} entity

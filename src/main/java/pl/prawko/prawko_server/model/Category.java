@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a {@code Category} entity within application.
+ * Represents a {@code Category} entity within the application.
  * <p>
  * A {@code Language} has:
  *  <ul>
@@ -28,7 +28,7 @@ import java.util.Objects;
  * </ul>
  * <p>
  * The entity is mapped do the database table {@code category}.
- * All setters are returning {@code  Language} itself enabling method chaining.
+ * All setters are returning {@code  Language} itself, enabling method chaining.
  */
 @Entity
 public class Category {

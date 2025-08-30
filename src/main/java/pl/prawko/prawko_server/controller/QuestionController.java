@@ -11,7 +11,7 @@ import pl.prawko.prawko_server.dto.ApiResponse;
 import pl.prawko.prawko_server.service.implementation.QuestionService;
 
 /**
- * REST controller to managing questions using http requests.
+ * REST controller to manage questions using HTTP requests.
  * <p>
  * Mapped on {@code /questions}
  */
@@ -26,9 +26,9 @@ public class QuestionController {
     }
 
     /**
-     * {@code POST} for upload questions from CSV file.
+     * {@code POST} for uploading questions from a CSV file.
      * <p>
-     * Delegate parsing of file and saving parsed questions to {@link QuestionService}.
+     * Delegate parsing of the file and saving parsed questions to {@link QuestionService}.
      * <p>
      * Errors are handled via {@link ExceptionController}.
      *

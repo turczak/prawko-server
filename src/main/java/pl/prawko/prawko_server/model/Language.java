@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a {@code Language} entity within application.
+ * Represents a {@code Language} entity within the application.
  * <p>
  * A {@code Language} has:
  *  <ul>
@@ -25,13 +25,13 @@ import java.util.Objects;
  * <p>
  * Relationships:
  * <ul>
- *     <li>{@link QuestionTranslation}: Each language is assigned with multiple question translations.</li>
- *     <li>{@link AnswerTranslation}: Each language is assigned with multiple answer translations.</li>
- *     <li>{@link Exam}: Each language is assigned with multiple exams.</li>
+ *     <li>{@link QuestionTranslation}: Each language is assigned to multiple question translations.</li>
+ *     <li>{@link AnswerTranslation}: Each language is assigned to multiple answer translations.</li>
+ *     <li>{@link Exam}: Each language is assigned to multiple exams.</li>
  * </ul>
  * <p>
  * The entity is mapped do the database table {@code question}.
- * All setters are returning {@code  Language} itself enabling method chaining.
+ * All setters are returning {@code  Language} itself, enabling method chaining.
  */
 @Entity
 public class Language {

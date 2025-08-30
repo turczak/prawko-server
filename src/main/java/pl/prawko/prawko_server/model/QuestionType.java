@@ -5,8 +5,8 @@ import java.util.Arrays;
 /**
  * Represents the type of question.
  * <p>
- * Each type is associated with a descriptive name in polish because that's how it's stored in original CSV file from
- * <a href="https://www.gov.pl/web/infrastruktura/prawo-jazdy">Officials questions for polish driving licence test</a>.
+ * Each type is associated with a descriptive name in Polish because that's how it's stored in original CSV file from
+ * <a href="https://www.gov.pl/web/infrastruktura/prawo-jazdy">Officials questions for the Polish driving licence test</a>.
  */
 public enum QuestionType {
 
@@ -30,7 +30,7 @@ public enum QuestionType {
     }
 
     /**
-     * Returns corresponding {@code QuestionType} based on the given name.
+     * Returns the corresponding {@code QuestionType} based on the given name.
      *
      * @param name the name of the question type
      * @return the matching {@code QuestionType}

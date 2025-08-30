@@ -17,13 +17,13 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a {@code Exam} entity within application.
+ * Represents a {@code Exam} entity within the application.
  * <p>
- * A {@code Exam} has:
+ * An {@code Exam} has:
  *  <ul>
  *     <li>{@code id} - unique generated identifier</li>
  *     <li>{@code active} - status of exam, representing if user is solving it</li>
- *     <li>{@code score} - sum of correct answered questions in exam by user</li>
+ *     <li>{@code score} - sum of correct answers in exam by user</li>
  *     <li>{@code created} - timestamp of creation</li>
  * </ul>
  * <p>
@@ -35,8 +35,8 @@ import java.util.Objects;
  *     <li>{@link Language}: Each exam have single language</li>
  *     <li>{@link Category}: Each exam have single category or multiple categories</li>
  * </ul>
- * The entity is mapped do the database table {@code exam} and uses automatic timestamp handling.
- * All setters are returning {@code Exam} itself enabling method chaining.
+ * The entity is mapped to the database table {@code exam} and uses automatic timestamp handling.
+ * All setters are returning {@code Exam} itself, enabling method chaining.
  */
 @Entity
 public class Exam {

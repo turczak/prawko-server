@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Data Transfer Object representing an {@link Answer} for a {@link Question}.
  * <p>
- * This DTO is used to transfer answer data between the API layer and the service layer without exposing full model.
+ * This DTO is used to transfer answer data between the API layer and the service layer without exposing the full model.
  */
 public record AnswerDto(
 

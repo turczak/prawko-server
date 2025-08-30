@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Data Transfer Object representing a {@link Question}
  * <p>
- * This DTO is used to transfer question data between the API layer and the service layer without exposing full model.
+ * This DTO is used to transfer question data between the API layer and the service layer without exposing the full model.
  */
 public record QuestionDto(
 

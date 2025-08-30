@@ -5,7 +5,7 @@ import pl.prawko.prawko_server.model.User;
 /**
  * Data Transfer Object used when managing an {@link User}.
  * <p>
- * This DTO is used to transfer user data between the API layer and the service layer without exposing full model.
+ * This DTO is used to transfer user data between the API layer and the service layer without exposing the full model.
  */
 public record UserDto(
 

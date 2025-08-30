@@ -28,7 +28,7 @@ public class AnswerMapper {
     private static final List<Character> SPECIAL_LABELS = List.of('A', 'B', 'C');
 
     /**
-     * This method recognise question type and create basic or special answers.
+     * This method recognizes question types and creates basic or special answers.
      *
      * @param questionCSV CSV model to map answers from
      * @param question    {@link Question} entity that answers would be linked to
@@ -50,7 +50,7 @@ public class AnswerMapper {
     }
 
     /**
-     * This method is responsible for creating special {@link Answer} with their translations from CSV model.
+     * This method is responsible for creating special {@link Answer} with their translations from the CSV model.
      *
      * @param questionCSV CSV model to map answers with translations from
      * @param question    {@link Question} entity that answers would be linked to

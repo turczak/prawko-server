@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 
 /**
- * Represents single question from CSV file.
+ * Represents a single question from a CSV file.
  *
  * @param name          name of a question
  * @param id            fixed identifier
@@ -22,7 +22,7 @@ import java.util.Map;
  * @param answerDE2     content of second answer translation in German
  * @param answerDE3     content of third answer translation in German
  * @param correctAnswer label of correct answer - {@code A}, {@code B}, {@code C}
- *                      and {@code T}, {@code N} which is Polish translation of {@code Yes}, {@code No}
+ *                      and {@code T}, {@code N} which is the Polish translation of {@code Yes}, {@code No}
  *                      which stands for {@code True} and {@code False}
  * @param mediaName     filename of media attached to a question - {@code .wmv} | {@code .jpg}
  * @param type          question type - {@code PODSTAWOWY} or {@code SPECJALISTYCZNY}

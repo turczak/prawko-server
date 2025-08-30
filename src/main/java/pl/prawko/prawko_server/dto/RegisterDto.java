@@ -8,7 +8,7 @@ import pl.prawko.prawko_server.model.User;
 /**
  * Data Transfer Object used when registering a new {@link User}.
  * <p>
- * This DTO is used to transfer user data between the API layer and the service layer applying validation.
+ * This DTO is used to transfer user data between the API layer and the service layer, applying validation.
  *
  * @param firstName required, limited to 31 characters
  * @param lastName  required, limited to 31 characters

@@ -21,8 +21,8 @@ import java.util.Objects;
  * <p>
  * Relationships:
  * <ul>
- *     <li>{@link Question}: Many translations are assigned to single question.</li>
- *     <li>{@link Language}: Many translations are assigned to single language.</li>
+ *     <li>{@link Question}: Many translations are assigned to a single question.</li>
+ *     <li>{@link Language}: Many translations are assigned to a single language.</li>
  * </ul>
  * All setters are returning {@code QuestionTranslation} itself, enabling method chaining.
  */
