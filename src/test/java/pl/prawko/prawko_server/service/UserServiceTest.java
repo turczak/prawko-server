@@ -17,7 +17,7 @@ import pl.prawko.prawko_server.service.implementation.UserService;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -75,14 +75,11 @@ class UserServiceTest {
         when(repository.existsByEmail(registerDto.email())).thenReturn(false);
 
         final ThrowableAssert.ThrowingCallable executable = () -> service.register(registerDto);
-        final AlreadyExistsException exception = (AlreadyExistsException) catchThrowable(executable);
+        final var exception = catchThrowableOfType(AlreadyExistsException.class, executable);
 
-        assertThat(exception)
-                .isInstanceOf(AlreadyExistsException.class)
-                .hasMessageContaining(ERROR_MESSAGE);
+        assertThat(exception.getMessage()).isEqualTo(ERROR_MESSAGE);
         assertThat(exception.getDetails().get(field))
                 .isEqualTo(EXPECTED.get(field));
-
         verify(repository, never()).save(any());
         verifyNoInteractions(mapper);
         verifyNoMoreInteractions(repository);
@@ -95,14 +92,11 @@ class UserServiceTest {
         when(repository.existsByEmail(registerDto.email())).thenReturn(true);
 
         final ThrowableAssert.ThrowingCallable executable = () -> service.register(registerDto);
-        final AlreadyExistsException exception = (AlreadyExistsException) catchThrowable(executable);
+        final var exception = catchThrowableOfType(AlreadyExistsException.class, executable);
 
-        assertThat(exception)
-                .isInstanceOf(AlreadyExistsException.class)
-                .hasMessageContaining(ERROR_MESSAGE);
+        assertThat(exception.getMessage()).isEqualTo(ERROR_MESSAGE);
         assertThat(exception.getDetails().get(field))
                 .isEqualTo(EXPECTED.get(field));
-
         verify(repository, never()).save(any());
         verifyNoInteractions(mapper);
         verifyNoMoreInteractions(repository);
@@ -114,18 +108,13 @@ class UserServiceTest {
         when(repository.existsByEmail(registerDto.email())).thenReturn(true);
 
         final ThrowableAssert.ThrowingCallable executable = () -> service.register(registerDto);
-        final AlreadyExistsException exception = (AlreadyExistsException) catchThrowable(executable);
+        final var exception = catchThrowableOfType(AlreadyExistsException.class, executable);
 
-        assertThat(exception)
-                .isInstanceOf(AlreadyExistsException.class)
-                .hasMessageContaining(ERROR_MESSAGE);
-        assertThat(exception.getDetails())
-                .containsAllEntriesOf(EXPECTED);
-
+        assertThat(exception.getMessage()).isEqualTo(ERROR_MESSAGE);
+        assertThat(exception.getDetails()).containsAllEntriesOf(EXPECTED);
         verify(repository, never()).save(any());
         verifyNoInteractions(mapper);
         verifyNoMoreInteractions(repository);
     }
-
 
 }
