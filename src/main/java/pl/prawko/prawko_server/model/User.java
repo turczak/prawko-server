@@ -20,6 +20,27 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents a {@code User} entity within the application.
+ * <p>
+ * A {@code User} contains personal details such as:
+ *  <ul>
+ *     <li>first name - limited to 31 characters</li>
+ *     <li>last name - limited to 31 characters</li>
+ *     <li>username - limited to 31 characters</li>
+ *     <li>email - limited to 63 characters</li>
+ *     <li>password - hashed and limited to 63 characters</li>
+ * </ul>
+ * and system-related attributes like whether the account is enabled, the creation timestamp and the last update timestamp.
+ * <p>
+ * Relationships:
+ * <ul>
+ *     <li>{@link Role}: A user can have multiple roles, defining their permissions in the system.</li>
+ *     <li>{@link Exam}: A user can be assigned to multiple exams.</li>
+ * </ul>
+ * The entity is mapped to the database table {@code user} and uses automatic timestamp handling.
+ * All setters are returning {@code User} itself, enabling method chaining.
+ */
 @Entity
 @Table(name = "`user`")
 public class User {

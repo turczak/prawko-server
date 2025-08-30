@@ -11,6 +11,18 @@ import jakarta.persistence.ManyToMany;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents a role entity within the application.
+ * <p>
+ * A {@code Role} contains a name limited to 7 characters.
+ * <p>
+ * Relationships:
+ * <ul>
+ *     <li>{@link User}: A role can be assigned to multiple users.</li>
+ * </ul>
+ * The entity is mapped to the database table {@code role}.
+ * All setters are returning {@code Role} itself, enabling method chaining.
+ */
 @Entity
 public class Role {
 

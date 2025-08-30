@@ -14,6 +14,24 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents a {@code Answer} entity within the application.
+ * <p>
+ * An {@code Answer} has:
+ *  <ul>
+ *     <li>{@code id} - generated unique identifier</li>
+ *     <li>{@code correct} - indicates if this answer is correct</li>
+ * </ul>
+ * <p>
+ * Relationships:
+ * <ul>
+ *     <li>{@link Question}: Multiple answers belong to a single question</li>
+ *     <li>{@link AnswerTranslation}: An answer can have multiple translations</li>
+ *     <li>{@link Exam}: An answer can be associated with multiple exams</li>
+ * </ul>
+ * The entity is mapped to the database table {@code answer}.
+ * All setters are returning {@code Answer} itself, enabling method chaining.
+ */
 @Entity
 public class Answer {
 
