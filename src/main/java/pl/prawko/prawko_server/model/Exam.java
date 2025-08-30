@@ -16,12 +16,37 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents a {@code Exam} entity within the application.
+ * <p>
+ * An {@code Exam} has:
+ *  <ul>
+ *     <li>{@code id} - unique generated identifier</li>
+ *     <li>{@code active} - status of exam, representing if user is solving it</li>
+ *     <li>{@code score} - sum of correct answers in exam by user</li>
+ *     <li>{@code created} - timestamp of creation</li>
+ * </ul>
+ * <p>
+ * Relationships:
+ * <ul>
+ *     <li>{@link User}: Each {@code User} can have multiple exams</li>
+ *     <li>{@link Question}: Each exam contains 20 basic questions and  12 specialized questions</li>
+ *     <li>{@link Answer} Each exam contains 32 user answers</li>
+ *     <li>{@link Language}: Each exam have single language</li>
+ *     <li>{@link Category}: Each exam have single category or multiple categories</li>
+ * </ul>
+ * The entity is mapped to the database table {@code exam} and uses automatic timestamp handling.
+ * All setters are returning {@code Exam} itself, enabling method chaining.
+ */
 @Entity
 public class Exam {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    private boolean active;
+    private int score;
 
     @CreationTimestamp
     private LocalDateTime created;
@@ -55,9 +80,6 @@ public class Exam {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-
-    private boolean active;
-    private int score;
 
     public long getId() {
         return id;

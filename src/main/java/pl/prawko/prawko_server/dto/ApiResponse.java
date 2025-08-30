@@ -3,17 +3,25 @@ package pl.prawko.prawko_server.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Map;
+import org.springframework.http.ResponseEntity;
 
 public record ApiResponse(
 
         String message,
 
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        Map<String, String> details
+                @JsonInclude(JsonInclude.Include.NON_NULL)
+                Map<String, String> details
 
 ) {
     public ApiResponse(final String message) {
         this(message, null);
     }
 
+
+/**
+ * Custom body of {@link ResponseEntity} used to return responses in REST Controllers.
+ *
+ * @param message response text
+ */
+public record ApiResponse(String message) {
 }
