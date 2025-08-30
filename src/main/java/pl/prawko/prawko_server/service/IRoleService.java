@@ -13,6 +13,6 @@ public interface IRoleService {
      * @param name role name that should be looked for
      * @return matching role
      */
-    Role findByName(final String name);
+    Role getByName(final String name);
 
 }

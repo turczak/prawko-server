@@ -28,7 +28,7 @@ class UserMapperTest {
         final var dto = UserTestData.VALID_REGISTER_DTO;
         final var role = new Role().setName("USER");
         final var expected = UserTestData.TESTER;
-        when(roleService.findByName(role.getName())).thenReturn(role);
+        when(roleService.getByName(role.getName())).thenReturn(role);
 
         final var result = mapper.fromDto(dto);
 

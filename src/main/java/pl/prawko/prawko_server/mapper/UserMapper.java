@@ -34,7 +34,7 @@ public class UserMapper {
                 .setUserName(dto.userName())
                 .setEmail(dto.email())
                 .setPassword(dto.password())
-                .setRoles(List.of(roleService.findByName("USER")))
+                .setRoles(List.of(roleService.getByName("USER")))
                 .setEnabled(true);
     }
 
