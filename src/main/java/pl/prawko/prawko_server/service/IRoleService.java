@@ -8,7 +8,7 @@ import pl.prawko.prawko_server.model.Role;
 public interface IRoleService {
 
     /**
-     * Find a matching role with provided role name.
+     * Gets a matching role with the provided role name.
      *
      * @param name role name that should be looked for
      * @return matching role
