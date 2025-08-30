@@ -24,8 +24,7 @@ public class UserService implements IUserService {
         this.repository = repository;
         this.mapper = mapper;
     }
-
-
+    
     /**
      * {@inheritDoc}
      *
