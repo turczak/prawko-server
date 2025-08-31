@@ -1,10 +1,11 @@
 package pl.prawko.prawko_server.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pl.prawko.prawko_server.dto.ApiResponse;
 import pl.prawko.prawko_server.dto.RegisterDto;
@@ -36,10 +37,10 @@ public class UserController {
      * @return status 200 with success message
      */
     @PostMapping
-    public ResponseEntity<ApiResponse> registerUser(@Valid @RequestBody final RegisterDto dto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public ApiResponse registerUser(@Valid @RequestBody final RegisterDto dto) {
         userService.register(dto);
-        return ResponseEntity.ok()
-                .body(new ApiResponse("User registered successfully."));
+        return new ApiResponse("User registered successfully.");
     }
 
 }
