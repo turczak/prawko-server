@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.test_utils;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClient;
@@ -16,6 +17,14 @@ public class TestUtils {
         final var headers = response.getHeaders();
         final var body = response.bodyTo(ApiResponse.class);
         return new ResponseEntity<>(body, headers, status);
+    }
+
+    public static void authUser(final HttpHeaders headers) {
+        headers.setBasicAuth("tester", "password");
+    }
+
+    public static void authAdmin(final HttpHeaders headers) {
+        headers.setBasicAuth("admin", "password");
     }
 
 }
