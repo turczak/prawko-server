@@ -2,8 +2,10 @@ package pl.prawko.prawko_server.service;
 
 import org.springframework.web.multipart.MultipartFile;
 import pl.prawko.prawko_server.mapper.QuestionMapper;
+import pl.prawko.prawko_server.model.Category;
 import pl.prawko.prawko_server.model.Question;
 import pl.prawko.prawko_server.model.QuestionCSV;
+import pl.prawko.prawko_server.model.QuestionType;
 
 import java.util.List;
 
@@ -30,5 +32,14 @@ public interface IQuestionService {
      * @param questions the list of questions to save
      */
     void saveAll(List<Question> questions);
+
+    /**
+     * Gets all questions by {@link QuestionType} and {@link Category}'s name.
+     *
+     * @param type     question type
+     * @param category category name
+     * @return list of all found questions
+     */
+    List<Question> getAllByTypeAndCategory(final QuestionType type, final String category);
 
 }
