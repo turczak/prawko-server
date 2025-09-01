@@ -15,4 +15,12 @@ public interface IUserService {
      */
     void register(final RegisterDto dto);
 
+    /**
+     * Get {@code user} by {@code id}.
+     *
+     * @param userId provided id
+     * @return an {@code user}
+     */
+    User getById(final long userId);
+
 }

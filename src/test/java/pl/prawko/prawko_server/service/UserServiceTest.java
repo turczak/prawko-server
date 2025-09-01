@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,10 +14,13 @@ import pl.prawko.prawko_server.mapper.UserMapper;
 import pl.prawko.prawko_server.model.User;
 import pl.prawko.prawko_server.repository.UserRepository;
 import pl.prawko.prawko_server.service.implementation.UserService;
+import pl.prawko.prawko_server.test_utils.UserTestData;
 
 import java.util.Map;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -115,6 +119,31 @@ class UserServiceTest {
         verify(repository, never()).save(any());
         verifyNoInteractions(mapper);
         verifyNoMoreInteractions(repository);
+    }
+
+    @Test
+    void getById_returnUser_whenFound() {
+        final var given = 44L;
+        final var expected = UserTestData.TESTER;
+        when(repository.findById(given)).thenReturn(Optional.of(expected));
+
+        final var result = service.getById(given);
+
+        assertThat(result).isEqualTo(expected);
+        verify(repository).findById(given);
+        verifyNoMoreInteractions(repository);
+    }
+
+    @Test
+    void getById_throwException_whenNotFound() {
+        final var given = 666L;
+        when(repository.findById(given)).thenReturn(Optional.empty());
+
+        final ThrowableAssert.ThrowingCallable result = () -> service.getById(given);
+
+        assertThatThrownBy(result)
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining("User with '" + given + "' not found.");
     }
 
 }
