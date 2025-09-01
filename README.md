@@ -73,3 +73,7 @@ Base URL: `http://localhost:8080/`
 
 * `/questions`
     + `POST` upload csv file with questions
+* `/users`
+    + `POST` register new user
+* `/exams`
+    + `POST` create new exam
