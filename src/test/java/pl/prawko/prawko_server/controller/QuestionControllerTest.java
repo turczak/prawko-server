@@ -4,16 +4,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
 import pl.prawko.prawko_server.dto.ApiResponse;
 import pl.prawko.prawko_server.test_utils.MultiPartFactory;
+import pl.prawko.prawko_server.test_utils.TestSecurityConfig;
 import pl.prawko.prawko_server.test_utils.TestUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Import(TestSecurityConfig.class)
 public class QuestionControllerTest {
 
     public static final String URL = "/questions";
@@ -37,6 +40,7 @@ public class QuestionControllerTest {
 
         final var response = restClient.post()
                 .uri(URL)
+                .headers(TestUtils::authAdmin)
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .body(multipart)
                 .exchange((req, res) -> TestUtils.getResponseEntity(res));
@@ -52,6 +56,7 @@ public class QuestionControllerTest {
 
         final var response = restClient.post()
                 .uri(URL)
+                .headers(TestUtils::authAdmin)
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .body(multipart)
                 .exchange((req, res) -> TestUtils.getResponseEntity(res));
@@ -67,6 +72,7 @@ public class QuestionControllerTest {
 
         final var response = restClient.post()
                 .uri(URL)
+                .headers(TestUtils::authAdmin)
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .body(multipart)
                 .retrieve()

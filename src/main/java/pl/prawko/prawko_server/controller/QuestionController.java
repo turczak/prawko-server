@@ -1,10 +1,11 @@
 package pl.prawko.prawko_server.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import pl.prawko.prawko_server.dto.ApiResponse;
@@ -36,11 +37,11 @@ public class QuestionController {
      * @return success if questions from file were added
      */
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ApiResponse> addQuestions(@RequestPart MultipartFile file) {
+    @ResponseStatus(HttpStatus.OK)
+    public ApiResponse addQuestions(@RequestPart MultipartFile file) {
         final var questions = questionService.parseFileToQuestions(file);
         questionService.saveAll(questions);
-        return ResponseEntity.ok()
-                .body(new ApiResponse("Questions from file added successfully."));
+        return new ApiResponse("Questions from file added successfully.");
     }
 
 }
