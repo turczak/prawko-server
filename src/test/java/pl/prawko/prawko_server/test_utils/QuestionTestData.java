@@ -8,6 +8,7 @@ import java.util.List;
 import static pl.prawko.prawko_server.test_utils.AnswerTestData.getBasicAnswers;
 import static pl.prawko.prawko_server.test_utils.AnswerTestData.getSpecialAnswers;
 import static pl.prawko.prawko_server.test_utils.CategoryTestData.CATEGORIES_AB;
+import static pl.prawko.prawko_server.test_utils.CategoryTestData.CATEGORY_B;
 import static pl.prawko.prawko_server.test_utils.CategoryTestData.CATEGORY_PT;
 import static pl.prawko.prawko_server.test_utils.QuestionTranslationTestData.getBasicQuestionTranslations;
 import static pl.prawko.prawko_server.test_utils.QuestionTranslationTestData.getSpecialQuestionTranslations;
@@ -43,6 +44,24 @@ public class QuestionTestData {
             answer.getTranslations()
                     .forEach(translation -> translation.setAnswer(answer));
         });
+    }
+
+    public static List<Question> getBasicQuestions() {
+        final var question = new Question().setType(QuestionType.BASIC).setCategories(List.of(CATEGORY_B));
+        return List.of(
+                question.setPoints(1),
+                question.setPoints(2),
+                question.setPoints(3)
+        );
+    }
+
+    public static List<Question> getSpecialQuestions() {
+        final var question = new Question().setType(QuestionType.SPECIAL).setCategories(List.of(CATEGORY_B));
+        return List.of(
+                question.setPoints(1),
+                question.setPoints(2),
+                question.setPoints(3)
+        );
     }
 
 }

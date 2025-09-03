@@ -5,6 +5,7 @@ import pl.prawko.prawko_server.model.Role;
 import pl.prawko.prawko_server.model.User;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserTestData {
@@ -21,7 +22,8 @@ public class UserTestData {
             .setRoles(List.of(ROLE))
             .setEnabled(true)
             .setCreated(LocalDateTime.now())
-            .setUpdated(LocalDateTime.now());
+            .setUpdated(LocalDateTime.now())
+            .setExams(new ArrayList<>());
 
     public static final RegisterDto VALID_REGISTER_DTO = new RegisterDto(
             "Peregrin",
