@@ -11,8 +11,8 @@ public interface IExamService {
      * Generates a new {@code exam} for specific {@code user} using category name.
      *
      * @param userId       owner of exam
-     * @param categoryName category used to construct
-     * @return a correctly generated {@code exam} that you can start solving
+     * @param categoryName category used to construct an exam
+     * @return a correctly generated {@code exam}
      */
     Exam createExam(final long userId, final String categoryName);
 

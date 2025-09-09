@@ -47,7 +47,9 @@ public class QuestionTestData {
     }
 
     public static List<Question> getBasicQuestions() {
-        final var question = new Question().setType(QuestionType.BASIC).setCategories(List.of(CATEGORY_B));
+        final var question = new Question()
+                .setType(QuestionType.BASIC)
+                .setCategories(List.of(CATEGORY_B));
         return List.of(
                 question.setPoints(1),
                 question.setPoints(2),
@@ -56,7 +58,9 @@ public class QuestionTestData {
     }
 
     public static List<Question> getSpecialQuestions() {
-        final var question = new Question().setType(QuestionType.SPECIAL).setCategories(List.of(CATEGORY_B));
+        final var question = new Question()
+                .setType(QuestionType.SPECIAL)
+                .setCategories(List.of(CATEGORY_B));
         return List.of(
                 question.setPoints(1),
                 question.setPoints(2),

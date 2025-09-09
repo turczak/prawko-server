@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pl.prawko.prawko_server.dto.ApiResponse;
-import pl.prawko.prawko_server.dto.CreateExamRequest;
+import pl.prawko.prawko_server.dto.CreateExamDto;
 import pl.prawko.prawko_server.model.Exam;
 import pl.prawko.prawko_server.service.implementation.ExamService;
 
@@ -28,14 +28,14 @@ public class ExamController {
     }
 
     /**
-     * POST method to create a new {@link Exam} using {@link CreateExamRequest}.
+     * POST method to create a new {@link Exam} using {@link CreateExamDto}.
      *
      * @param dto the valid DTO
      * @return status 201 with success message
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse createExam(@RequestBody @Valid final CreateExamRequest dto) {
+    public ApiResponse createExam(@RequestBody @Valid final CreateExamDto dto) {
         service.createExam(dto.userId(), dto.categoryName());
         return new ApiResponse("Exam successfully created.");
     }

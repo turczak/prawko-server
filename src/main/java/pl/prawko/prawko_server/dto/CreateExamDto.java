@@ -9,13 +9,14 @@ import jakarta.validation.constraints.Size;
  * <p>
  * This DTO is used to transfer exam creation data between the API layer and the service layer.
  */
-public record CreateExamRequest(
+public record CreateExamDto(
 
         @NotEmpty(message = "userId is required")
         long userId,
 
         @NotBlank(message = "category is required")
         @Size(min = 1, max = 2)
-        String categoryName) {
-    
+        String categoryName
+        
+) {
 }
