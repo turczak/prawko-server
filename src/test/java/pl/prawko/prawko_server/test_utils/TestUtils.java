@@ -20,11 +20,11 @@ public class TestUtils {
     }
 
     public static void authUser(final HttpHeaders headers) {
-        headers.setBasicAuth("tester", "password");
+        headers.setBasicAuth("pippin", "lembasy");
     }
 
     public static void authAdmin(final HttpHeaders headers) {
-        headers.setBasicAuth("admin", "password");
+        headers.setBasicAuth("gimli", "krasnoludka");
     }
 
 }
