@@ -11,6 +11,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 class UserRepositoryTest {
 
+    private final String userName = "pippin";
+    private final String email = "pippin@shire.me";
+    private final String wrongUserName = "nonExistingUserName";
+    private final String wrongEmail = "nonExistingEmail";
+
     @Autowired
     private UserRepository repository;
 
@@ -19,20 +24,20 @@ class UserRepositoryTest {
     @BeforeEach
     void setUp() {
         tester = new User()
-                .setUserName("pippin")
-                .setEmail("pippin@shire.me");
+                .setUserName(userName)
+                .setEmail(email);
         repository.save(tester);
     }
 
     @Test
     void existsByUserName_returnTrue() {
-        final var result = repository.existsByUserName(tester.getUserName());
+        final var result = repository.existsByUserName(userName);
         assertThat(result).isTrue();
     }
 
     @Test
     void existsByUserName_returnFalse() {
-        final var result = repository.existsByUserName("nonExistingUserName");
+        final var result = repository.existsByUserName(wrongUserName);
         assertThat(result).isFalse();
     }
 
@@ -44,8 +49,32 @@ class UserRepositoryTest {
 
     @Test
     void existsByEmail_returnFalse() {
-        final var result = repository.existsByEmail("nonExistingEmail");
+        final var result = repository.existsByEmail(wrongEmail);
         assertThat(result).isFalse();
+    }
+
+    @Test
+    void findByUserNameOrEmail_returnUser_whenFoundByUserName() {
+        final var result = repository.findByUserNameOrEmail(userName);
+        assertThat(result.get().getUserName()).isEqualTo(userName);
+    }
+
+    @Test
+    void findByUserNameOrEmail_returnUser_whenFoundByEmail() {
+        final var result = repository.findByUserNameOrEmail(email);
+        assertThat(result.get().getEmail()).isEqualTo(email);
+    }
+
+    @Test
+    void findByUserNameOrEmail_returnEmpty_whenNotFoundByUserName() {
+        final var result = repository.findByUserNameOrEmail(wrongUserName);
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    void findByUserNameOrEmail_returnEmpty_whenNotFoundByEmail() {
+        final var result = repository.findByUserNameOrEmail(wrongEmail);
+        assertThat(result).isEmpty();
     }
 
 }

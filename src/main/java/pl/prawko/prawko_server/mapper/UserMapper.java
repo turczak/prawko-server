@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.mapper;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.prawko.prawko_server.dto.RegisterDto;
 import pl.prawko.prawko_server.model.User;
@@ -16,9 +17,11 @@ import java.util.List;
 public class UserMapper {
 
     private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserMapper(final RoleService roleService) {
+    public UserMapper(final RoleService roleService, final PasswordEncoder passwordEncoder) {
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -33,7 +36,7 @@ public class UserMapper {
                 .setLastName(dto.lastName())
                 .setUserName(dto.userName())
                 .setEmail(dto.email())
-                .setPassword(dto.password())
+                .setPassword(passwordEncoder.encode(dto.password()))
                 .setRoles(List.of(roleService.getByName("USER")))
                 .setEnabled(true);
     }

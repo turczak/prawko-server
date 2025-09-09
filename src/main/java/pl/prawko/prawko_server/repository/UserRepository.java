@@ -1,7 +1,11 @@
 package pl.prawko.prawko_server.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import pl.prawko.prawko_server.model.User;
+
+import java.util.Optional;
 
 /**
  * Repository for {@link User} entities.
@@ -25,5 +29,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return {@code true} if a user already exists, {@code false} otherwise
      */
     boolean existsByEmail(final String email);
+
+    /**
+     * Retrieves {@code user} by its userName or email.
+     *
+     * @param userNameOrEmail provided name to look for
+     * @return An {@code user} when found
+     */
+    @Query("FROM User user WHERE user.userName = :input OR user.email = :input")
+    Optional<User> findByUserNameOrEmail(@Param("input") final String userNameOrEmail);
 
 }
