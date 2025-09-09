@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Size;
  * @param userName required, between 3 and 31 characters
  * @param password required, between 7 and 63 characters
  */
-public record LoginRequest(
+public record LoginDto(
 
         @NotBlank(message = "Username is required.")
         @Size(min = 3, max = 31, message = "Username must be between 3 and 31 characters.")

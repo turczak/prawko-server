@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pl.prawko.prawko_server.dto.ApiResponse;
-import pl.prawko.prawko_server.dto.LoginRequest;
+import pl.prawko.prawko_server.dto.LoginDto;
 
 /**
- * REST controller to authenticate users using {@link LoginRequest}.
+ * REST controller to authenticate users using {@link LoginDto}.
  * <p>
  * Mapped on {@code /auth}
  */
@@ -30,14 +30,14 @@ public class AuthController {
     }
 
     /**
-     * Method to authorize user using {@link LoginRequest} via POST.
+     * Method to authorize user using {@link LoginDto} via POST.
      *
      * @param request request with login and password
      * @return success when user is authorized
      */
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponse login(@Valid @RequestBody final LoginRequest request) {
+    public ApiResponse login(@Valid @RequestBody final LoginDto request) {
         final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.userName(),
                 request.password()

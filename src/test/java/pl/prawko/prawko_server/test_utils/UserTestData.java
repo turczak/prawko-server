@@ -1,7 +1,7 @@
 package pl.prawko.prawko_server.test_utils;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import pl.prawko.prawko_server.dto.LoginRequest;
+import pl.prawko.prawko_server.dto.LoginDto;
 import pl.prawko.prawko_server.dto.RegisterDto;
 import pl.prawko.prawko_server.model.Role;
 import pl.prawko.prawko_server.model.User;
@@ -39,8 +39,8 @@ public class UserTestData {
             "lembas"
     );
 
-    public static final LoginRequest VALID_LOGIN_REQUEST = new LoginRequest("pippin", "lembasy");
+    public static final LoginDto VALID_LOGIN_REQUEST = new LoginDto("pippin", "lembasy");
 
-    public static final LoginRequest INVALID_LOGIN_REQUEST = new LoginRequest("wrongUser", "wrongPassword");
+    public static final LoginDto INVALID_LOGIN_REQUEST = new LoginDto("wrongUser", "wrongPassword");
 
 }
