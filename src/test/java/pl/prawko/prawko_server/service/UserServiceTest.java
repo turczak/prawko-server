@@ -2,7 +2,6 @@ package pl.prawko.prawko_server.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.assertj.core.api.ThrowableAssert;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -48,17 +47,7 @@ class UserServiceTest {
     @InjectMocks
     private UserService service;
 
-    private RegisterDto registerDto;
-
-    @BeforeEach
-    void setUp() {
-        registerDto = new RegisterDto(
-                "Peregrin",
-                "Tuk",
-                "pippin",
-                "pippin@shire.me",
-                "lebmas");
-    }
+    private final RegisterDto registerDto = UserTestData.VALID_REGISTER_DTO;
 
     @Test
     void register_success_whenUserNotExists() {
@@ -117,6 +106,46 @@ class UserServiceTest {
         assertThat(exception.getMessage()).isEqualTo(ERROR_MESSAGE);
         assertThat(exception.getDetails()).containsAllEntriesOf(EXPECTED);
         verify(repository, never()).save(any());
+        verifyNoInteractions(mapper);
+        verifyNoMoreInteractions(repository);
+    }
+
+    @Test
+    void getByUserNameOrEmail_returnUser_whenFoundByUserName() {
+        final var userNameOrEmail = "pippin";
+        final var user = UserTestData.TESTER;
+        when(repository.findByUserNameOrEmail(userNameOrEmail)).thenReturn(Optional.of(user));
+
+        final var result = service.getByUserNameOrEmail(userNameOrEmail);
+
+        assertThat(result).isEqualTo(user);
+        verifyNoInteractions(mapper);
+        verifyNoMoreInteractions(repository);
+    }
+
+    @Test
+    void getByUserNameOrEmail_returnUser_whenFoundByEmail() {
+        final var userNameOrEmail = "pippin@shire.me";
+        final var user = UserTestData.TESTER;
+        when(repository.findByUserNameOrEmail(userNameOrEmail)).thenReturn(Optional.of(user));
+
+        final var result = service.getByUserNameOrEmail(userNameOrEmail);
+
+        assertThat(result).isEqualTo(user);
+        verifyNoInteractions(mapper);
+        verifyNoMoreInteractions(repository);
+    }
+
+    @Test
+    void getByUserNameOrEmail_throwException_whenNotFound() {
+        final var userNameOrEmail = "wrongUserName";
+        final var errorMessage = "User with username or email '" + userNameOrEmail + "' not found.";
+        when(repository.findByUserNameOrEmail(userNameOrEmail)).thenReturn(Optional.empty());
+
+        final ThrowableAssert.ThrowingCallable executable = () -> service.getByUserNameOrEmail(userNameOrEmail);
+        final var exception = catchThrowableOfType(EntityNotFoundException.class, executable);
+
+        assertThat(exception.getMessage()).isEqualTo(errorMessage);
         verifyNoInteractions(mapper);
         verifyNoMoreInteractions(repository);
     }

@@ -16,6 +16,22 @@ public interface IUserService {
     void register(final RegisterDto dto);
 
     /**
+     * Checks if there is a {@link User} with same {@code userName} or {@code email}.
+     *
+     * @param userNameOrEmail provided name or email
+     * @return true if exists
+     */
+    boolean checkIfExist(final String userNameOrEmail);
+
+    /**
+     * Gets an {@code user} when exists by userName or Email.
+     *
+     * @param userNameOrEmail provided name or email
+     * @return {@code User} when found
+     */
+    User getByUserNameOrEmail(final String userNameOrEmail);
+
+    /**
      * Get {@code user} by {@code id}.
      *
      * @param userId provided id

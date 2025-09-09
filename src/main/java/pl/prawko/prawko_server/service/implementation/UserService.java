@@ -1,23 +1,35 @@
 package pl.prawko.prawko_server.service.implementation;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.prawko.prawko_server.dto.RegisterDto;
 import pl.prawko.prawko_server.exception.AlreadyExistsException;
 import pl.prawko.prawko_server.mapper.UserMapper;
 import pl.prawko.prawko_server.model.User;
+import pl.prawko.prawko_server.model.Role;
+import pl.prawko.prawko_server.model.User;
 import pl.prawko.prawko_server.repository.UserRepository;
 import pl.prawko.prawko_server.service.IUserService;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * Implementation of {@link IUserService} that manage users entities.
+ * <p>
+ * It also implements {@link UserDetailsService} for authentication purposes.
  */
 @Service
-public class UserService implements IUserService {
+public class UserService implements IUserService, UserDetailsService {
 
     private final UserRepository repository;
     private final UserMapper mapper;
@@ -26,7 +38,7 @@ public class UserService implements IUserService {
         this.repository = repository;
         this.mapper = mapper;
     }
-
+    
     /**
      * {@inheritDoc}
      *
@@ -47,6 +59,55 @@ public class UserService implements IUserService {
         }
         final var user = mapper.fromDto(dto);
         repository.save(user);
+    }
+
+    /**
+     * Checks if entity exists by userName or email.
+     *
+     * @param userNameOrEmail provided name or email to look for
+     * @return {@code true} if entity exist
+     */
+    @Override
+    public boolean checkIfExist(final String userNameOrEmail) {
+        return repository.existsByUserName(userNameOrEmail) || repository.existsByEmail(userNameOrEmail);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws EntityNotFoundException if the user with provided userName or email doesn't exist
+     */
+    @Override
+    public User getByUserNameOrEmail(final String userNameOrEmail) {
+        return repository.findByUserNameOrEmail(userNameOrEmail)
+                .orElseThrow(() -> new EntityNotFoundException("User with username or email '" + userNameOrEmail + "' not found."));
+    }
+
+    /**
+     * Load user-specific data during authentication.
+     * <p>
+     *
+     * @param userNameOrEmail the userName or email identifying the user
+     * @return {@link org.springframework.security.core.userdetails.User} object with granted authorities based on user's roles
+     * @throws UsernameNotFoundException if user have not been found with the provided details
+     */
+    @Override
+    public UserDetails loadUserByUsername(final String userNameOrEmail) throws UsernameNotFoundException {
+        if (checkIfExist(userNameOrEmail)) {
+            final var user = getByUserNameOrEmail(userNameOrEmail);
+            return new org.springframework.security.core.userdetails.User(
+                    user.getUserName(),
+                    user.getPassword(),
+                    mapRolesToAuthorities(user.getRoles()));
+        } else {
+            throw new UsernameNotFoundException("Invalid login or password.");
+        }
+    }
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(final Collection<Role> roles) {
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
+                .toList();
     }
 
     /**

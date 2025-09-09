@@ -7,6 +7,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClient;
 import pl.prawko.prawko_server.dto.ApiResponse;
 import pl.prawko.prawko_server.test_utils.MultiPartFactory;
@@ -38,12 +40,7 @@ public class QuestionControllerTest {
         final var expected = "Required part 'file' is not present.";
         final var multipart = MultiPartFactory.empty();
 
-        final var response = restClient.post()
-                .uri(URL)
-                .headers(TestUtils::authAdmin)
-                .contentType(MediaType.MULTIPART_FORM_DATA)
-                .body(multipart)
-                .exchange((req, res) -> TestUtils.getResponseEntity(res));
+        final var response = exchangeMultiPart(multipart);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(response.getBody().message()).isEqualTo(expected);
@@ -54,12 +51,7 @@ public class QuestionControllerTest {
         final var expected = "Invalid file format.";
         final var multipart = MultiPartFactory.withWrongFile();
 
-        final var response = restClient.post()
-                .uri(URL)
-                .headers(TestUtils::authAdmin)
-                .contentType(MediaType.MULTIPART_FORM_DATA)
-                .body(multipart)
-                .exchange((req, res) -> TestUtils.getResponseEntity(res));
+        final var response = exchangeMultiPart(multipart);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNSUPPORTED_MEDIA_TYPE);
         assertThat(response.getBody().message()).isEqualTo(expected);
@@ -80,6 +72,15 @@ public class QuestionControllerTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().message()).isEqualTo(expected);
+    }
+
+    private ResponseEntity<ApiResponse> exchangeMultiPart(final MultiValueMap<String, Object> multipart) {
+        return restClient.post()
+                .uri(URL)
+                .headers(TestUtils::authAdmin)
+                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .body(multipart)
+                .exchange((req, res) -> TestUtils.getResponseEntity(res));
     }
 
 }

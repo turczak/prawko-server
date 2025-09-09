@@ -21,7 +21,6 @@ public record ApiResponse(
 
     public ApiResponse(final String message) {
         this(message, null);
-
     }
 
 }

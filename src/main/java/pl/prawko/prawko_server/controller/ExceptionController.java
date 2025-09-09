@@ -2,6 +2,7 @@ package pl.prawko.prawko_server.controller;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -83,6 +84,18 @@ public class ExceptionController {
         exception.getBindingResult().getFieldErrors().forEach(error ->
                 errors.put(error.getField(), error.getDefaultMessage()));
         return new ApiResponse("Validation for request failed.", errors);
+    }
+
+    /**
+     * Handles cases when authentication using login request failed.
+     *
+     * @param exception exception thrown when login credentials are invalid.
+     * @return an error response with 400 Bad Request
+     */
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiResponse handleInvalidLoginRequest(final AuthenticationException exception) {
+        return new ApiResponse("Invalid login or password.");
     }
 
 }
