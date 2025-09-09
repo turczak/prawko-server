@@ -1,23 +1,28 @@
 package pl.prawko.prawko_server.test_utils;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import pl.prawko.prawko_server.dto.LoginRequest;
 import pl.prawko.prawko_server.dto.RegisterDto;
 import pl.prawko.prawko_server.model.Role;
 import pl.prawko.prawko_server.model.User;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserTestData {
 
-    private static final Role ROLE = new Role().setName("USER");
+    private static final Role ROLE_USER = new Role().setName("USER");
 
     public static final User TESTER = new User()
             .setFirstName("Peregrin")
             .setLastName("Tuk")
             .setUserName("pippin")
             .setEmail("pippin@shire.me")
-            .setPassword("lembasy")
-            .setRoles(List.of(ROLE))
-            .setEnabled(true);
+            .setPassword(new BCryptPasswordEncoder().encode("lembasy"))
+            .setRoles(List.of(ROLE_USER))
+            .setEnabled(true)
+            .setCreated(LocalDateTime.now())
+            .setUpdated(LocalDateTime.now());
 
     public static final RegisterDto VALID_REGISTER_DTO = new RegisterDto(
             "Peregrin",
@@ -33,5 +38,9 @@ public class UserTestData {
             "notValidMail@mail@mail",
             "lembas"
     );
+
+    public static final LoginRequest VALID_LOGIN_REQUEST = new LoginRequest("pippin", "lembasy");
+
+    public static final LoginRequest INVALID_LOGIN_REQUEST = new LoginRequest("wrongUser", "wrongPassword");
 
 }
