@@ -76,8 +76,7 @@ public class UserService implements IUserService, UserDetailsService {
      */
     @Override
     public User getByUserNameOrEmail(final String userNameOrEmail) {
-        return repository.findByUserName(userNameOrEmail)
-                .or(() -> repository.findByEmail(userNameOrEmail))
+        return repository.findByUserNameOrEmail(userNameOrEmail)
                 .orElseThrow(() -> new EntityNotFoundException("User with username or email '" + userNameOrEmail + "' not found."));
     }
 

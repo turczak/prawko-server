@@ -113,7 +113,7 @@ class UserServiceTest {
     void getByUserNameOrEmail_returnUser_whenFoundByUserName() {
         final var userNameOrEmail = "pippin";
         final var user = UserTestData.TESTER;
-        when(repository.findByUserName(userNameOrEmail)).thenReturn(Optional.of(user));
+        when(repository.findByUserNameOrEmail(userNameOrEmail)).thenReturn(Optional.of(user));
 
         final var result = service.getByUserNameOrEmail(userNameOrEmail);
 
@@ -126,8 +126,7 @@ class UserServiceTest {
     void getByUserNameOrEmail_returnUser_whenFoundByEmail() {
         final var userNameOrEmail = "pippin@shire.me";
         final var user = UserTestData.TESTER;
-        when(repository.findByEmail(userNameOrEmail)).thenReturn(Optional.of(user));
-        when(repository.findByUserName(userNameOrEmail)).thenReturn(Optional.empty());
+        when(repository.findByUserNameOrEmail(userNameOrEmail)).thenReturn(Optional.of(user));
 
         final var result = service.getByUserNameOrEmail(userNameOrEmail);
 
@@ -140,8 +139,7 @@ class UserServiceTest {
     void getByUserNameOrEmail_throwException_whenNotFound() {
         final var userNameOrEmail = "wrongUserName";
         final var errorMessage = "User with username or email '" + userNameOrEmail + "' not found.";
-        when(repository.findByEmail(userNameOrEmail)).thenReturn(Optional.empty());
-        when(repository.findByUserName(userNameOrEmail)).thenReturn(Optional.empty());
+        when(repository.findByUserNameOrEmail(userNameOrEmail)).thenReturn(Optional.empty());
 
         final ThrowableAssert.ThrowingCallable executable = () -> service.getByUserNameOrEmail(userNameOrEmail);
         final var exception = catchThrowableOfType(EntityNotFoundException.class, executable);

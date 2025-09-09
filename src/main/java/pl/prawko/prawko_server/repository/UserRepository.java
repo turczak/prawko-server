@@ -1,6 +1,8 @@
 package pl.prawko.prawko_server.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import pl.prawko.prawko_server.model.User;
 
 import java.util.Optional;
@@ -29,19 +31,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(final String email);
 
     /**
-     * Retrieves {@code user} by its userName.
+     * Retrieves {@code user} by its userName or email.
      *
-     * @param userName provided name to look for
+     * @param userNameOrEmail provided name to look for
      * @return An {@code user} when found
      */
-    Optional<User> findByUserName(final String userName);
-
-    /**
-     * Retrieves {@code user} by its email.
-     *
-     * @param email provided email to look for
-     * @return An {@code user} when found
-     */
-    Optional<User> findByEmail(final String email);
+    @Query("FROM User user WHERE user.userName = :input OR user.email = :input")
+    Optional<User> findByUserNameOrEmail(@Param("input") final String userNameOrEmail);
 
 }
