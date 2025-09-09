@@ -1,19 +1,16 @@
 package pl.prawko.prawko_server.service.implementation;
 
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.prawko.prawko_server.dto.RegisterDto;
 import pl.prawko.prawko_server.exception.AlreadyExistsException;
 import pl.prawko.prawko_server.mapper.UserMapper;
-import pl.prawko.prawko_server.model.User;
 import pl.prawko.prawko_server.model.Role;
 import pl.prawko.prawko_server.model.User;
 import pl.prawko.prawko_server.repository.UserRepository;
@@ -38,7 +35,7 @@ public class UserService implements IUserService, UserDetailsService {
         this.repository = repository;
         this.mapper = mapper;
     }
-    
+
     /**
      * {@inheritDoc}
      *
