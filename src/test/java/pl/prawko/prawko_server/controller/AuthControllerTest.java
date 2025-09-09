@@ -22,10 +22,9 @@ public class AuthControllerTest {
     private static final String URL = "/auth";
 
     @LocalServerPort
-    int port;
+    private int port;
 
     private RestClient restClient;
-    private String expectedMessage;
 
     @BeforeEach
     void setUp() {
@@ -37,7 +36,7 @@ public class AuthControllerTest {
     @Test
     void login_returnsOk_whenCredentialsValid() {
         final var request = UserTestData.VALID_LOGIN_REQUEST;
-        expectedMessage = "User signed-in successfully.";
+        final var message = "User signed-in successfully.";
         final var response = restClient.post()
                 .uri(URL)
                 .body(request)
@@ -45,20 +44,20 @@ public class AuthControllerTest {
                 .toEntity(ApiResponse.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody().message()).isEqualTo(expectedMessage);
+        assertThat(response.getBody().message()).isEqualTo(message);
     }
 
     @Test
     void login_returnsUnauthorized_whenCredentialsInvalid() {
         final var request = UserTestData.INVALID_LOGIN_REQUEST;
-        expectedMessage = "Invalid login or password.";
+        final var message = "Invalid login or password.";
         final var response = restClient.post()
                 .uri(URL)
                 .body(request)
                 .exchange((req, res) -> getResponseEntity(res));
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-        assertThat(response.getBody().message()).isEqualTo(expectedMessage);
+        assertThat(response.getBody().message()).isEqualTo(message);
     }
 
 }

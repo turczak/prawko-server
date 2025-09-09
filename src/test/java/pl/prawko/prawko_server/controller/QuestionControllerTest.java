@@ -40,7 +40,7 @@ public class QuestionControllerTest {
         final var expected = "Required part 'file' is not present.";
         final var multipart = MultiPartFactory.empty();
 
-        final var response = exchange(multipart);
+        final var response = exchangeMultiPart(multipart);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(response.getBody().message()).isEqualTo(expected);
@@ -51,7 +51,7 @@ public class QuestionControllerTest {
         final var expected = "Invalid file format.";
         final var multipart = MultiPartFactory.withWrongFile();
 
-        final var response = exchange(multipart);
+        final var response = exchangeMultiPart(multipart);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNSUPPORTED_MEDIA_TYPE);
         assertThat(response.getBody().message()).isEqualTo(expected);
@@ -74,7 +74,7 @@ public class QuestionControllerTest {
         assertThat(response.getBody().message()).isEqualTo(expected);
     }
 
-    private ResponseEntity<ApiResponse> exchange(final MultiValueMap<String, Object> multipart) {
+    private ResponseEntity<ApiResponse> exchangeMultiPart(final MultiValueMap<String, Object> multipart) {
         return restClient.post()
                 .uri(URL)
                 .headers(TestUtils::authAdmin)
