@@ -2,23 +2,20 @@ package pl.prawko.prawko_server.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClient;
 import pl.prawko.prawko_server.dto.ApiResponse;
+import pl.prawko.prawko_server.test_utils.IntegrationTest;
 import pl.prawko.prawko_server.test_utils.MultiPartFactory;
-import pl.prawko.prawko_server.test_utils.TestSecurityConfig;
 import pl.prawko.prawko_server.test_utils.TestUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Import(TestSecurityConfig.class)
+@IntegrationTest
 public class QuestionControllerTest {
 
     public static final String URL = "/questions";

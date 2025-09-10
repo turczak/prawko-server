@@ -2,21 +2,18 @@ package pl.prawko.prawko_server.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.RestClient;
 import pl.prawko.prawko_server.dto.ApiResponse;
-import pl.prawko.prawko_server.test_utils.TestSecurityConfig;
+import pl.prawko.prawko_server.test_utils.IntegrationTest;
 import pl.prawko.prawko_server.test_utils.UserTestData;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.prawko.prawko_server.test_utils.TestUtils.BASE_URL;
 import static pl.prawko.prawko_server.test_utils.TestUtils.getResponseEntity;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Import(TestSecurityConfig.class)
+@IntegrationTest
 public class AuthControllerTest {
 
     private static final String URL = "/auth";
