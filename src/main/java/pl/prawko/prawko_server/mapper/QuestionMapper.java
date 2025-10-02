@@ -1,7 +1,9 @@
 package pl.prawko.prawko_server.mapper;
 
 import org.springframework.stereotype.Component;
+import pl.prawko.prawko_server.dto.QuestionDto;
 import pl.prawko.prawko_server.model.Answer;
+import pl.prawko.prawko_server.model.Category;
 import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.model.Question;
 import pl.prawko.prawko_server.model.QuestionCSV;
@@ -54,6 +56,30 @@ public class QuestionMapper {
         return question
                 .setTranslations(mapQuestionTranslations(questionCSV, question))
                 .setAnswers(answerMapper.fromQuestionCSVToAnswers(questionCSV, question));
+    }
+
+    /**
+     * This method is mapping {@link Question} entity into {@link QuestionDto}.
+     *
+     * @param question entity to map
+     * @return mapped entity
+     */
+    public QuestionDto toDto(final Question question) {
+        final var answers = question.getAnswers().stream()
+                .map(answerMapper::toDto)
+                .toList();
+        final var categories = question.getCategories().stream()
+                .map(Category::getName)
+                .toList();
+        return new QuestionDto(
+                question.getId(),
+                question.getName(),
+                answers,
+                question.getMedia(),
+                question.getType(),
+                question.getPoints(),
+                categories,
+                question.getTranslations());
     }
 
     /**
