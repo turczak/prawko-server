@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.test_utils;
 
+import pl.prawko.prawko_server.dto.AnswerTranslationDto;
 import pl.prawko.prawko_server.model.AnswerTranslation;
 
 import java.util.List;
@@ -45,6 +46,18 @@ public class AnswerTranslationTestData {
     static final AnswerTranslation ANSWER_C_DE = new AnswerTranslation()
             .setLanguage(DE)
             .setContent("jede 15 Minuten");
+
+    static final AnswerTranslationDto ANSWER_DTO_A_PL = new AnswerTranslationDto(ANSWER_A_PL.getContent(), ANSWER_A_PL.getLanguage().getCode());
+    static final AnswerTranslationDto ANSWER_DTO_A_EN = new AnswerTranslationDto(ANSWER_A_EN.getContent(), ANSWER_A_EN.getLanguage().getCode());
+    static final AnswerTranslationDto ANSWER_DTO_A_DE = new AnswerTranslationDto(ANSWER_A_DE.getContent(), ANSWER_A_DE.getLanguage().getCode());
+
+    static List<AnswerTranslationDto> getTranslationsADtos() {
+        return List.of(
+                ANSWER_DTO_A_PL,
+                ANSWER_DTO_A_EN,
+                ANSWER_DTO_A_DE
+        );
+    }
 
     static List<AnswerTranslation> getAnswerTranslationsA() {
         return List.of(

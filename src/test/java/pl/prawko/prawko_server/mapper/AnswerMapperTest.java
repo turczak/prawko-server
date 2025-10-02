@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
+import pl.prawko.prawko_server.test_utils.AnswerTestData;
 import pl.prawko.prawko_server.test_utils.LanguageTestData;
 import pl.prawko.prawko_server.test_utils.QuestionCSVTestData;
 import pl.prawko.prawko_server.test_utils.QuestionTestData;
@@ -52,6 +53,16 @@ class AnswerMapperTest {
         final var result = mapper.fromQuestionCSVToAnswers(given, expected);
 
         assertThat(result).isEqualTo(expected.getAnswers());
+    }
+
+    @Test
+    void toDto_correctlyMapAnswer() {
+        final var given = AnswerTestData.ANSWER_A;
+        final var expected = AnswerTestData.ANSWER_A_MAPPED;
+
+        final var result = mapper.toDto(given);
+
+        assertThat(result).isEqualTo(expected);
     }
 
 }

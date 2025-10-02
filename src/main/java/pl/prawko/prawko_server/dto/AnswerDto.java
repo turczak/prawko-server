@@ -1,7 +1,6 @@
 package pl.prawko.prawko_server.dto;
 
 import pl.prawko.prawko_server.model.Answer;
-import pl.prawko.prawko_server.model.AnswerTranslation;
 import pl.prawko.prawko_server.model.Question;
 
 import java.util.List;
@@ -16,8 +15,7 @@ public record AnswerDto(
         long id,
         long questionId,
         boolean correct,
-        String content,
-        List<AnswerTranslation> translations
+        List<AnswerTranslationDto> translations
 
 ) {
 }

@@ -1,6 +1,8 @@
 package pl.prawko.prawko_server.mapper;
 
 import org.springframework.stereotype.Component;
+import pl.prawko.prawko_server.dto.AnswerDto;
+import pl.prawko.prawko_server.dto.AnswerTranslationDto;
 import pl.prawko.prawko_server.model.Answer;
 import pl.prawko.prawko_server.model.AnswerTranslation;
 import pl.prawko.prawko_server.model.Question;
@@ -26,6 +28,20 @@ public class AnswerMapper {
     }
 
     private static final List<Character> SPECIAL_LABELS = List.of('A', 'B', 'C');
+
+    /**
+     * Maps {@link Answer} entity into {@link AnswerDto}.
+     *
+     * @param answer model to map
+     * @return mapped model
+     */
+    public AnswerDto toDto(final Answer answer) {
+        return new AnswerDto(
+                answer.getId(),
+                answer.getQuestion().getId(),
+                answer.isCorrect(),
+                translationsToDtos(answer.getTranslations()));
+    }
 
     /**
      * This method recognizes question types and creates basic or special answers.
@@ -75,6 +91,13 @@ public class AnswerMapper {
                             .toList();
                     return answer.setTranslations(translations);
                 })
+                .toList();
+    }
+
+    private List<AnswerTranslationDto> translationsToDtos(final List<AnswerTranslation> translations) {
+        return translations.stream()
+                .map(translation ->
+                        new AnswerTranslationDto(translation.getContent(), translation.getLanguage().getCode()))
                 .toList();
     }
 
