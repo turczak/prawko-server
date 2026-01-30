@@ -2,6 +2,8 @@ package pl.prawko.prawko_server.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pl.prawko.prawko_server.dto.ApiResponse;
 import pl.prawko.prawko_server.dto.CreateExamDto;
+import pl.prawko.prawko_server.dto.ExamDto;
 import pl.prawko.prawko_server.model.Exam;
 import pl.prawko.prawko_server.service.implementation.ExamService;
 
@@ -38,6 +41,17 @@ public class ExamController {
     public ApiResponse createExam(@RequestBody @Valid final CreateExamDto dto) {
         service.createExam(dto.userId(), dto.categoryName());
         return new ApiResponse("Exam successfully created.");
+    }
+
+    /**
+     * GET method to get an {@link Exam} using {@code id}
+     *
+     * @param examId id of exam to get
+     * @return {@code Exam} if found
+     */
+    @GetMapping("/{examId}")
+    public ExamDto getExam(@PathVariable final long examId) {
+        return service.getById(examId);
     }
 
 }
