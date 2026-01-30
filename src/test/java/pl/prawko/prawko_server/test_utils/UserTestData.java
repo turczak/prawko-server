@@ -15,7 +15,6 @@ public class UserTestData {
     private static final Role ROLE_USER = new Role().setName("USER");
 
     public static final User TESTER = new User()
-            .setId(44L)
             .setFirstName("Peregrin")
             .setLastName("Tuk")
             .setUserName("pippin")

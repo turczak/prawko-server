@@ -1,7 +1,7 @@
 package pl.prawko.prawko_server.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 /**
@@ -11,12 +11,12 @@ import jakarta.validation.constraints.Size;
  */
 public record CreateExamDto(
 
-        @NotEmpty(message = "userId is required")
-        long userId,
+        @NotNull(message = "userId is required")
+        Long userId,
 
         @NotBlank(message = "category is required")
         @Size(min = 1, max = 2)
         String categoryName
-        
+
 ) {
 }

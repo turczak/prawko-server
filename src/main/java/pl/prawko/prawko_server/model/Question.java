@@ -60,7 +60,6 @@ public class Question {
     private List<Answer> answers;
 
     @ManyToMany
-    @JsonManagedReference
     @JoinTable(
             name = "question_category",
             joinColumns = @JoinColumn(name = "question_id"),
@@ -69,7 +68,6 @@ public class Question {
     private List<Category> categories;
 
     @ManyToMany(mappedBy = "questions", cascade = CascadeType.ALL)
-    @JsonBackReference
     private List<Exam> exams;
 
     public long getId() {
