@@ -2,6 +2,9 @@ package pl.prawko.prawko_server.service.implementation;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import pl.prawko.prawko_server.dto.ExamDto;
+import pl.prawko.prawko_server.mapper.ExamMapper;
 import pl.prawko.prawko_server.model.Category;
 import pl.prawko.prawko_server.model.Exam;
 import pl.prawko.prawko_server.model.Question;
@@ -44,15 +47,18 @@ public class ExamService implements IExamService {
     private final UserService userService;
     private final QuestionService questionService;
     private final CategoryService categoryService;
+    private final ExamMapper examMapper;
 
     public ExamService(final ExamRepository repository,
                        final UserService userService,
                        final QuestionService questionService,
-                       final CategoryService categoryService) {
+                       final CategoryService categoryService,
+                       final ExamMapper examMapper) {
         this.repository = repository;
         this.userService = userService;
         this.questionService = questionService;
         this.categoryService = categoryService;
+        this.examMapper = examMapper;
     }
 
     /**
@@ -61,6 +67,7 @@ public class ExamService implements IExamService {
      * @throws EntityNotFoundException when user or category have not been found
      */
     @Override
+    @Transactional
     public Exam createExam(final long userId, final String categoryName) {
         final var user = userService.getById(userId);
         final var category = categoryService.findByName(categoryName);
@@ -79,6 +86,14 @@ public class ExamService implements IExamService {
         user.getExams().add(exam);
         repository.save(exam);
         return exam;
+    }
+
+    @Override
+    @Transactional
+    public ExamDto getById(long examId) {
+        final var exam = repository.findById(examId)
+                .orElseThrow(() -> new EntityNotFoundException("Exam with '" + examId + "' not found."));
+        return examMapper.toDto(exam);
     }
 
     private List<Question> selectRandomQuestions(final List<Question> questions, final int count) {
