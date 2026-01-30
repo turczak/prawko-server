@@ -88,7 +88,9 @@ public class SpringSecurity {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(HttpMethod.POST, "/auth", "/users").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/questions").hasRole("ADMIN"))
+                                .requestMatchers(HttpMethod.POST, "/questions").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/exams").hasRole("USER")
+                                .requestMatchers(HttpMethod.GET, "/exams/**").permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
