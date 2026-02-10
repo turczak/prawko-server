@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.RestClient;
+import pl.prawko.prawko_server.config.IntegrationTest;
+import pl.prawko.prawko_server.config.TestUtils;
 import pl.prawko.prawko_server.dto.ApiResponse;
-import pl.prawko.prawko_server.test_utils.IntegrationTest;
-import pl.prawko.prawko_server.test_utils.TestUtils;
-import pl.prawko.prawko_server.test_utils.UserTestData;
+import pl.prawko.prawko_server.test_data.TestDataFactory;
 
 import java.util.Map;
 
@@ -24,6 +24,8 @@ public class UserControllerTest {
 
     private RestClient restClient;
 
+    private final TestDataFactory testDataFactory = new TestDataFactory();
+
     @BeforeEach
     void setUp() {
         restClient = RestClient.builder()
@@ -34,7 +36,7 @@ public class UserControllerTest {
     @Test
     void registerUser_success_whenDtoIsValid() {
         final var expected = "User registered successfully.";
-        final var dto = UserTestData.VALID_REGISTER_DTO;
+        final var dto = testDataFactory.createValidRegisterDto();
 
         final var response = restClient.post()
                 .uri(URL)
@@ -48,7 +50,7 @@ public class UserControllerTest {
 
     @Test
     void registerUser_returnBadRequest_whenDtoIsInvalid() {
-        final var dto = UserTestData.INVALID_REGISTER_DTO;
+        final var dto = testDataFactory.createInvalidRegisterDto();
         final var errorMessage = "Validation for request failed.";
         final var errorDetails = Map.of(
                 "firstName", "First name is too long.",
@@ -70,7 +72,7 @@ public class UserControllerTest {
 
     @Test
     void registerUser_returnConflict_whenUserAlreadyExists() {
-        final var dto = UserTestData.VALID_REGISTER_DTO;
+        final var dto = testDataFactory.createValidRegisterDto();
         final var errorMessage = "User already exists.";
         final var errorDetails = Map.of(
                 "email", "User with email 'pippin@shire.me' already exists.",

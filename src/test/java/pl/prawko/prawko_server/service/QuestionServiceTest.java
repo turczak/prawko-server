@@ -16,9 +16,9 @@ import pl.prawko.prawko_server.repository.QuestionRepository;
 import pl.prawko.prawko_server.service.implementation.CategoryService;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
 import pl.prawko.prawko_server.service.implementation.QuestionService;
-import pl.prawko.prawko_server.test_utils.CategoryTestData;
-import pl.prawko.prawko_server.test_utils.LanguageTestData;
-import pl.prawko.prawko_server.test_utils.QuestionTestData;
+import pl.prawko.prawko_server.test_data.CategoryTestData;
+import pl.prawko.prawko_server.test_data.LanguageTestData;
+import pl.prawko.prawko_server.test_data.TestDataFactory;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -41,6 +41,7 @@ public class QuestionServiceTest {
     @Mock
     private LanguageService languageService;
 
+    private final TestDataFactory testDataFactory = new TestDataFactory();
     private final List<Language> languages = LanguageTestData.ALL;
     private QuestionService questionService;
 
@@ -56,10 +57,10 @@ public class QuestionServiceTest {
         final ClassPathResource resource = new ClassPathResource("test_question.csv");
         final var inputStream = resource.getInputStream();
         final var file = new MockMultipartFile("file", "test_question.csv", "text/csv", inputStream);
-        when(categoryService.findAllFromString("A,B")).thenReturn(CategoryTestData.CATEGORIES_AB);
+        when(categoryService.findAllFromString("A,B")).thenReturn(List.of(CategoryTestData.CATEGORY_A, CategoryTestData.CATEGORY_B));
         when(categoryService.findAllFromString("PT")).thenReturn(List.of(CategoryTestData.CATEGORY_PT));
         when(languageService.findAll()).thenReturn(languages);
-        final var expected = List.of(QuestionTestData.BASIC_QUESTION, QuestionTestData.SPECIAL_QUESTION);
+        final var expected = List.of(testDataFactory.createQuestion(QuestionType.BASIC), testDataFactory.createQuestion(QuestionType.SPECIAL));
 
         final var result = questionService.parseFileToQuestions(file);
 
@@ -73,7 +74,7 @@ public class QuestionServiceTest {
 
     @Test
     void saveAll_callsRepositorySaveAll() {
-        final var questions = List.of(QuestionTestData.BASIC_QUESTION, QuestionTestData.SPECIAL_QUESTION);
+        final var questions = List.of(testDataFactory.createQuestion(QuestionType.BASIC), testDataFactory.createQuestion(QuestionType.SPECIAL));
 
         questionService.saveAll(questions);
 
@@ -82,7 +83,7 @@ public class QuestionServiceTest {
 
     @Test
     void getAllByTypeAndCategory_returnListOfQuestions_whenFound() {
-        final var question = QuestionTestData.BASIC_QUESTION;
+        final var question = testDataFactory.createQuestion(QuestionType.BASIC);
         final var category = "B";
         final var expected = List.of(question);
         when(repository.findByTypeAndCategories_NameContains(question.getType(), category)).thenReturn(expected);

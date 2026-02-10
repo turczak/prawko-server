@@ -13,7 +13,7 @@ import pl.prawko.prawko_server.mapper.UserMapper;
 import pl.prawko.prawko_server.model.User;
 import pl.prawko.prawko_server.repository.UserRepository;
 import pl.prawko.prawko_server.service.implementation.UserService;
-import pl.prawko.prawko_server.test_utils.UserTestData;
+import pl.prawko.prawko_server.test_data.TestDataFactory;
 
 import java.util.Map;
 import java.util.Optional;
@@ -47,7 +47,8 @@ class UserServiceTest {
     @InjectMocks
     private UserService service;
 
-    private final RegisterDto registerDto = UserTestData.VALID_REGISTER_DTO;
+    private final TestDataFactory testDataFactory = new TestDataFactory();
+    private final RegisterDto registerDto = testDataFactory.createValidRegisterDto();
 
     @Test
     void register_success_whenUserNotExists() {
@@ -113,7 +114,7 @@ class UserServiceTest {
     @Test
     void getByUserNameOrEmail_returnUser_whenFoundByUserName() {
         final var userNameOrEmail = "pippin";
-        final var user = UserTestData.TESTER;
+        final var user = testDataFactory.createTestUser();
         when(repository.findByUserNameOrEmail(userNameOrEmail)).thenReturn(Optional.of(user));
 
         final var result = service.getByUserNameOrEmail(userNameOrEmail);
@@ -126,7 +127,7 @@ class UserServiceTest {
     @Test
     void getByUserNameOrEmail_returnUser_whenFoundByEmail() {
         final var userNameOrEmail = "pippin@shire.me";
-        final var user = UserTestData.TESTER;
+        final var user = testDataFactory.createTestUser();
         when(repository.findByUserNameOrEmail(userNameOrEmail)).thenReturn(Optional.of(user));
 
         final var result = service.getByUserNameOrEmail(userNameOrEmail);
@@ -153,7 +154,7 @@ class UserServiceTest {
     @Test
     void getById_returnUser_whenFound() {
         final var given = 44L;
-        final var expected = UserTestData.TESTER;
+        final var expected = testDataFactory.createTestUser();
         when(repository.findById(given)).thenReturn(Optional.of(expected));
 
         final var result = service.getById(given);

@@ -8,10 +8,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClient;
+import pl.prawko.prawko_server.config.IntegrationTest;
+import pl.prawko.prawko_server.config.TestUtils;
 import pl.prawko.prawko_server.dto.ApiResponse;
-import pl.prawko.prawko_server.test_utils.IntegrationTest;
-import pl.prawko.prawko_server.test_utils.MultiPartFactory;
-import pl.prawko.prawko_server.test_utils.TestUtils;
+import pl.prawko.prawko_server.test_data.MultiPartFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

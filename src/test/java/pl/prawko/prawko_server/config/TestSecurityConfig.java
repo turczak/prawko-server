@@ -1,4 +1,4 @@
-package pl.prawko.prawko_server.test_utils;
+package pl.prawko.prawko_server.config;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;

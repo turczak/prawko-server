@@ -11,10 +11,8 @@ import pl.prawko.prawko_server.service.implementation.CategoryService;
 import pl.prawko.prawko_server.service.implementation.ExamService;
 import pl.prawko.prawko_server.service.implementation.QuestionService;
 import pl.prawko.prawko_server.service.implementation.UserService;
-import pl.prawko.prawko_server.test_utils.CategoryTestData;
-import pl.prawko.prawko_server.test_utils.ExamTestData;
-import pl.prawko.prawko_server.test_utils.QuestionTestData;
-import pl.prawko.prawko_server.test_utils.UserTestData;
+import pl.prawko.prawko_server.test_data.CategoryTestData;
+import pl.prawko.prawko_server.test_data.TestDataFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -39,19 +37,20 @@ public class ExamServiceTest {
     @InjectMocks
     private ExamService service;
 
+    private final TestDataFactory testDataFactory = new TestDataFactory();
 
     @Test
     void createExam_returnExam_whenUserAndCategoryFound() {
-        final var user = UserTestData.TESTER;
+        final var user = testDataFactory.createTestUser();
         final var category = CategoryTestData.CATEGORY_B;
         final var categoryName = category.getName();
-        final var expected = ExamTestData.EXAM;
+        final var expected = testDataFactory.createExam(user);
         when(userService.getById(user.getId())).thenReturn(user);
         when(categoryService.findByName(categoryName)).thenReturn(category);
         when(questionService.getAllByTypeAndCategory(QuestionType.BASIC, categoryName))
-                .thenReturn(QuestionTestData.getBasicQuestions());
+                .thenReturn(testDataFactory.createThreeQuestions(QuestionType.BASIC));
         when(questionService.getAllByTypeAndCategory(QuestionType.SPECIAL, categoryName))
-                .thenReturn(QuestionTestData.getSpecialQuestions());
+                .thenReturn(testDataFactory.createThreeQuestions(QuestionType.SPECIAL));
 
         final var result = service.createExam(user.getId(), categoryName);
 

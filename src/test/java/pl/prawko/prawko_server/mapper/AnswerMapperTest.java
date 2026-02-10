@@ -7,11 +7,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.prawko.prawko_server.model.Language;
+import pl.prawko.prawko_server.model.QuestionType;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
-import pl.prawko.prawko_server.test_utils.AnswerTestData;
-import pl.prawko.prawko_server.test_utils.LanguageTestData;
-import pl.prawko.prawko_server.test_utils.QuestionCSVTestData;
-import pl.prawko.prawko_server.test_utils.QuestionTestData;
+import pl.prawko.prawko_server.test_data.AnswerVariant;
+import pl.prawko.prawko_server.test_data.LanguageTestData;
+import pl.prawko.prawko_server.test_data.TestDataFactory;
 
 import java.util.List;
 
@@ -27,6 +27,7 @@ class AnswerMapperTest {
     @InjectMocks
     private AnswerMapper mapper;
 
+    private final TestDataFactory testDataFactory = new TestDataFactory();
     private final List<Language> languages = LanguageTestData.ALL;
 
     @BeforeEach
@@ -36,8 +37,8 @@ class AnswerMapperTest {
 
     @Test
     void fromQuestionCSVToAnswers_correctlyMapBasicAnswers() {
-        final var given = QuestionCSVTestData.BASIC_QUESTION_CSV;
-        final var expected = QuestionTestData.BASIC_QUESTION;
+        final var given = testDataFactory.createBasicQuestionCSV();
+        final var expected = testDataFactory.createQuestion(QuestionType.BASIC);
 
         final var result = mapper.fromQuestionCSVToAnswers(given, expected);
 
@@ -46,8 +47,8 @@ class AnswerMapperTest {
 
     @Test
     void fromQuestionsCSVToAnswers_correctlyMapSpecialAnswers() {
-        final var given = QuestionCSVTestData.SPECIAL_QUESTION_CSV;
-        final var expected = QuestionTestData.SPECIAL_QUESTION;
+        final var given = testDataFactory.createSpecialQuestionCSV();
+        final var expected = testDataFactory.createQuestion(QuestionType.SPECIAL);
         when(languageService.findAll()).thenReturn(languages);
 
         final var result = mapper.fromQuestionCSVToAnswers(given, expected);
@@ -57,8 +58,8 @@ class AnswerMapperTest {
 
     @Test
     void toDto_correctlyMapAnswer() {
-        final var given = AnswerTestData.ANSWER_A;
-        final var expected = AnswerTestData.ANSWER_A_MAPPED;
+        final var given = testDataFactory.createAnswer(AnswerVariant.A);
+        final var expected = testDataFactory.createAnswerDtoA();
 
         final var result = mapper.toDto(given);
 

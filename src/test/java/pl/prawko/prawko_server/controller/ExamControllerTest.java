@@ -9,6 +9,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestClient;
+import pl.prawko.prawko_server.config.IntegrationTest;
+import pl.prawko.prawko_server.config.TestUtils;
 import pl.prawko.prawko_server.dto.ApiResponse;
 import pl.prawko.prawko_server.dto.CreateExamDto;
 import pl.prawko.prawko_server.dto.ExamDto;
@@ -16,11 +18,9 @@ import pl.prawko.prawko_server.model.Exam;
 import pl.prawko.prawko_server.model.User;
 import pl.prawko.prawko_server.repository.ExamRepository;
 import pl.prawko.prawko_server.repository.UserRepository;
-import pl.prawko.prawko_server.test_utils.IntegrationTest;
-import pl.prawko.prawko_server.test_utils.TestUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static pl.prawko.prawko_server.test_utils.TestUtils.BASE_URL;
+import static pl.prawko.prawko_server.config.TestUtils.BASE_URL;
 
 @IntegrationTest
 public class ExamControllerTest {

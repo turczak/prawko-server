@@ -1,4 +1,4 @@
-package pl.prawko.prawko_server.test_utils;
+package pl.prawko.prawko_server.test_data;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;

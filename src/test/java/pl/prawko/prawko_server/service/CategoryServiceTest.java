@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pl.prawko.prawko_server.model.Category;
 import pl.prawko.prawko_server.repository.CategoryRepository;
 import pl.prawko.prawko_server.service.implementation.CategoryService;
+import pl.prawko.prawko_server.test_data.CategoryTestData;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,12 +17,10 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
-import static pl.prawko.prawko_server.test_utils.CategoryTestData.CATEGORIES_AB;
-import static pl.prawko.prawko_server.test_utils.CategoryTestData.CATEGORY_A;
-import static pl.prawko.prawko_server.test_utils.CategoryTestData.CATEGORY_B;
 
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceTest {
+
 
     @Mock
     private CategoryRepository repository;
@@ -56,22 +55,24 @@ class CategoryServiceTest {
 
     @Test
     void findAllFromString_returnCategories_whenFound() {
-        when(repository.findByName("A")).thenReturn(Optional.of(CATEGORY_A));
-        when(repository.findByName("B")).thenReturn(Optional.of(CATEGORY_B));
+        final var categories = List.of(CategoryTestData.CATEGORY_A, CategoryTestData.CATEGORY_B);
+        when(repository.findByName("A")).thenReturn(Optional.of(categories.getFirst()));
+        when(repository.findByName("B")).thenReturn(Optional.of(categories.getLast()));
 
         final var result = service.findAllFromString("A,B");
 
-        assertThat(result).isEqualTo(CATEGORIES_AB);
+        assertThat(result).isEqualTo(categories);
     }
 
     @Test
     void findAllFromString_skipCategories_whenNotFound() {
+        final var category = CategoryTestData.CATEGORY_B;
         when(repository.findByName("Z")).thenReturn(Optional.empty());
-        when(repository.findByName("B")).thenReturn(Optional.of(CATEGORY_B));
+        when(repository.findByName("B")).thenReturn(Optional.of(category));
 
         final var result = service.findAllFromString("Z,B");
 
-        assertThat(result).isEqualTo(List.of(CATEGORY_B));
+        assertThat(result).isEqualTo(List.of(category));
     }
 
 }
