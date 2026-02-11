@@ -30,18 +30,19 @@ public class ExamService implements IExamService {
      * key - points value of questions
      * value - amount of questions
      */
-    private static final Map<QuestionType, Map<Integer, Integer>> QUESTIONS_DISTRIBUTION = Map.of(
-            QuestionType.BASIC, Map.of(
-                    1, 4,
-                    2, 6,
-                    3, 10
-            ),
-            QuestionType.SPECIAL, Map.of(
-                    1, 2,
-                    2, 4,
-                    3, 6
-            )
-    );
+    private static final Map<QuestionType, Map<Integer, Integer>> QUESTIONS_DISTRIBUTION =
+            Map.ofEntries(
+                    Map.entry(QuestionType.BASIC, Map.ofEntries(
+                            Map.entry(1, 4),
+                            Map.entry(2, 6),
+                            Map.entry(3, 10)
+                    )),
+                    Map.entry(QuestionType.SPECIAL, Map.ofEntries(
+                            Map.entry(1, 2),
+                            Map.entry(2, 4),
+                            Map.entry(3, 6)
+                    ))
+            );
 
     private final ExamRepository repository;
     private final UserService userService;
