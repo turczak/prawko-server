@@ -3,6 +3,8 @@ package pl.prawko.prawko_server.service;
 import pl.prawko.prawko_server.dto.ExamDto;
 import pl.prawko.prawko_server.model.Exam;
 
+import java.util.Optional;
+
 /**
  * Interface to manage {@link Exam} entities.
  */
@@ -15,7 +17,7 @@ public interface IExamService {
      * @param categoryName category used to construct an exam
      * @return a correctly generated {@code exam}
      */
-    Exam createExam(final long userId, final String categoryName);
+    Optional<Exam> createExam(final long userId, final String categoryName);
 
     /**
      * Finds a {@link Exam} entity by its id and map it to {@link ExamDto}.

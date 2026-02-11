@@ -1,6 +1,5 @@
 package pl.prawko.prawko_server.service.implementation;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.prawko.prawko_server.model.Category;
 import pl.prawko.prawko_server.repository.CategoryRepository;
@@ -33,9 +32,8 @@ public class CategoryService implements ICategoryService {
      * @throws RuntimeException when not found
      */
     @Override
-    public Category findByName(final String name) {
-        return repository.findByName(name)
-                .orElseThrow(() -> new EntityNotFoundException("category: " + name + " not found"));
+    public Optional<Category> findByName(final String name) {
+        return repository.findByName(name);
     }
 
     @Override

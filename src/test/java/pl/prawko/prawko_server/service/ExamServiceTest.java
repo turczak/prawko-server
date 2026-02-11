@@ -14,6 +14,8 @@ import pl.prawko.prawko_server.service.implementation.UserService;
 import pl.prawko.prawko_server.test_data.CategoryTestData;
 import pl.prawko.prawko_server.test_data.TestDataFactory;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -45,17 +47,18 @@ public class ExamServiceTest {
         final var category = CategoryTestData.CATEGORY_B;
         final var categoryName = category.getName();
         final var expected = testDataFactory.createExam(user);
-        when(userService.getById(user.getId())).thenReturn(user);
-        when(categoryService.findByName(categoryName)).thenReturn(category);
+        when(userService.getById(user.getId())).thenReturn(Optional.of(user));
+        when(categoryService.findByName(categoryName)).thenReturn(Optional.of(category));
         when(questionService.getAllByTypeAndCategory(QuestionType.BASIC, categoryName))
                 .thenReturn(testDataFactory.createThreeQuestions(QuestionType.BASIC));
         when(questionService.getAllByTypeAndCategory(QuestionType.SPECIAL, categoryName))
                 .thenReturn(testDataFactory.createThreeQuestions(QuestionType.SPECIAL));
 
         final var result = service.createExam(user.getId(), categoryName);
-
-        assertThat(result).isEqualTo(expected);
-        verify(repository).save(result);
+        assertThat(result).isPresent();
+        final var exam = result.get();
+        assertThat(exam).isEqualTo(expected);
+        verify(repository).save(exam);
         verifyNoMoreInteractions(repository);
     }
 

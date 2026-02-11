@@ -19,7 +19,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -159,21 +158,11 @@ class UserServiceTest {
 
         final var result = service.getById(given);
 
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isPresent();
+        final var user = result.get();
+        assertThat(user).isEqualTo(expected);
         verify(repository).findById(given);
         verifyNoMoreInteractions(repository);
-    }
-
-    @Test
-    void getById_throwException_whenNotFound() {
-        final var given = 666L;
-        when(repository.findById(given)).thenReturn(Optional.empty());
-
-        final ThrowableAssert.ThrowingCallable result = () -> service.getById(given);
-
-        assertThatThrownBy(result)
-                .isInstanceOf(EntityNotFoundException.class)
-                .hasMessageContaining("User with '" + given + "' not found.");
     }
 
 }

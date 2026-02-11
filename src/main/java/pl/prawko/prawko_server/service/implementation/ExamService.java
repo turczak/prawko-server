@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -65,28 +66,32 @@ public class ExamService implements IExamService {
     /**
      * {@inheritDoc}
      *
-     * @throws EntityNotFoundException when user or category have not been found
+     * @return Optional of created {@code exam} or empty if {@code user} or {@code category} have not been found.
      */
     @Override
     @Transactional
-    public Exam createExam(final long userId, final String categoryName) {
-        final var user = userService.getById(userId);
-        final var category = categoryService.findByName(categoryName);
-        final var questions = Stream.of(
-                        generateQuestions(category, QuestionType.BASIC),
-                        generateQuestions(category, QuestionType.SPECIAL))
-                .flatMap(Collection::stream)
-                .toList();
-        final var exam = new Exam()
-                .setUser(user)
-                .setQuestions(questions)
-                .setCategory(category)
-                .setScore(0)
-                .setActive(true)
-                .setUserAnswers(Collections.emptyList());
-        user.getExams().add(exam);
-        repository.save(exam);
-        return exam;
+    public Optional<Exam> createExam(final long userId, final String categoryName) {
+        return userService.getById(userId)
+                .flatMap(user ->
+                        categoryService.findByName(categoryName)
+                                .map(category -> {
+                                    final var questions = Stream.of(
+                                                    generateQuestions(category, QuestionType.BASIC),
+                                                    generateQuestions(category, QuestionType.SPECIAL))
+                                            .flatMap(Collection::stream)
+                                            .toList();
+                                    final var exam = new Exam()
+                                            .setUser(user)
+                                            .setQuestions(questions)
+                                            .setCategory(category)
+                                            .setScore(0)
+                                            .setActive(true)
+                                            .setUserAnswers(Collections.emptyList());
+                                    user.getExams().add(exam);
+                                    repository.save(exam);
+                                    return exam;
+                                })
+                );
     }
 
     @Override

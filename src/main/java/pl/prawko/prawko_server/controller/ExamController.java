@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +40,8 @@ public class ExamController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse createExam(@RequestBody @Valid final CreateExamDto dto) {
-        service.createExam(dto.userId(), dto.categoryName());
+        service.createExam(dto.userId(), dto.categoryName())
+                .orElseThrow(() -> new EntityNotFoundException("User or category not found."));
         return new ApiResponse("Exam successfully created.");
     }
 
