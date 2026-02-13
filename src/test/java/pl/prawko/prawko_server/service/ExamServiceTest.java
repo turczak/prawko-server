@@ -55,10 +55,8 @@ public class ExamServiceTest {
                 .thenReturn(testDataFactory.createThreeQuestions(QuestionType.SPECIAL));
 
         final var result = service.createExam(user.getId(), categoryName);
-        assertThat(result).isPresent();
-        final var exam = result.get();
-        assertThat(exam).isEqualTo(expected);
-        verify(repository).save(exam);
+        assertThat(result).hasValue(expected);
+        verify(repository).save(result.get());
         verifyNoMoreInteractions(repository);
     }
 

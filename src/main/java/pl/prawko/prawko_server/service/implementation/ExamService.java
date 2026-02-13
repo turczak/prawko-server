@@ -71,27 +71,25 @@ public class ExamService implements IExamService {
     @Override
     @Transactional
     public Optional<Exam> createExam(final long userId, final String categoryName) {
-        return userService.getById(userId)
-                .flatMap(user ->
-                        categoryService.findByName(categoryName)
-                                .map(category -> {
-                                    final var questions = Stream.of(
-                                                    generateQuestions(category, QuestionType.BASIC),
-                                                    generateQuestions(category, QuestionType.SPECIAL))
-                                            .flatMap(Collection::stream)
-                                            .toList();
-                                    final var exam = new Exam()
-                                            .setUser(user)
-                                            .setQuestions(questions)
-                                            .setCategory(category)
-                                            .setScore(0)
-                                            .setActive(true)
-                                            .setUserAnswers(Collections.emptyList());
-                                    user.getExams().add(exam);
-                                    repository.save(exam);
-                                    return exam;
-                                })
-                );
+        final var user = userService.getById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User with id" + userId + " not found."));
+        final var category = categoryService.findByName(categoryName)
+                .orElseThrow(() -> new EntityNotFoundException("Category with name " + categoryName + " not found."));
+        final var questions = Stream.of(
+                        generateQuestions(category, QuestionType.BASIC),
+                        generateQuestions(category, QuestionType.SPECIAL))
+                .flatMap(Collection::stream)
+                .toList();
+        final var exam = new Exam()
+                .setUser(user)
+                .setQuestions(questions)
+                .setCategory(category)
+                .setScore(0)
+                .setActive(true)
+                .setUserAnswers(Collections.emptyList());
+        user.getExams().add(exam);
+        repository.save(exam);
+        return Optional.of(exam);
     }
 
     @Override

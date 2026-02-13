@@ -158,9 +158,7 @@ class UserServiceTest {
 
         final var result = service.getById(given);
 
-        assertThat(result).isPresent();
-        final var user = result.get();
-        assertThat(user).isEqualTo(expected);
+        assertThat(result).hasValue(expected);
         verify(repository).findById(given);
         verifyNoMoreInteractions(repository);
     }
