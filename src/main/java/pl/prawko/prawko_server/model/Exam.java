@@ -189,10 +189,20 @@ public class Exam {
         return Objects.hash(id, user, questions, category, language);
     }
 
+
     @Override
     public String toString() {
-        return "Exam{id=%d, created=%s, updated=%s, user=%s, active=%s, score=%d, category=%s, language=%s, questions=%s, userAnswers=%s}"
-                .formatted(id, created, updated, user, active, score, category, language, questions, userAnswers);
+        return "Exam{" +
+                "id=" + id +
+                ", active=" + active +
+                ", score=" + score +
+                ", created=" + created +
+                ", updated=" + updated +
+                ", user=" + user +
+                ", questions=" + questions +
+                ", userAnswers=" + userAnswers +
+                ", language=" + language +
+                ", category=" + category +
+                '}';
     }
-
 }
