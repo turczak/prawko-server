@@ -14,6 +14,7 @@ import pl.prawko.prawko_server.config.TestUtils;
 import pl.prawko.prawko_server.dto.ApiResponse;
 import pl.prawko.prawko_server.dto.CreateExamDto;
 import pl.prawko.prawko_server.dto.ExamDto;
+import pl.prawko.prawko_server.model.CategoryVariant;
 import pl.prawko.prawko_server.model.Exam;
 import pl.prawko.prawko_server.model.User;
 import pl.prawko.prawko_server.repository.ExamRepository;
@@ -52,7 +53,7 @@ public class ExamControllerTest {
     @Test
     void createExam_returnCreated() {
         final var tester = userRepository.save(new User());
-        final var dto = new CreateExamDto(tester.getId(), "B");
+        final var dto = new CreateExamDto(tester.getId(), CategoryVariant.B);
 
         final var response = restClient.post()
                 .uri(URL)

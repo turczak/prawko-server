@@ -40,7 +40,7 @@ public class ExamController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse createExam(@RequestBody @Valid final CreateExamDto dto) {
-        service.createExam(dto.userId(), dto.categoryName())
+        service.createExam(dto.userId(), dto.categoryName().name())
                 .orElseThrow(() -> new EntityNotFoundException("User or category not found."));
         return new ApiResponse("Exam successfully created.");
     }
