@@ -189,7 +189,6 @@ public class Exam {
         return Objects.hash(id, user, questions, category, language);
     }
 
-
     @Override
     public String toString() {
         return "Exam{" +
@@ -205,4 +204,5 @@ public class Exam {
                 ", category=" + category +
                 '}';
     }
+
 }

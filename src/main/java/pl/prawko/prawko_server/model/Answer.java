@@ -113,10 +113,16 @@ public class Answer {
         return Objects.hash(id, correct, translations);
     }
 
+
     @Override
     public String toString() {
-        return "Answer{id=%d, correct=%s, translations=%s}"
-                .formatted(id, correct, translations);
+        return "Answer{" +
+                "id=" + id +
+                ", correct=" + correct +
+                ", question=" + question +
+                ", translations=" + translations +
+                ", tests=" + tests +
+                '}';
     }
-
+    
 }

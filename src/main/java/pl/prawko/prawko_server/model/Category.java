@@ -98,4 +98,14 @@ public class Category {
         return Objects.hash(id, name);
     }
 
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", questions=" + questions +
+                ", exams=" + exams +
+                '}';
+    }
+
 }

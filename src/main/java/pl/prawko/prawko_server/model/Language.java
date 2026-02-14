@@ -153,8 +153,15 @@ public class Language {
 
     @Override
     public String toString() {
-        return "Language{id=%d, name='%s', code='%s', icon='%s'}"
-                .formatted(id, name, code, icon);
+        return "Language{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", icon='" + icon + '\'' +
+                ", questionTranslations=" + questionTranslations +
+                ", answerTranslations=" + answerTranslations +
+                ", exams=" + exams +
+                '}';
     }
 
 }

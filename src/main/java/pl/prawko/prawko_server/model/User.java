@@ -205,9 +205,19 @@ public class User {
 
     @Override
     public String toString() {
-        return ("User{id=%d, firstName='%s', lastName='%s', userName='%s', email='%s', enabled=%s, created=%s, "
-                + "updated=%s, roles=%s}")
-                .formatted(id, firstName, lastName, userName, email, enabled, created, updated, roles);
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", created=" + created +
+                ", updated=" + updated +
+                ", roles=" + roles +
+                ", exams=" + exams +
+                '}';
     }
 
 }

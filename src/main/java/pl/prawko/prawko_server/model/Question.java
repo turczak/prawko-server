@@ -172,8 +172,17 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question{id=%d, name='%s', points=%d, translations=%s, answers=%s media='%s', type=%s, categories=%s}"
-                .formatted(id, name, points, translations, answers, media, type, categories);
+        return "Question{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", points=" + points +
+                ", media='" + media + '\'' +
+                ", type=" + type +
+                ", translations=" + translations +
+                ", answers=" + answers +
+                ", categories=" + categories +
+                ", exams=" + exams +
+                '}';
     }
 
 }
