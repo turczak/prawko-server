@@ -101,6 +101,7 @@ public class QuestionTranslation {
         return "QuestionTranslation{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
+                ", question=" + question +
                 ", language=" + language +
                 '}';
     }

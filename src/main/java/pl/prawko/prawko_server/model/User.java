@@ -1,6 +1,5 @@
 package pl.prawko.prawko_server.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -73,7 +72,6 @@ public class User {
     private LocalDateTime updated;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonManagedReference
     @JoinTable(
             name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
@@ -207,9 +205,19 @@ public class User {
 
     @Override
     public String toString() {
-        return ("User{id=%d, firstName='%s', lastName='%s', userName='%s', email='%s', enabled=%s, created=%s, "
-                + "updated=%s, roles=%s}")
-                .formatted(id, firstName, lastName, userName, email, enabled, created, updated, roles);
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", created=" + created +
+                ", updated=" + updated +
+                ", roles=" + roles +
+                ", exams=" + exams +
+                '}';
     }
 
 }

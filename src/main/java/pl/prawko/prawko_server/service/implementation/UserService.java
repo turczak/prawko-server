@@ -19,6 +19,7 @@ import pl.prawko.prawko_server.service.IUserService;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Implementation of {@link IUserService} that manage users entities.
@@ -105,6 +106,16 @@ public class UserService implements IUserService, UserDetailsService {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
                 .toList();
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws EntityNotFoundException if a user with provided id have not been found
+     */
+    @Override
+    public Optional<User> getById(long userId) {
+        return repository.findById(userId);
     }
 
 }

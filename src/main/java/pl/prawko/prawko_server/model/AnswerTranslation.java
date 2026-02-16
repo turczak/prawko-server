@@ -112,8 +112,12 @@ public class AnswerTranslation {
 
     @Override
     public String toString() {
-        return "AnswerTranslation{id=%d, content='%s', language=%s}"
-                .formatted(id, content, language);
+        return "AnswerTranslation{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", answer=" + answer +
+                ", language=" + language +
+                '}';
     }
 
 }

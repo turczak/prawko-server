@@ -8,7 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.prawko.prawko_server.model.Role;
 import pl.prawko.prawko_server.service.implementation.RoleService;
-import pl.prawko.prawko_server.test_utils.UserTestData;
+import pl.prawko.prawko_server.test_data.TestDataFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -27,11 +27,13 @@ class UserMapperTest {
 
     private static final String[] IGNORED_FIELDS = {"id", "created", "updated", "exams", "password"};
 
+    private final TestDataFactory userTestDataFactory = new TestDataFactory();
+
     @Test
     void fromDto_correctlyMapUser() {
-        final var dto = UserTestData.VALID_REGISTER_DTO;
+        final var dto = userTestDataFactory.createValidRegisterDto();
         final var role = new Role().setName("USER");
-        final var expected = UserTestData.TESTER;
+        final var expected = userTestDataFactory.createTestUser();
         when(roleService.getByName(role.getName())).thenReturn(role);
         when(passwordEncoder.encode(dto.password())).thenReturn("hashed");
 

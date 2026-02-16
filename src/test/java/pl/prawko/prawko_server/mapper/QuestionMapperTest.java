@@ -7,12 +7,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.prawko.prawko_server.model.Language;
+import pl.prawko.prawko_server.model.QuestionType;
 import pl.prawko.prawko_server.service.implementation.CategoryService;
 import pl.prawko.prawko_server.service.implementation.LanguageService;
-import pl.prawko.prawko_server.test_utils.CategoryTestData;
-import pl.prawko.prawko_server.test_utils.LanguageTestData;
-import pl.prawko.prawko_server.test_utils.QuestionCSVTestData;
-import pl.prawko.prawko_server.test_utils.QuestionTestData;
+import pl.prawko.prawko_server.test_data.CategoryTestData;
+import pl.prawko.prawko_server.test_data.LanguageTestData;
+import pl.prawko.prawko_server.test_data.TestDataFactory;
 
 import java.util.List;
 
@@ -31,6 +31,7 @@ class QuestionMapperTest {
     @InjectMocks
     private QuestionMapper questionMapper;
 
+    private final TestDataFactory testDataFactory = new TestDataFactory();
     private final List<Language> languages = LanguageTestData.ALL;
 
     @BeforeEach
@@ -42,9 +43,11 @@ class QuestionMapperTest {
 
     @Test
     void mapQuestionCSVToQuestion_returnBasicQuestion() {
-        when(categoryService.findAllFromString("A,B")).thenReturn(CategoryTestData.CATEGORIES_AB);
-        final var given = QuestionCSVTestData.BASIC_QUESTION_CSV;
-        final var expected = QuestionTestData.BASIC_QUESTION;
+        final var categories = List.of(CategoryTestData.CATEGORY_A, CategoryTestData.CATEGORY_B);
+        when(categoryService.findAllFromString("A,B")).thenReturn(categories);
+
+        final var given = testDataFactory.createBasicQuestionCSV();
+        final var expected = testDataFactory.createQuestion(QuestionType.BASIC);
 
         final var result = questionMapper.mapQuestionCSVToQuestion(given);
 
@@ -53,9 +56,10 @@ class QuestionMapperTest {
 
     @Test
     void mapQuestionCSVToQuestion_returnSpecialQuestion() {
-        when(categoryService.findAllFromString("PT")).thenReturn(List.of(CategoryTestData.CATEGORY_PT));
-        final var given = QuestionCSVTestData.SPECIAL_QUESTION_CSV;
-        final var expected = QuestionTestData.SPECIAL_QUESTION;
+        final var category = CategoryTestData.CATEGORY_PT;
+        when(categoryService.findAllFromString("PT")).thenReturn(List.of(category));
+        final var given = testDataFactory.createSpecialQuestionCSV();
+        final var expected = testDataFactory.createQuestion(QuestionType.SPECIAL);
 
         final var result = questionMapper.mapQuestionCSVToQuestion(given);
 

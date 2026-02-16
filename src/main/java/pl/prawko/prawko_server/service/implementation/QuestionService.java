@@ -11,6 +11,7 @@ import pl.prawko.prawko_server.mapper.QuestionMapper;
 import pl.prawko.prawko_server.model.Category;
 import pl.prawko.prawko_server.model.Question;
 import pl.prawko.prawko_server.model.QuestionCSV;
+import pl.prawko.prawko_server.model.QuestionType;
 import pl.prawko.prawko_server.repository.CategoryRepository;
 import pl.prawko.prawko_server.repository.QuestionRepository;
 import pl.prawko.prawko_server.service.ICategoryService;
@@ -74,9 +75,6 @@ public class QuestionService implements IQuestionService {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void saveAll(final List<Question> questions) {
         repository.saveAll(questions);
@@ -92,6 +90,11 @@ public class QuestionService implements IQuestionService {
         return questionCSVs.stream()
                 .map(mapper::mapQuestionCSVToQuestion)
                 .toList();
+    }
+
+    @Override
+    public List<Question> getAllByTypeAndCategory(final QuestionType type, final String category) {
+        return repository.findByTypeAndCategories_NameContains(type, category);
     }
 
 }

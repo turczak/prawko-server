@@ -1,4 +1,4 @@
-package pl.prawko.prawko_server.test_utils;
+package pl.prawko.prawko_server.test_data;
 
 import pl.prawko.prawko_server.model.Language;
 

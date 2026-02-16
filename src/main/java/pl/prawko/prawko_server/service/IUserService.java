@@ -3,6 +3,8 @@ package pl.prawko.prawko_server.service;
 import pl.prawko.prawko_server.dto.RegisterDto;
 import pl.prawko.prawko_server.model.User;
 
+import java.util.Optional;
+
 /**
  * Service interface for managing {@link User} entities.
  */
@@ -30,5 +32,13 @@ public interface IUserService {
      * @return {@code User} when found
      */
     User getByUserNameOrEmail(final String userNameOrEmail);
+
+    /**
+     * Get {@code user} by {@code id}.
+     *
+     * @param userId provided id
+     * @return an {@code user}
+     */
+    Optional<User> getById(final long userId);
 
 }

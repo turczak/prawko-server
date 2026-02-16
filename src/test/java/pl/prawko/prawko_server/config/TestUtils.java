@@ -1,4 +1,4 @@
-package pl.prawko.prawko_server.test_utils;
+package pl.prawko.prawko_server.config;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

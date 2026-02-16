@@ -1,7 +1,5 @@
 package pl.prawko.prawko_server.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -60,7 +58,6 @@ public class Question {
     private List<Answer> answers;
 
     @ManyToMany
-    @JsonManagedReference
     @JoinTable(
             name = "question_category",
             joinColumns = @JoinColumn(name = "question_id"),
@@ -69,7 +66,6 @@ public class Question {
     private List<Category> categories;
 
     @ManyToMany(mappedBy = "questions", cascade = CascadeType.ALL)
-    @JsonBackReference
     private List<Exam> exams;
 
     public long getId() {
@@ -176,8 +172,17 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question{id=%d, name='%s', points=%d, translations=%s, answers=%s media='%s', type=%s, categories=%s}"
-                .formatted(id, name, points, translations, answers, media, type, categories);
+        return "Question{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", points=" + points +
+                ", media='" + media + '\'' +
+                ", type=" + type +
+                ", translations=" + translations +
+                ", answers=" + answers +
+                ", categories=" + categories +
+                ", exams=" + exams +
+                '}';
     }
 
 }

@@ -32,10 +32,8 @@ public class CategoryService implements ICategoryService {
      * @throws RuntimeException when not found
      */
     @Override
-    public Category findByName(final String name) {
-        return repository.findByName(name)
-                .orElseThrow(
-                        () -> new RuntimeException("category: " + name + " not found"));
+    public Optional<Category> findByName(final String name) {
+        return repository.findByName(name);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package pl.prawko.prawko_server.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +10,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,6 +25,7 @@ import java.util.Objects;
  *     <li>{@code active} - status of exam, representing if user is solving it</li>
  *     <li>{@code score} - sum of correct answers in exam by user</li>
  *     <li>{@code created} - timestamp of creation</li>
+ *     <li>{@code updated} - timestamp of last update</li>
  * </ul>
  * <p>
  * Relationships:
@@ -51,12 +52,14 @@ public class Exam {
     @CreationTimestamp
     private LocalDateTime created;
 
+    @UpdateTimestamp
+    private LocalDateTime updated;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JsonManagedReference
     @JoinTable(
             name = "test_question",
             joinColumns = @JoinColumn(name = "test_id"),
@@ -65,7 +68,6 @@ public class Exam {
     private List<Question> questions;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JsonManagedReference
     @JoinTable(
             name = "test_answer",
             joinColumns = @JoinColumn(name = "test_id"),
@@ -147,7 +149,7 @@ public class Exam {
         return language;
     }
 
-    public Exam setLanguage(Language language) {
+    public Exam setLanguage(final Language language) {
         this.language = language;
         return this;
     }
@@ -156,9 +158,17 @@ public class Exam {
         return category;
     }
 
-    public Exam setCategory(Category category) {
+    public Exam setCategory(final Category category) {
         this.category = category;
         return this;
+    }
+
+    public LocalDateTime getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(final LocalDateTime updated) {
+        this.updated = updated;
     }
 
     @Override
@@ -181,8 +191,18 @@ public class Exam {
 
     @Override
     public String toString() {
-        return "Exam{id=%d, created=%s, user=%s, active=%s, score=%d, category=%s, language=%s, questions=%s, userAnswers=%s}"
-                .formatted(id, created, user, active, score, category, language, questions, userAnswers);
+        return "Exam{" +
+                "id=" + id +
+                ", active=" + active +
+                ", score=" + score +
+                ", created=" + created +
+                ", updated=" + updated +
+                ", user=" + user +
+                ", questions=" + questions +
+                ", userAnswers=" + userAnswers +
+                ", language=" + language +
+                ", category=" + category +
+                '}';
     }
 
 }
