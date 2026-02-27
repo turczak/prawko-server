@@ -73,6 +73,8 @@ Base URL: `http://localhost:8080/`
 
 ### Endpoints
 
+Application has Swagger so you can test out REST API via `/swagger-ui/index.html`
+
 * `/questions`
     + `POST` upload csv file with questions
 * `/users`
