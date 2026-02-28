@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.service.implementation;
 
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import pl.prawko.prawko_server.model.Category;
 import pl.prawko.prawko_server.repository.CategoryRepository;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Service
 public class CategoryService implements ICategoryService {
 
+    @NonNull
     private final CategoryRepository repository;
 
     /**
@@ -22,7 +24,7 @@ public class CategoryService implements ICategoryService {
      *
      * @param repository the category repository used for data access
      */
-    public CategoryService(final CategoryRepository repository) {
+    public CategoryService(@NonNull final CategoryRepository repository) {
         this.repository = repository;
     }
 
@@ -32,12 +34,14 @@ public class CategoryService implements ICategoryService {
      * @throws RuntimeException when not found
      */
     @Override
-    public Optional<Category> findByName(final String name) {
+    @NonNull
+    public Optional<Category> findByName(@NonNull final String name) {
         return repository.findByName(name);
     }
 
     @Override
-    public List<Category> findAllFromString(final String input) {
+    @NonNull
+    public List<Category> findAllFromString(@NonNull final String input) {
         return Arrays.stream(input.split(","))
                 .map(repository::findByName)
                 .flatMap(Optional::stream)
