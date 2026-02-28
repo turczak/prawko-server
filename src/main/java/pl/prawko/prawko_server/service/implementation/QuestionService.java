@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +32,9 @@ import java.util.List;
 @Service
 public class QuestionService implements IQuestionService {
 
+    @NonNull
     private final QuestionRepository repository;
+    @NonNull
     private final QuestionMapper mapper;
 
     /**
@@ -40,8 +43,8 @@ public class QuestionService implements IQuestionService {
      * @param repository the {@link QuestionRepository} used to persist {@link Question} entities
      * @param mapper     the {@link QuestionMapper} used to map {@link QuestionCSV} to {@link Question} entity
      */
-    public QuestionService(final QuestionRepository repository,
-                           final QuestionMapper mapper) {
+    public QuestionService(@NonNull final QuestionRepository repository,
+                           @NonNull final QuestionMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
@@ -88,13 +91,14 @@ public class QuestionService implements IQuestionService {
      * @param questionCSVs the list of CSV models to map
      * @return the list of mapped {@link Question} entities
      */
-    private List<Question> mapQuestionCSVModelsToQuestions(final List<QuestionCSV> questionCSVs) {
+    @NonNull
+    private List<Question> mapQuestionCSVModelsToQuestions(@NonNull final List<QuestionCSV> questionCSVs) {
         return questionCSVs.stream()
                 .map(mapper::mapQuestionCSVToQuestion)
                 .toList();
     }
 
-    @NonNull
+    @Nullable
     @Override
     public List<Question> getAllByTypeAndCategory(@NonNull final QuestionType type, @NonNull final String category) {
         return repository.findByTypeAndCategories_NameContains(type, category);

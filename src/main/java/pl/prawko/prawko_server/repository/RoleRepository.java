@@ -21,7 +21,6 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
      * @param name provided name of the role
      * @return role when found, otherwise empty
      */
-    @NonNull
     Optional<Role> findByName(@NonNull final String name);
 
 }

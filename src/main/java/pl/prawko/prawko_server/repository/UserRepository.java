@@ -38,7 +38,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return An {@code user} when found
      */
     @Query("FROM User user WHERE user.userName = :input OR user.email = :input")
-    @NonNull
     Optional<User> findByUserNameOrEmail(@NonNull @Param("input") final String userNameOrEmail);
 
 }

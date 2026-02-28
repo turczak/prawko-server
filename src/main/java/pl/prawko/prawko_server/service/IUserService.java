@@ -1,6 +1,7 @@
 package pl.prawko.prawko_server.service;
 
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import pl.prawko.prawko_server.dto.RegisterDto;
 import pl.prawko.prawko_server.model.User;
 
@@ -32,7 +33,7 @@ public interface IUserService {
      * @param userNameOrEmail provided name or email
      * @return {@code User} when found
      */
-    @NonNull
+    @Nullable
     User getByUserNameOrEmail(@NonNull final String userNameOrEmail);
 
     /**
@@ -41,7 +42,6 @@ public interface IUserService {
      * @param userId provided id
      * @return an {@code user}
      */
-    @NonNull
     Optional<User> getById(final long userId);
 
 }

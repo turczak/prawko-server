@@ -1,6 +1,7 @@
 package pl.prawko.prawko_server.service;
 
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import pl.prawko.prawko_server.model.Category;
 
 import java.util.List;
@@ -20,7 +21,6 @@ public interface ICategoryService {
      * @param name name of the category to retrieve
      * @return found {@link Category}
      */
-    @NonNull
     Optional<Category> findByName(@NonNull final String name);
 
     /**
@@ -32,7 +32,7 @@ public interface ICategoryService {
      * @param input a comma-separated string of category names
      * @return a list of matching {@link Category} entities
      */
-    @NonNull
+    @Nullable
     List<Category> findAllFromString(@NonNull final String input);
 
 }

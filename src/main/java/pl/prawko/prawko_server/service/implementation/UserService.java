@@ -2,6 +2,7 @@ package pl.prawko.prawko_server.service.implementation;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,10 +31,13 @@ import java.util.Optional;
 @Service
 public class UserService implements IUserService, UserDetailsService {
 
+    @NonNull
     private final UserRepository repository;
+    @NonNull
     private final UserMapper mapper;
 
-    public UserService(UserRepository repository, UserMapper mapper) {
+    public UserService(@NonNull final UserRepository repository,
+                       @NonNull final UserMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
@@ -76,7 +80,7 @@ public class UserService implements IUserService, UserDetailsService {
      *
      * @throws EntityNotFoundException if the user with provided userName or email doesn't exist
      */
-    @NonNull
+    @Nullable
     @Override
     public User getByUserNameOrEmail(@NonNull final String userNameOrEmail) {
         return repository.findByUserNameOrEmail(userNameOrEmail)
@@ -91,6 +95,7 @@ public class UserService implements IUserService, UserDetailsService {
      * @return {@link org.springframework.security.core.userdetails.User} object with granted authorities based on user's roles
      * @throws UsernameNotFoundException if user have not been found with the provided details
      */
+    @Nullable
     @Override
     public UserDetails loadUserByUsername(final String userNameOrEmail) throws UsernameNotFoundException {
         if (checkIfExist(userNameOrEmail)) {
@@ -104,7 +109,8 @@ public class UserService implements IUserService, UserDetailsService {
         }
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(final Collection<Role> roles) {
+    @NonNull
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(@NonNull final Collection<Role> roles) {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
                 .toList();
@@ -115,7 +121,6 @@ public class UserService implements IUserService, UserDetailsService {
      *
      * @throws EntityNotFoundException if a user with provided id have not been found
      */
-    @NonNull
     @Override
     public Optional<User> getById(long userId) {
         return repository.findById(userId);
