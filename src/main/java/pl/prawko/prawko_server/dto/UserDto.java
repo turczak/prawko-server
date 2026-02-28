@@ -1,6 +1,6 @@
 package pl.prawko.prawko_server.dto;
 
-import jakarta.validation.constraints.NotNull;
+import org.springframework.lang.NonNull;
 import pl.prawko.prawko_server.model.User;
 
 /**
@@ -11,10 +11,10 @@ import pl.prawko.prawko_server.model.User;
 public record UserDto(
 
         long id,
-        @NotNull String firstName,
-        @NotNull String lastName,
-        @NotNull String userName,
-        @NotNull String email
+        @NonNull String firstName,
+        @NonNull String lastName,
+        @NonNull String userName,
+        @NonNull String email
 
 ) {
 }

@@ -1,6 +1,5 @@
 package pl.prawko.prawko_server.dto;
 
-import jakarta.validation.constraints.NotEmpty;
 import pl.prawko.prawko_server.model.Answer;
 import pl.prawko.prawko_server.model.Question;
 
@@ -16,7 +15,7 @@ public record AnswerDto(
         long id,
         long questionId,
         boolean correct,
-        @NotEmpty List<AnswerTranslationDto> translations
+        List<AnswerTranslationDto> translations
 
 ) {
 }
