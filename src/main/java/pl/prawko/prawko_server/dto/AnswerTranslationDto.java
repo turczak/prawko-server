@@ -1,4 +1,11 @@
 package pl.prawko.prawko_server.dto;
 
-public record AnswerTranslationDto(String content, String languageCode) {
+import org.springframework.lang.NonNull;
+
+public record AnswerTranslationDto(
+
+        @NonNull String content,
+        @NonNull String languageCode
+        
+) {
 }

@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.dto;
 
+import org.springframework.lang.NonNull;
 import pl.prawko.prawko_server.model.Question;
 import pl.prawko.prawko_server.model.QuestionTranslation;
 import pl.prawko.prawko_server.model.QuestionType;
@@ -14,13 +15,13 @@ import java.util.List;
 public record QuestionDto(
 
         long id,
-        String name,
-        List<AnswerDto> answers,
-        String media,
-        QuestionType type,
+        @NonNull String name,
+        @NonNull List<AnswerDto> answers,
+        @NonNull String media,
+        @NonNull QuestionType type,
         int value,
-        List<String> categories,
-        List<QuestionTranslation> translations
+        @NonNull List<String> categories,
+        @NonNull List<QuestionTranslation> translations
 
 ) {
 }

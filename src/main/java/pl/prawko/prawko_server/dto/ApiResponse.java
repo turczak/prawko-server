@@ -2,6 +2,8 @@ package pl.prawko.prawko_server.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.util.Map;
 
@@ -12,8 +14,9 @@ import java.util.Map;
  */
 public record ApiResponse(
 
-        String message,
+        @NonNull String message,
 
+        @Nullable
         @JsonInclude(JsonInclude.Include.NON_NULL)
         Map<String, String> details
 

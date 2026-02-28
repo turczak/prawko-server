@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.dto;
 
+import org.springframework.lang.NonNull;
 import pl.prawko.prawko_server.model.Answer;
 import pl.prawko.prawko_server.model.Question;
 
@@ -15,7 +16,7 @@ public record AnswerDto(
         long id,
         long questionId,
         boolean correct,
-        List<AnswerTranslationDto> translations
+        @NonNull List<AnswerTranslationDto> translations
 
 ) {
 }

@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.dto;
 
+import org.springframework.lang.NonNull;
 import pl.prawko.prawko_server.model.User;
 
 /**
@@ -10,10 +11,10 @@ import pl.prawko.prawko_server.model.User;
 public record UserDto(
 
         long id,
-        String firstName,
-        String lastName,
-        String userName,
-        String email
+        @NonNull String firstName,
+        @NonNull String lastName,
+        @NonNull String userName,
+        @NonNull String email
 
 ) {
 }
