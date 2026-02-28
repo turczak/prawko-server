@@ -108,14 +108,12 @@ public class ExamService implements IExamService {
         return examMapper.toDto(exam);
     }
 
-    @NonNull
     private List<Question> selectRandomQuestions(@NonNull final List<Question> questions, final int count) {
         var copy = new ArrayList<>(questions);
         Collections.shuffle(copy);
         return copy.subList(0, Math.min(count, copy.size()));
     }
-
-    @NonNull
+    
     private List<Question> generateQuestions(@NonNull final Category category,
                                              @NonNull final QuestionType questionType) {
         final var distribution = QUESTIONS_DISTRIBUTION.get(questionType);

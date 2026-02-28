@@ -53,7 +53,6 @@ public class AnswerMapper {
      * @param question    {@link Question} entity that answers would be linked to
      * @return list of basic or special {@link Answer} entities
      */
-    @NonNull
     public List<Answer> fromQuestionCSVToAnswers(@NonNull final QuestionCSV questionCSV,
                                                  @NonNull final Question question) {
         return switch (QuestionType.ofType(questionCSV.type())) {
@@ -76,7 +75,6 @@ public class AnswerMapper {
      * @param question    {@link Question} entity that answers would be linked to
      * @return list of special {@link Answer} entities
      */
-    @NonNull
     private List<Answer> mapSpecialQuestionAnswers(@NonNull final QuestionCSV questionCSV,
                                                    @NonNull final Question question) {
         final var languages = languageService.findAll();
@@ -99,7 +97,6 @@ public class AnswerMapper {
                 .toList();
     }
 
-    @NonNull
     private List<AnswerTranslationDto> translationsToDtos(@NonNull final List<AnswerTranslation> translations) {
         return translations.stream()
                 .map(translation ->

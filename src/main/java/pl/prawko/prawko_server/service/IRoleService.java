@@ -16,6 +16,6 @@ public interface IRoleService {
      * @return matching role
      */
     @Nullable
-    Role getByName(@NonNull final String name);
+    Role getByName(@NonNull String name);
 
 }

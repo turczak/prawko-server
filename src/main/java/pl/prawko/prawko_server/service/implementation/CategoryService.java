@@ -1,7 +1,6 @@
 package pl.prawko.prawko_server.service.implementation;
 
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import pl.prawko.prawko_server.model.Category;
 import pl.prawko.prawko_server.repository.CategoryRepository;
@@ -39,7 +38,6 @@ public class CategoryService implements ICategoryService {
         return repository.findByName(name);
     }
 
-    @Nullable
     @Override
     public List<Category> findAllFromString(@NonNull final String input) {
         return Arrays.stream(input.split(","))

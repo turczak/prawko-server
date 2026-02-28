@@ -95,7 +95,6 @@ public class QuestionMapper {
      * @param question    {@link Question} entity that translations would be linked to
      * @return list of translated
      */
-    @NonNull
     private List<QuestionTranslation> mapQuestionTranslations(@NonNull final QuestionCSV questionCSV,
                                                               @NonNull final Question question) {
         return languageService.findAll().stream()

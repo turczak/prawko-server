@@ -109,7 +109,6 @@ public class UserService implements IUserService, UserDetailsService {
         }
     }
 
-    @NonNull
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(@NonNull final Collection<Role> roles) {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))

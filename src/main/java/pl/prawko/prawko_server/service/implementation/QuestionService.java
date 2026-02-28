@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,7 +54,6 @@ public class QuestionService implements IQuestionService {
      * @throws MultipartException if the file is not of type "text/csv"
      * @throws RuntimeException   if there is an error reading or parsing CSV file
      */
-    @NonNull
     @Override
     public List<Question> parseFileToQuestions(@NonNull final MultipartFile file) {
         if (!"text/csv".equals(file.getContentType())) {
@@ -91,14 +89,12 @@ public class QuestionService implements IQuestionService {
      * @param questionCSVs the list of CSV models to map
      * @return the list of mapped {@link Question} entities
      */
-    @NonNull
     private List<Question> mapQuestionCSVModelsToQuestions(@NonNull final List<QuestionCSV> questionCSVs) {
         return questionCSVs.stream()
                 .map(mapper::mapQuestionCSVToQuestion)
                 .toList();
     }
 
-    @Nullable
     @Override
     public List<Question> getAllByTypeAndCategory(@NonNull final QuestionType type, @NonNull final String category) {
         return repository.findByTypeAndCategories_NameContains(type, category);

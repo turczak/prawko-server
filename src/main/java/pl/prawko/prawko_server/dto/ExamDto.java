@@ -1,6 +1,7 @@
 package pl.prawko.prawko_server.dto;
 
-import org.springframework.lang.NonNull;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import pl.prawko.prawko_server.model.Exam;
 
 import java.time.LocalDateTime;
@@ -15,10 +16,10 @@ public record ExamDto(
 
         long id,
         long userId,
-        @NonNull LocalDateTime created,
-        @NonNull LocalDateTime updated,
-        @NonNull List<QuestionDto> questions,
-        @NonNull List<AnswerDto> userAnswers,
+        @NotNull LocalDateTime created,
+        @NotNull LocalDateTime updated,
+        @NotEmpty List<QuestionDto> questions,
+        @NotEmpty List<AnswerDto> userAnswers,
         int score,
         boolean active
 

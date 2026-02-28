@@ -1,6 +1,7 @@
 package pl.prawko.prawko_server.dto;
 
-import org.springframework.lang.NonNull;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import pl.prawko.prawko_server.model.Question;
 import pl.prawko.prawko_server.model.QuestionTranslation;
 import pl.prawko.prawko_server.model.QuestionType;
@@ -15,13 +16,13 @@ import java.util.List;
 public record QuestionDto(
 
         long id,
-        @NonNull String name,
-        @NonNull List<AnswerDto> answers,
-        @NonNull String media,
-        @NonNull QuestionType type,
+        @NotNull String name,
+        @NotEmpty List<AnswerDto> answers,
+        @NotNull String media,
+        @NotNull QuestionType type,
         int value,
-        @NonNull List<String> categories,
-        @NonNull List<QuestionTranslation> translations
+        @NotEmpty List<String> categories,
+        @NotEmpty List<QuestionTranslation> translations
 
 ) {
 }

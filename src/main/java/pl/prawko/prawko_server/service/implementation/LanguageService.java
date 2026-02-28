@@ -31,7 +31,6 @@ public class LanguageService implements ILanguageService {
     /**
      * {@inheritDoc}
      */
-    @NonNull
     @Override
     public List<Language> findAll() {
         return repository.findAll();

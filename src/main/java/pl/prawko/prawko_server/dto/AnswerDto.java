@@ -1,6 +1,6 @@
 package pl.prawko.prawko_server.dto;
 
-import org.springframework.lang.NonNull;
+import jakarta.validation.constraints.NotEmpty;
 import pl.prawko.prawko_server.model.Answer;
 import pl.prawko.prawko_server.model.Question;
 
@@ -16,7 +16,7 @@ public record AnswerDto(
         long id,
         long questionId,
         boolean correct,
-        @NonNull List<AnswerTranslationDto> translations
+        @NotEmpty List<AnswerTranslationDto> translations
 
 ) {
 }
