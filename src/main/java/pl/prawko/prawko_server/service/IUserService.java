@@ -1,5 +1,7 @@
 package pl.prawko.prawko_server.service;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import pl.prawko.prawko_server.dto.RegisterDto;
 import pl.prawko.prawko_server.model.User;
 
@@ -15,7 +17,7 @@ public interface IUserService {
      *
      * @param dto DTO containing registration details
      */
-    void register(final RegisterDto dto);
+    void register(@NonNull RegisterDto dto);
 
     /**
      * Checks if there is a {@link User} with same {@code userName} or {@code email}.
@@ -23,7 +25,7 @@ public interface IUserService {
      * @param userNameOrEmail provided name or email
      * @return true if exists
      */
-    boolean checkIfExist(final String userNameOrEmail);
+    boolean checkIfExist(@NonNull String userNameOrEmail);
 
     /**
      * Gets an {@code user} when exists by userName or Email.
@@ -31,7 +33,8 @@ public interface IUserService {
      * @param userNameOrEmail provided name or email
      * @return {@code User} when found
      */
-    User getByUserNameOrEmail(final String userNameOrEmail);
+    @Nullable
+    User getByUserNameOrEmail(@NonNull String userNameOrEmail);
 
     /**
      * Get {@code user} by {@code id}.
@@ -39,6 +42,6 @@ public interface IUserService {
      * @param userId provided id
      * @return an {@code user}
      */
-    Optional<User> getById(final long userId);
+    Optional<User> getById(long userId);
 
 }

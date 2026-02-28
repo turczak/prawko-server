@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.mapper;
 
+import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.prawko.prawko_server.dto.RegisterDto;
@@ -16,10 +17,13 @@ import java.util.List;
 @Component
 public class UserMapper {
 
+    @NonNull
     private final RoleService roleService;
+    @NonNull
     private final PasswordEncoder passwordEncoder;
 
-    public UserMapper(final RoleService roleService, final PasswordEncoder passwordEncoder) {
+    public UserMapper(@NonNull final RoleService roleService,
+                      @NonNull final PasswordEncoder passwordEncoder) {
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -30,7 +34,8 @@ public class UserMapper {
      * @param dto provided dto to map user from it
      * @return mapped user with standard role and encoded password
      */
-    public User fromDto(final RegisterDto dto) {
+    @NonNull
+    public User fromDto(@NonNull final RegisterDto dto) {
         return new User()
                 .setFirstName(dto.firstName())
                 .setLastName(dto.lastName())

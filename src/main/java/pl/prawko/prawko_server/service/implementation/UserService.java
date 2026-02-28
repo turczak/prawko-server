@@ -1,6 +1,8 @@
 package pl.prawko.prawko_server.service.implementation;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,10 +31,13 @@ import java.util.Optional;
 @Service
 public class UserService implements IUserService, UserDetailsService {
 
+    @NonNull
     private final UserRepository repository;
+    @NonNull
     private final UserMapper mapper;
 
-    public UserService(UserRepository repository, UserMapper mapper) {
+    public UserService(@NonNull final UserRepository repository,
+                       @NonNull final UserMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
@@ -44,7 +49,7 @@ public class UserService implements IUserService, UserDetailsService {
      */
     @Override
     @Transactional
-    public void register(final RegisterDto dto) {
+    public void register(@NonNull final RegisterDto dto) {
         final Map<String, String> errorDetails = new LinkedHashMap<>();
         if (repository.existsByUserName(dto.userName())) {
             errorDetails.put("userName", "User with username '" + dto.userName() + "' already exists.");
@@ -66,7 +71,7 @@ public class UserService implements IUserService, UserDetailsService {
      * @return {@code true} if entity exist
      */
     @Override
-    public boolean checkIfExist(final String userNameOrEmail) {
+    public boolean checkIfExist(@NonNull final String userNameOrEmail) {
         return repository.existsByUserName(userNameOrEmail) || repository.existsByEmail(userNameOrEmail);
     }
 
@@ -75,8 +80,9 @@ public class UserService implements IUserService, UserDetailsService {
      *
      * @throws EntityNotFoundException if the user with provided userName or email doesn't exist
      */
+    @Nullable
     @Override
-    public User getByUserNameOrEmail(final String userNameOrEmail) {
+    public User getByUserNameOrEmail(@NonNull final String userNameOrEmail) {
         return repository.findByUserNameOrEmail(userNameOrEmail)
                 .orElseThrow(() -> new EntityNotFoundException("User with username or email '" + userNameOrEmail + "' not found."));
     }
@@ -89,6 +95,7 @@ public class UserService implements IUserService, UserDetailsService {
      * @return {@link org.springframework.security.core.userdetails.User} object with granted authorities based on user's roles
      * @throws UsernameNotFoundException if user have not been found with the provided details
      */
+    @Nullable
     @Override
     public UserDetails loadUserByUsername(final String userNameOrEmail) throws UsernameNotFoundException {
         if (checkIfExist(userNameOrEmail)) {
@@ -102,7 +109,7 @@ public class UserService implements IUserService, UserDetailsService {
         }
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(final Collection<Role> roles) {
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(@NonNull final Collection<Role> roles) {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
                 .toList();

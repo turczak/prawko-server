@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.service.implementation;
 
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.repository.CategoryRepository;
@@ -14,6 +15,7 @@ import java.util.List;
 @Service
 public class LanguageService implements ILanguageService {
 
+    @NonNull
     private final LanguageRepository repository;
 
     /**
@@ -21,7 +23,7 @@ public class LanguageService implements ILanguageService {
      *
      * @param repository the language repository used for data access
      */
-    public LanguageService(final LanguageRepository repository) {
+    public LanguageService(@NonNull final LanguageRepository repository) {
         this.repository = repository;
     }
 

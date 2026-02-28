@@ -1,6 +1,8 @@
 package pl.prawko.prawko_server.service.implementation;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.prawko.prawko_server.dto.ExamDto;
@@ -45,17 +47,22 @@ public class ExamService implements IExamService {
                     ))
             );
 
+    @NonNull
     private final ExamRepository repository;
+    @NonNull
     private final UserService userService;
+    @NonNull
     private final QuestionService questionService;
+    @NonNull
     private final CategoryService categoryService;
+    @NonNull
     private final ExamMapper examMapper;
 
-    public ExamService(final ExamRepository repository,
-                       final UserService userService,
-                       final QuestionService questionService,
-                       final CategoryService categoryService,
-                       final ExamMapper examMapper) {
+    public ExamService(@NonNull final ExamRepository repository,
+                       @NonNull final UserService userService,
+                       @NonNull final QuestionService questionService,
+                       @NonNull final CategoryService categoryService,
+                       @NonNull final ExamMapper examMapper) {
         this.repository = repository;
         this.userService = userService;
         this.questionService = questionService;
@@ -70,7 +77,7 @@ public class ExamService implements IExamService {
      */
     @Override
     @Transactional
-    public Optional<Exam> createExam(final long userId, final String categoryName) {
+    public Optional<Exam> createExam(final long userId, @NonNull final String categoryName) {
         final var user = userService.getById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User with id" + userId + " not found."));
         final var category = categoryService.findByName(categoryName)
@@ -92,6 +99,7 @@ public class ExamService implements IExamService {
         return Optional.of(exam);
     }
 
+    @Nullable
     @Override
     @Transactional
     public ExamDto getById(long examId) {
@@ -100,14 +108,14 @@ public class ExamService implements IExamService {
         return examMapper.toDto(exam);
     }
 
-    private List<Question> selectRandomQuestions(final List<Question> questions, final int count) {
+    private List<Question> selectRandomQuestions(@NonNull final List<Question> questions, final int count) {
         var copy = new ArrayList<>(questions);
         Collections.shuffle(copy);
         return copy.subList(0, Math.min(count, copy.size()));
     }
-
-    private List<Question> generateQuestions(final Category category,
-                                             final QuestionType questionType) {
+    
+    private List<Question> generateQuestions(@NonNull final Category category,
+                                             @NonNull final QuestionType questionType) {
         final var distribution = QUESTIONS_DISTRIBUTION.get(questionType);
         final Map<Integer, List<Question>> questions = questionService.getAllByTypeAndCategory(questionType, category.getName())
                 .stream()

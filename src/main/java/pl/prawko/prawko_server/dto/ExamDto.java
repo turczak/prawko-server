@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.dto;
 
+import org.springframework.lang.NonNull;
 import pl.prawko.prawko_server.model.Exam;
 
 import java.time.LocalDateTime;
@@ -14,8 +15,8 @@ public record ExamDto(
 
         long id,
         long userId,
-        LocalDateTime created,
-        LocalDateTime updated,
+        @NonNull LocalDateTime created,
+        @NonNull LocalDateTime updated,
         List<QuestionDto> questions,
         List<AnswerDto> userAnswers,
         int score,
