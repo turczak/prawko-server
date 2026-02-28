@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,8 +52,9 @@ public class QuestionService implements IQuestionService {
      * @throws MultipartException if the file is not of type "text/csv"
      * @throws RuntimeException   if there is an error reading or parsing CSV file
      */
+    @NonNull
     @Override
-    public List<Question> parseFileToQuestions(final MultipartFile file) {
+    public List<Question> parseFileToQuestions(@NonNull final MultipartFile file) {
         if (!"text/csv".equals(file.getContentType())) {
             throw new MultipartException("Invalid file format.");
         }
@@ -76,7 +78,7 @@ public class QuestionService implements IQuestionService {
     }
 
     @Override
-    public void saveAll(final List<Question> questions) {
+    public void saveAll(@NonNull final List<Question> questions) {
         repository.saveAll(questions);
     }
 
@@ -92,8 +94,9 @@ public class QuestionService implements IQuestionService {
                 .toList();
     }
 
+    @NonNull
     @Override
-    public List<Question> getAllByTypeAndCategory(final QuestionType type, final String category) {
+    public List<Question> getAllByTypeAndCategory(@NonNull final QuestionType type, @NonNull final String category) {
         return repository.findByTypeAndCategories_NameContains(type, category);
     }
 

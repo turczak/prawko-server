@@ -1,6 +1,7 @@
 package pl.prawko.prawko_server.service.implementation;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -44,7 +45,7 @@ public class UserService implements IUserService, UserDetailsService {
      */
     @Override
     @Transactional
-    public void register(final RegisterDto dto) {
+    public void register(@NonNull final RegisterDto dto) {
         final Map<String, String> errorDetails = new LinkedHashMap<>();
         if (repository.existsByUserName(dto.userName())) {
             errorDetails.put("userName", "User with username '" + dto.userName() + "' already exists.");
@@ -66,7 +67,7 @@ public class UserService implements IUserService, UserDetailsService {
      * @return {@code true} if entity exist
      */
     @Override
-    public boolean checkIfExist(final String userNameOrEmail) {
+    public boolean checkIfExist(@NonNull final String userNameOrEmail) {
         return repository.existsByUserName(userNameOrEmail) || repository.existsByEmail(userNameOrEmail);
     }
 
@@ -75,8 +76,9 @@ public class UserService implements IUserService, UserDetailsService {
      *
      * @throws EntityNotFoundException if the user with provided userName or email doesn't exist
      */
+    @NonNull
     @Override
-    public User getByUserNameOrEmail(final String userNameOrEmail) {
+    public User getByUserNameOrEmail(@NonNull final String userNameOrEmail) {
         return repository.findByUserNameOrEmail(userNameOrEmail)
                 .orElseThrow(() -> new EntityNotFoundException("User with username or email '" + userNameOrEmail + "' not found."));
     }
@@ -113,6 +115,7 @@ public class UserService implements IUserService, UserDetailsService {
      *
      * @throws EntityNotFoundException if a user with provided id have not been found
      */
+    @NonNull
     @Override
     public Optional<User> getById(long userId) {
         return repository.findById(userId);

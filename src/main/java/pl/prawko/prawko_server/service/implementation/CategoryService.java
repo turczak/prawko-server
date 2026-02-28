@@ -33,14 +33,14 @@ public class CategoryService implements ICategoryService {
      *
      * @throws RuntimeException when not found
      */
-    @Override
     @NonNull
+    @Override
     public Optional<Category> findByName(@NonNull final String name) {
         return repository.findByName(name);
     }
 
-    @Override
     @NonNull
+    @Override
     public List<Category> findAllFromString(@NonNull final String input) {
         return Arrays.stream(input.split(","))
                 .map(repository::findByName)

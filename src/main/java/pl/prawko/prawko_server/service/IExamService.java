@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.service;
 
+import org.springframework.lang.NonNull;
 import pl.prawko.prawko_server.dto.ExamDto;
 import pl.prawko.prawko_server.model.Exam;
 
@@ -17,7 +18,8 @@ public interface IExamService {
      * @param categoryName category used to construct an exam
      * @return a correctly generated {@code exam}
      */
-    Optional<Exam> createExam(final long userId, final String categoryName);
+    @NonNull
+    Optional<Exam> createExam(final long userId, @NonNull final String categoryName);
 
     /**
      * Finds a {@link Exam} entity by its id and map it to {@link ExamDto}.
@@ -25,6 +27,7 @@ public interface IExamService {
      * @param examId id of exam to look for
      * @return mapped {@code exam}
      */
+    @NonNull
     ExamDto getById(final long examId);
 
 }

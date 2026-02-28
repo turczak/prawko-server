@@ -1,6 +1,7 @@
 package pl.prawko.prawko_server.service.implementation;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import pl.prawko.prawko_server.model.Role;
 import pl.prawko.prawko_server.repository.RoleRepository;
@@ -23,8 +24,9 @@ public class RoleService implements IRoleService {
      *
      * @throws EntityNotFoundException when role doesn't exists
      */
+    @NonNull
     @Override
-    public Role getByName(final String name) {
+    public Role getByName(@NonNull final String name) {
         return repository.findByName(name)
                 .orElseThrow(() -> new EntityNotFoundException("Role with name '" + name + "' not found."));
     }

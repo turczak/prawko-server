@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.service;
 
+import org.springframework.lang.NonNull;
 import pl.prawko.prawko_server.model.Language;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public interface ILanguageService {
      *
      * @return list of {@link Language}
      */
+    @NonNull
     List<Language> findAll();
 
 }

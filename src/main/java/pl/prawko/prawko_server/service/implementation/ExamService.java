@@ -1,6 +1,7 @@
 package pl.prawko.prawko_server.service.implementation;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.prawko.prawko_server.dto.ExamDto;
@@ -68,9 +69,10 @@ public class ExamService implements IExamService {
      *
      * @return Optional of created {@code exam} or empty if {@code user} or {@code category} have not been found.
      */
+    @NonNull
     @Override
     @Transactional
-    public Optional<Exam> createExam(final long userId, final String categoryName) {
+    public Optional<Exam> createExam(final long userId, @NonNull final String categoryName) {
         final var user = userService.getById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User with id" + userId + " not found."));
         final var category = categoryService.findByName(categoryName)
@@ -92,6 +94,7 @@ public class ExamService implements IExamService {
         return Optional.of(exam);
     }
 
+    @NonNull
     @Override
     @Transactional
     public ExamDto getById(long examId) {

@@ -1,5 +1,6 @@
 package pl.prawko.prawko_server.service.implementation;
 
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import pl.prawko.prawko_server.model.Language;
 import pl.prawko.prawko_server.repository.CategoryRepository;
@@ -29,6 +30,7 @@ public class LanguageService implements ILanguageService {
     /**
      * {@inheritDoc}
      */
+    @NonNull
     @Override
     public List<Language> findAll() {
         return repository.findAll();
